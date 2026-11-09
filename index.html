@@ -1,0 +1,709 @@
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectos del Futuro - Darcy Quiza & Nikol Espinosa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Outfit for ultra friendly child typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for visual icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelSky: '#BAE6FD',
+                        pastelMint: '#A7F3D0',
+                        pastelYellow: '#FEF08A',
+                        pastelLavender: '#DDD6FE',
+                        pastelTerracotta: '#FCA5A5',
+                        pastelOrange: '#FFEDD5',
+                        cloudWhite: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    },
+                    boxShadow: {
+                        bubble: '0 10px 0px 0px rgba(0,0,0,0.08), 0 15px 25px -5px rgba(0,0,0,0.1)',
+                        bubbleHover: '0 6px 0px 0px rgba(0,0,0,0.08), 0 8px 15px -5px rgba(0,0,0,0.1)',
+                        bubbleActive: '0 2px 0px 0px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.1)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Fredoka', cursive, sans-serif;
+            background: linear-gradient(180deg, #E0F2FE 0%, #F0FDF4 50%, #FEF9C3 100%);
+            min-height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Animated bouncy buttons */
+        .btn-bubble {
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-bubble:hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+        .btn-bubble:active {
+            transform: translateY(2px) scale(0.97);
+        }
+
+        /* Floating background elements */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .floating-cloud {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        .floating-cloud-delayed {
+            animation: floatSlow 8s ease-in-out infinite 2s;
+        }
+
+        /* Grid lines for sandbox */
+        .sandbox-grid {
+            background-size: 40px 40px;
+            background-image: 
+                radial-gradient(circle, #86EFAC 2px, transparent 2px);
+        }
+
+        /* Pulse glow for badges */
+        @keyframes badgeGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.8)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 18px rgba(253, 224, 71, 1)); transform: scale(1.06); }
+        }
+        .unlocked-badge {
+            animation: badgeGlow 3s infinite ease-in-out;
+        }
+
+        /* Block placing animation */
+        @keyframes blockPopIn {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            70% { transform: scale(1.15) rotate(3deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .placed-block {
+            animation: blockPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body class="text-slate-700 overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- TOP HEADER / NAV BAR -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b-4 border-sky-200 px-4 py-3 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            
+            <!-- Brand & Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-amber-300 border-4 border-amber-400 rounded-2xl flex items-center justify-center text-2xl shadow-inner floating-cloud">
+                    🏡
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-sky-600 tracking-wide flex items-center gap-2">
+                        Arquitectos del Futuro
+                        <span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-sans font-bold uppercase tracking-wider hidden sm:inline-block">EMC Niños</span>
+                    </h1>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500">
+                        Una propuesta pedagógica por <span class="text-sky-700 font-bold">Darcy Quiza</span> y <span class="text-emerald-700 font-bold">Nikol Espinosa</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Global Controls: Sound & Voice -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Sound Toggle -->
+                <button id="soundToggleBtn" onclick="toggleSoundMaster()" class="btn-bubble bg-purple-200 border-2 border-purple-400 text-purple-900 font-bold px-3 py-2 rounded-2xl flex items-center gap-2 text-sm sm:text-base shadow-bubble" title="Activar/Desactivar Sonidos">
+                    <i id="soundIcon" class="fas fa-volume-up text-lg text-purple-600"></i>
+                    <span id="soundLabel" class="hidden md:inline">Sonidos: ON</span>
+                </button>
+
+                <!-- Help Voice Assist -->
+                <button onclick="readText('¡Hola amiguitos! Bienvenidos a Arquitectos del Futuro. Aquí podrás construir casitas ecológicas, escuchar cuentos y ganar insignias mágicas.')" class="btn-bubble bg-amber-200 border-2 border-amber-400 text-amber-900 font-bold px-3 py-2 rounded-2xl flex items-center gap-2 text-sm sm:text-base shadow-bubble">
+                    <i class="fas fa-comment-dots text-lg text-amber-600"></i>
+                    <span class="hidden md:inline">¿Qué es esto?</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8">
+
+        <!-- HERO INTRODUCTION BANNER -->
+        <section class="bg-gradient-to-r from-teal-100 via-sky-100 to-indigo-100 border-4 border-white rounded-3xl p-6 shadow-bubble relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-4 max-w-xl text-center md:text-left z-10">
+                <div class="inline-flex items-center gap-2 bg-white/90 px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-teal-700 shadow-sm">
+                    ✨ ¡Aprende jugando y cuidando el planeta!
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 leading-tight">
+                    ¡Crea, imagina y transforma tu mundo! 🌟
+                </h2>
+                <p class="text-base sm:text-lg text-slate-600 font-medium">
+                    Explora materiales ecológicos, construye parques para la comunidad y escucha historias fantásticas sobre la naturaleza.
+                </p>
+
+                <!-- Audio Reader Button for Intro -->
+                <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
+                    <button onclick="readText('¡Crea, imagina y transforma tu mundo! Explora materiales ecológicos, construye parques para la comunidad y escucha historias fantásticas sobre la naturaleza.')" class="btn-bubble bg-emerald-400 hover:bg-emerald-500 border-2 border-emerald-600 text-white font-extrabold px-5 py-3 rounded-2xl flex items-center gap-2 text-base shadow-bubble">
+                        <i class="fas fa-volume-high text-xl"></i> Escuchar Instrucciones
+                    </button>
+                    <a href="#taller" class="btn-bubble bg-sky-400 hover:bg-sky-500 border-2 border-sky-600 text-white font-extrabold px-5 py-3 rounded-2xl flex items-center gap-2 text-base shadow-bubble">
+                        🚀 ¡Ir a Construir!
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cute Mascot Illustration -->
+            <div class="relative flex justify-center items-center w-48 h-48 sm:w-56 sm:h-56 bg-white/60 rounded-full border-4 border-dashed border-sky-300 p-4 floating-cloud">
+                <div class="text-8xl sm:text-9xl transform hover:scale-110 transition-transform cursor-pointer" onclick="playAnimalSound()">
+                    🦊
+                </div>
+                <div class="absolute -bottom-2 bg-amber-300 text-amber-900 border-2 border-amber-500 px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                    ¡Hazme clic! 🐾
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1: TALLER DE CONSTRUCCIÓN ECOLÓGICA (SANDBOX) -->
+        <section id="taller" class="bg-white border-4 border-emerald-200 rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+            
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b-2 border-slate-100 pb-4">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🏗️</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-700">
+                            Taller de Construcción
+                        </h2>
+                        <button onclick="readText('Taller de Construcción. Selecciona un bloque de color en el menú y haz clic en la cuadrícula verde para colocarlo. ¡Construye tu parque o casa ideal!')" class="text-slate-400 hover:text-slate-600 text-xl" title="Escuchar sección">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <p class="text-slate-500 text-sm sm:text-base font-semibold mt-1">
+                        Elige un bloque y haz clic en el terreno para armar tu casita sustentable.
+                    </p>
+                </div>
+
+                <!-- Sandbox Control Tools -->
+                <div class="flex items-center gap-2">
+                    <button onclick="clearSandbox()" class="btn-bubble bg-rose-100 hover:bg-rose-200 border-2 border-rose-300 text-rose-700 font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-trash-alt"></i> Limpiar Todo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Material Selector Palettes -->
+            <div>
+                <p class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">1. Elige tu Material:</p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                    
+                    <!-- Madera -->
+                    <button onclick="selectMaterial('wood')" id="mat-wood" class="mat-btn btn-bubble bg-amber-100 border-4 border-amber-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-amber-900 font-bold">
+                        <span class="text-3xl">🪵</span>
+                        <span class="text-xs">Madera</span>
+                    </button>
+
+                    <!-- Techo Verde -->
+                    <button onclick="selectMaterial('plants')" id="mat-plants" class="mat-btn btn-bubble bg-emerald-100 border-4 border-emerald-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-emerald-900 font-bold">
+                        <span class="text-3xl">🌱</span>
+                        <span class="text-xs">Techo Verde</span>
+                    </button>
+
+                    <!-- Cristal Agua -->
+                    <button onclick="selectMaterial('water')" id="mat-water" class="mat-btn btn-bubble bg-sky-100 border-4 border-sky-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-sky-900 font-bold">
+                        <span class="text-3xl">💧</span>
+                        <span class="text-xs">Lago Agua</span>
+                    </button>
+
+                    <!-- Panel Solar -->
+                    <button onclick="selectMaterial('solar')" id="mat-solar" class="mat-btn btn-bubble bg-yellow-100 border-4 border-yellow-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-yellow-900 font-bold">
+                        <span class="text-3xl">☀️</span>
+                        <span class="text-xs">Panel Solar</span>
+                    </button>
+
+                    <!-- Piedra Mágica -->
+                    <button onclick="selectMaterial('stone')" id="mat-stone" class="mat-btn btn-bubble bg-slate-200 border-4 border-slate-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-slate-800 font-bold">
+                        <span class="text-3xl">🪨</span>
+                        <span class="text-xs">Piedra</span>
+                    </button>
+
+                    <!-- Borrador -->
+                    <button onclick="selectMaterial('eraser')" id="mat-eraser" class="mat-btn btn-bubble bg-rose-100 border-4 border-rose-300 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-rose-800 font-bold">
+                        <span class="text-3xl">🧹</span>
+                        <span class="text-xs">Borrador</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Interactive Grid Canvas Area -->
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-xs font-bold uppercase text-slate-400 tracking-wider">2. Toca las casillas para construir:</p>
+                    <span id="activeMaterialBadge" class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold border border-emerald-300">
+                        Seleccionado: Madera 🪵
+                    </span>
+                </div>
+
+                <!-- Main Build Grid -->
+                <div id="sandboxGrid" class="sandbox-grid bg-emerald-50 border-4 border-dashed border-emerald-300 rounded-3xl p-4 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 min-h-[340px] items-center justify-center">
+                    <!-- Dynamic Grid Tiles populated via JS -->
+                </div>
+            </div>
+
+            <!-- Stats/Counters -->
+            <div class="bg-amber-50 rounded-2xl p-4 border-2 border-amber-200 flex flex-wrap items-center justify-around gap-4 text-center">
+                <div>
+                    <span class="text-2xl font-black text-amber-600" id="statBlocksCount">0</span>
+                    <p class="text-xs font-bold text-slate-500 uppercase">Bloques Colocados</p>
+                </div>
+                <div>
+                    <span class="text-2xl font-black text-emerald-600" id="statEcoScore">0%</span>
+                    <p class="text-xs font-bold text-slate-500 uppercase">Energía Limpia</p>
+                </div>
+                <div>
+                    <button onclick="checkSandboxAchievement()" class="btn-bubble bg-amber-400 hover:bg-amber-500 text-amber-950 font-black px-4 py-2 rounded-xl text-sm border-2 border-amber-600 shadow-sm">
+                        ⭐ Evaluar mi Construcción
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: CUENTOS SONOROS Y COMUNITARIOS -->
+        <section class="bg-white border-4 border-purple-200 rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-100 pb-4">
+                <span class="text-3xl">🎧</span>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-purple-700 flex items-center gap-2">
+                        Cuentos Sonoros de la Naturaleza
+                        <button onclick="readText('Cuentos Sonoros. Presiona el botón de reproducción en cada tarjeta para escuchar historias sobre cómo cuidar el agua, los árboles y a nuestros amigos.')" class="text-slate-400 hover:text-slate-600 text-xl" title="Escuchar sección">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </h2>
+                    <p class="text-slate-500 text-sm sm:text-base font-semibold">
+                        Haz clic en los personajes para escuchar sus aventuras comunitarias.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stories Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Story Card 1 -->
+                <div class="bg-gradient-to-b from-sky-50 to-sky-100 border-3 border-sky-300 rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-sky-400 flex items-center justify-center text-5xl shadow-md floating-cloud">
+                        🐻
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold text-sky-800">El Oso Mateo y la Casa Solar</h3>
+                        <p class="text-xs text-sky-600 font-medium mt-1">
+                            Mateo aprendió a usar el sol para iluminar su hogar sin lastimar el bosque.
+                        </p>
+                    </div>
+                    <button onclick="playStory('mateo')" class="btn-bubble w-full bg-sky-400 hover:bg-sky-500 text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    </button>
+                </div>
+
+                <!-- Story Card 2 -->
+                <div class="bg-gradient-to-b from-emerald-50 to-emerald-100 border-3 border-emerald-300 rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-emerald-400 flex items-center justify-center text-5xl shadow-md floating-cloud-delayed">
+                        🐸
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold text-emerald-800">La Rana Renata y el Río Limpio</h3>
+                        <p class="text-xs text-emerald-600 font-medium mt-1">
+                            Junto a sus vecinos, Renata construyó un filtro con piedras para limpiar el agua del río.
+                        </p>
+                    </div>
+                    <button onclick="playStory('renata')" class="btn-bubble w-full bg-emerald-400 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    </button>
+                </div>
+
+                <!-- Story Card 3 -->
+                <div class="bg-gradient-to-b from-amber-50 to-amber-100 border-3 border-amber-300 rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-amber-400 flex items-center justify-center text-5xl shadow-md floating-cloud">
+                        🐝
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold text-amber-800">La Abeja Maya y el Techo Verde</h3>
+                        <p class="text-xs text-amber-600 font-medium mt-1">
+                            Sembrando flores en los techos de las casas, la comunidad hizo un gran parque elevado.
+                        </p>
+                    </div>
+                    <button onclick="playStory('maya')" class="btn-bubble w-full bg-amber-400 hover:bg-amber-500 text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: DIARIO DE EXPLORADOR E INSIGNIAS -->
+        <section class="bg-white border-4 border-yellow-300 rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+            <div class="flex items-center justify-between border-b-2 border-slate-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl">🏆</span>
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-amber-700 flex items-center gap-2">
+                            Mis Insignias de Creador
+                            <button onclick="readText('Mis Insignias de Creador. Construye y explora la página para desbloquear trofeos mágicos como Guardián de la Naturaleza y Amigo del Sol.')" class="text-slate-400 hover:text-slate-600 text-xl" title="Escuchar sección">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </h2>
+                        <p class="text-slate-500 text-sm sm:text-base font-semibold">
+                            ¡Completa misiones para ganar medallas brillantes!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges List Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                
+                <!-- Badge 1 -->
+                <div id="badge-builder" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-5xl mb-2">🔨</div>
+                    <h4 class="font-extrabold text-sm text-slate-800">Primer Bloque</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Coloca tu primer material en el taller.</p>
+                </div>
+
+                <!-- Badge 2 -->
+                <div id="badge-eco" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-5xl mb-2">🌻</div>
+                    <h4 class="font-extrabold text-sm text-slate-800">Jardín Urbano</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Coloca 3 techos verdes en tu ciudad.</p>
+                </div>
+
+                <!-- Badge 3 -->
+                <div id="badge-story" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-5xl mb-2">📜</div>
+                    <h4 class="font-extrabold text-sm text-slate-800">Gran Oyente</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">Escucha al menos uno de los cuentos.</p>
+                </div>
+
+                <!-- Badge 4 -->
+                <div id="badge-master" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-5xl mb-2">👑</div>
+                    <h4 class="font-extrabold text-sm text-slate-800">Arquitecto EMC</h4>
+                    <p class="text-[11px] text-slate-500 mt-1">¡Construye una comunidad completa!</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t-4 border-sky-200 py-6 px-4 text-center mt-12 space-y-2">
+        <p class="text-base font-extrabold text-sky-800">
+            "Arquitecturas de la Emancipación Infantil"
+        </p>
+        <p class="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto">
+            Propuesta Pedagógica y de Diseño Transmedia desarrollada por <strong class="text-slate-700">Darcy Quiza</strong> & <strong class="text-slate-700">Nikol Espinosa</strong>.
+        </p>
+        <div class="pt-2">
+            <span class="inline-block bg-sky-100 text-sky-800 text-xs px-3 py-1 rounded-full font-bold">
+                🌱 Aprendizaje Libre, Creativo y Autónomo
+            </span>
+        </div>
+    </footer>
+
+    <!-- POPUP NOTIFICATION / MESSAGE BOX (NO ALERTS) -->
+    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-amber-300 border-4 border-amber-500 text-amber-950 font-extrabold px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 text-lg">
+        <span id="toastEmoji" class="text-3xl">🎉</span>
+        <span id="toastText">¡Genial!</span>
+    </div>
+
+    <!-- JAVASCRIPT & AUDIO ENGINE -->
+    <script>
+        // --- SOUND ENGINE USING WEB AUDIO API ---
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function toggleSoundMaster() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundToggleBtn');
+            const icon = document.getElementById('soundIcon');
+            const label = document.getElementById('soundLabel');
+
+            if (soundEnabled) {
+                icon.className = 'fas fa-volume-up text-lg text-purple-600';
+                label.innerText = 'Sonidos: ON';
+                playPopSound();
+            } else {
+                icon.className = 'fas fa-volume-mute text-lg text-slate-400';
+                label.innerText = 'Sonidos: OFF';
+            }
+        }
+
+        // Bouncy pop sound for clicking
+        function playPopSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        // Wood placing sound
+        function playWoodSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.1);
+
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        // Magic Chime for achievements
+        function playChimeSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, index) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime + index * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + index * 0.08 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + index * 0.08);
+                    osc.stop(ctx.currentTime + index * 0.08 + 0.3);
+                });
+            } catch(e) {}
+        }
+
+        function playAnimalSound() {
+            playChimeSound();
+            showToast("¡Hola! Soy Zorro, tu guía de arquitectura ecológica.", "🦊");
+            readText("¡Hola! Soy Zorro, tu guía de arquitectura ecológica.");
+        }
+
+        // --- SPEECH SYNTHESIS (VOICE READ-ALOUD) ---
+        function readText(text) {
+            playPopSound();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop any active speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.95; // Slightly slower for kids
+                utterance.pitch = 1.1;  // Slightly higher pitched friendly voice
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("Tu navegador no soporta lectura de voz.", "🔊");
+            }
+        }
+
+        // --- SANDBOX BUILDER LOGIC ---
+        const materials = {
+            wood: { name: 'Madera', emoji: '🪵', bg: 'bg-amber-200', border: 'border-amber-400', isEco: false },
+            plants: { name: 'Techo Verde', emoji: '🌱', bg: 'bg-emerald-200', border: 'border-emerald-400', isEco: true },
+            water: { name: 'Lago Agua', emoji: '💧', bg: 'bg-sky-200', border: 'border-sky-400', isEco: true },
+            solar: { name: 'Panel Solar', emoji: '☀️', bg: 'bg-yellow-200', border: 'border-yellow-400', isEco: true },
+            stone: { name: 'Piedra', emoji: '🪨', bg: 'bg-slate-300', border: 'border-slate-400', isEco: false },
+            eraser: { name: 'Vaciador', emoji: '', bg: 'bg-emerald-50', border: 'border-transparent', isEco: false }
+        };
+
+        let currentMaterial = 'wood';
+        let gridState = new Array(30).fill(null);
+
+        function initSandbox() {
+            const gridContainer = document.getElementById('sandboxGrid');
+            gridContainer.innerHTML = '';
+            
+            // Generate 30 interactive tiles
+            for (let i = 0; i < 30; i++) {
+                const tile = document.createElement('button');
+                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-2 border-dashed border-emerald-200 bg-white/70 hover:bg-emerald-100 flex items-center justify-center text-3xl sm:text-4xl transition-all shadow-sm`;
+                tile.id = `tile-${i}`;
+                tile.onclick = () => handleTileClick(i);
+                gridContainer.appendChild(tile);
+            }
+            selectMaterial('wood');
+        }
+
+        function selectMaterial(matKey) {
+            playPopSound();
+            currentMaterial = matKey;
+
+            // Highlight active button UI
+            document.querySelectorAll('.mat-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-purple-400', 'scale-105');
+            });
+
+            const activeBtn = document.getElementById(`mat-${matKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('ring-4', 'ring-purple-400', 'scale-105');
+            }
+
+            const badge = document.getElementById('activeMaterialBadge');
+            badge.innerHTML = `Seleccionado: ${materials[matKey].name} ${materials[matKey].emoji}`;
+        }
+
+        function handleTileClick(index) {
+            const tile = document.getElementById(`tile-${index}`);
+            const mat = materials[currentMaterial];
+
+            if (currentMaterial === 'eraser') {
+                playPopSound();
+                gridState[index] = null;
+                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-2 border-dashed border-emerald-200 bg-white/70 hover:bg-emerald-100 flex items-center justify-center text-3xl sm:text-4xl transition-all shadow-sm`;
+                tile.innerText = '';
+            } else {
+                playWoodSound();
+                gridState[index] = currentMaterial;
+                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-4 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl placed-block shadow-md`;
+                tile.innerText = mat.emoji;
+
+                // Unlock First Block Badge
+                unlockBadge('badge-builder');
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const placedBlocks = gridState.filter(b => b !== null);
+            const ecoBlocks = gridState.filter(b => b && materials[b].isEco);
+
+            document.getElementById('statBlocksCount').innerText = placedBlocks.length;
+
+            const score = placedBlocks.length > 0 ? Math.round((ecoBlocks.length / placedBlocks.length) * 100) : 0;
+            document.getElementById('statEcoScore').innerText = `${score}%`;
+
+            // Check plant count for garden badge
+            const plantCount = gridState.filter(b => b === 'plants').length;
+            if (plantCount >= 3) {
+                unlockBadge('badge-eco');
+            }
+
+            // Check full build badge
+            if (placedBlocks.length >= 12) {
+                unlockBadge('badge-master');
+            }
+        }
+
+        function clearSandbox() {
+            playPopSound();
+            gridState = new Array(30).fill(null);
+            initSandbox();
+            updateStats();
+            showToast("Taller limpiado correctamente.", "🧹");
+        }
+
+        function checkSandboxAchievement() {
+            const count = gridState.filter(b => b !== null).length;
+            if (count === 0) {
+                showToast("¡Coloca primero unos bloques en el terreno!", "🏗️");
+                readText("¡Coloca primero unos bloques en el terreno para poder evaluar!");
+            } else if (count < 5) {
+                showToast("¡Vas muy bien! Agrega más materiales para completar la aldea.", "🌱");
+                readText("¡Vas muy bien! Agrega más materiales para completar tu aldea.");
+            } else {
+                playChimeSound();
+                showToast("¡Felicidades! Creaste un espacio sustentable hermoso.", "🌟");
+                readText("¡Felicidades! Creaste un espacio sustentable hermoso para la comunidad.");
+            }
+        }
+
+        // --- STORIES LOGIC ---
+        function playStory(type) {
+            unlockBadge('badge-story');
+            if (type === 'mateo') {
+                showToast("Escuchando el Cuento del Oso Mateo...", "🐻");
+                readText("Había una vez en el gran bosque, el Oso Mateo quería iluminar su cueva por las noches. En lugar de quemar ramas, colocó un panel brillante en su techo para atrapar la luz del sol. ¡Así su cueva quedó calentita y los árboles del bosque siguieron creciendo felices!");
+            } else if (type === 'renata') {
+                showToast("Escuchando el Cuento de la Rana Renata...", "🐸");
+                readText("La rana Renata notó que la charca del parque tenía hojas secas. Con sus amigos animales, construyó un canal de piedras de río y arena suave que filtraba el agua. ¡Ahora el agua está cristalina y fresca para todos los pececitos!");
+            } else if (type === 'maya') {
+                showToast("Escuchando el Cuento de la Abeja Maya...", "🐝");
+                readText("La abeja Maya quería más flores en la ciudad. Habló con los niños arquitectos y juntos sembraron plantitas en los techos de las casas. Ahora las casas están frescas y los pajaritos tienen un lindo parque en la altura.");
+            }
+        }
+
+        // --- BADGES LOGIC ---
+        function unlockBadge(badgeId) {
+            const badge = document.getElementById(badgeId);
+            if (badge && badge.classList.contains('grayscale')) {
+                badge.classList.remove('grayscale', 'opacity-50', 'bg-slate-100', 'border-slate-300');
+                badge.classList.add('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
+                playChimeSound();
+                showToast("¡Nueva Insignia Desbloqueada! 🏆", "⭐");
+            }
+        }
+
+        // --- TOAST NOTIFICATIONS ---
+        function showToast(message, emoji = "🎉") {
+            const toast = document.getElementById('toastMessage');
+            document.getElementById('toastText').innerText = message;
+            document.getElementById('toastEmoji').innerText = emoji;
+
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 4000);
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            initSandbox();
+        };
+    </script>
+</body>
+</html>
