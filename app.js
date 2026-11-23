@@ -680,9 +680,7 @@ function setActiveNav(id) {
     var el = enlaces[i];
     if (el.getAttribute("data-section") === id) {
       el.classList.add("activo");
-      if (el.classList.contains("nav-enlace")) {
-        el.setAttribute("aria-current", "true");
-      }
+      el.setAttribute("aria-current", "true");
     } else {
       el.classList.remove("activo");
       el.removeAttribute("aria-current");
