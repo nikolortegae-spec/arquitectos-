@@ -29,28 +29,7 @@
                         tinta: '#1E293B',         /* texto principal oscuro */
                         papel: '#FFFFFF',         /* superficie blanca limpia */
                         lienzo: '#F6F7F5',         /* fondo neutro gris/verde muy claro del body */
-                        borde: '#D9DEDB',          /* gris neutro para bordes discretos */
-
-                        /* ===== TOKENS HEREDADOS (temporal) =====
-                           Todavia usados por el cuerpo de las 6 secciones y las plantillas
-                           JS; FEAT-002 debe retirarlos cuando reestilice esas partes.
-                           El cromo compartido de FEAT-001 ya NO los referencia. */
-                        pastelSky: '#BAE6FD',
-                        pastelMint: '#A7F3D0',
-                        pastelYellow: '#FEF08A',
-                        pastelLavender: '#DDD6FE',
-                        pastelTerracotta: '#FCA5A5',
-                        pastelOrange: '#FFEDD5',
-                        cloudWhite: '#F8FAFC',
-                        aguaTurquesa: '#3FBFB0',
-                        aguaClara: '#BEEFE6',
-                        verdeMusgo: '#5B7A3A',
-                        verdeMusgoHoja: '#7FA64B',
-                        verdeLima: '#A8D44A',
-                        ocreMadera: '#B5793A',
-                        ocreMaderaClaro: '#D8A869',
-                        rojoCoral: '#E05A47',
-                        cremaPapel: '#FBF4E3'
+                        borde: '#D9DEDB'           /* gris neutro para bordes discretos */
                     },
                     fontFamily: {
                         /* Sans profesional para cuerpo y display serif sobria para titulos */
@@ -175,18 +154,6 @@
             box-shadow: 0 2px 4px 0 rgba(15,23,42,0.06), 0 10px 28px -6px rgba(15,23,42,0.14);
         }
 
-        /* Elemento decorativo con desplazamiento muy sutil (antes floating-cloud) */
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-        }
-        .floating-cloud {
-            animation: floatSlow 9s ease-in-out infinite;
-        }
-        .floating-cloud-delayed {
-            animation: floatSlow 11s ease-in-out infinite 2s;
-        }
-
         /* Cuadricula del taller (puntos discretos en gris neutro) */
         .sandbox-grid {
             background-size: 40px 40px;
@@ -235,8 +202,6 @@
                 transition-duration: 0.001ms !important;
                 scroll-behavior: auto !important;
             }
-            .floating-cloud,
-            .floating-cloud-delayed,
             .placed-block {
                 animation: none !important;
             }
@@ -364,111 +329,111 @@
     <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8 pb-28 sm:pb-6">
 
         <!-- HERO INTRODUCTION BANNER -->
-        <section id="inicio" class="bg-gradient-to-br from-aguaClara via-white to-verdeLima/40 border-4 border-cremaPapel rounded-3xl p-6 shadow-bubble relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="space-y-4 max-w-xl text-center md:text-left z-10">
-                <div class="inline-flex items-center gap-2 bg-white/90 px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-aguaTurquesa shadow-sm">
-                    ✨ ¡Aprende jugando y cuidando el agua y los bichos!
+        <section id="inicio" class="bg-papel border border-borde rounded-2xl p-6 sm:p-8 shadow-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-5 max-w-xl text-center md:text-left z-10">
+                <div class="inline-flex items-center gap-2 bg-bosqueSuave px-3 py-1 rounded-full text-xs sm:text-sm font-semibold text-bosque">
+                    <i class="fas fa-leaf text-bosque" aria-hidden="true"></i>
+                    Propuesta pedagógica para la primera infancia
                 </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-verdeMusgo leading-tight">
-                    ¡Pequeños héroes que cuidan el agua! 🐞💧
+                <h2 class="text-3xl sm:text-4xl font-bold text-bosqueOscuro leading-tight">
+                    Arquitecturas de la emancipación infantil
                 </h2>
-                <p class="text-base sm:text-lg text-verdeMusgo/90 font-medium">
-                    Explora materiales ecológicos, construye territorios de juego para la comunidad y escucha historias de bichos valientes que cuidan la naturaleza.
+                <p class="text-base sm:text-lg text-pizarra font-medium">
+                    Una experiencia educativa para explorar materiales sostenibles, construir territorios de juego para la comunidad y acompañar relatos sobre el cuidado del entorno.
                 </p>
 
                 <!-- Audio Reader Button for Intro -->
-                <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
-                    <button onclick="readText('¡Pequeños héroes que cuidan el agua! Explora materiales ecológicos, construye territorios de juego para la comunidad y escucha historias de bichos valientes que cuidan la naturaleza.')" class="btn-bubble bg-verdeMusgoHoja hover:bg-verdeMusgo border-2 border-verdeMusgo text-white font-extrabold px-5 py-3 rounded-2xl flex items-center gap-2 text-base shadow-bubble">
-                        <i class="fas fa-volume-high text-xl"></i> Escuchar Instrucciones
+                <div class="pt-1 flex flex-wrap justify-center md:justify-start gap-3">
+                    <button onclick="readText('Arquitecturas de la emancipación infantil. Una experiencia educativa para explorar materiales sostenibles, construir territorios de juego para la comunidad y acompañar relatos sobre el cuidado del entorno.')" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-base shadow-card">
+                        <i class="fas fa-volume-high text-lg"></i> Escuchar presentación
                     </button>
-                    <a href="#taller" class="btn-bubble bg-aguaTurquesa hover:bg-verdeMusgoHoja border-2 border-verdeMusgo text-white font-extrabold px-5 py-3 rounded-2xl flex items-center gap-2 text-base shadow-bubble">
-                        🚀 ¡Ir a Construir!
+                    <a href="#taller" class="btn-bubble bg-papel hover:bg-bosqueSuave border border-bosque text-bosque font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-base shadow-card">
+                        <i class="fas fa-arrow-right text-sm"></i> Ir al taller
                     </a>
                 </div>
 
                 <!-- PLACEHOLDER de la ilustracion oficial del heroe (Opcion B) -->
-                <div role="img" aria-label="Espacio reservado para reemplazar por la ilustracion oficial del heroe de la campana" class="mt-2 inline-flex items-center gap-2 border-2 border-dashed border-ocreMadera bg-cremaPapel/70 rounded-2xl px-3 py-2 text-[11px] sm:text-xs font-semibold text-ocreMadera">
-                    <span aria-hidden="true">🖼️</span>
-                    Reemplazar por ilustracion oficial del heroe
+                <div role="img" aria-label="Espacio reservado para reemplazar por la ilustracion oficial del heroe de la campana" class="mt-1 inline-flex items-center gap-2 border border-dashed border-borde bg-lienzo rounded-lg px-3 py-2 text-[11px] sm:text-xs font-medium text-pizarra">
+                    <i class="fas fa-image text-pizarra" aria-hidden="true"></i>
+                    Espacio reservado para la ilustracion oficial del heroe
                 </div>
             </div>
 
-            <!-- Mascota insecto heroe (recreada con emoji + CSS, sin material de terceros) -->
-            <div class="relative flex justify-center items-center w-48 h-48 sm:w-56 sm:h-56 bg-white/60 rounded-full border-4 border-dashed border-verdeLima p-4 floating-cloud z-10">
-                <div class="text-8xl sm:text-9xl transform hover:scale-110 transition-transform cursor-pointer" onclick="playAnimalSound()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();playAnimalSound();}" role="button" tabindex="0" aria-label="Saludar a Bichi, nuestra mascota insecto guía">
-                    🐞
+            <!-- Marca visual del proyecto (icono sobrio con accion de audio guia) -->
+            <div class="relative flex justify-center items-center w-44 h-44 sm:w-52 sm:h-52 bg-bosqueSuave rounded-2xl border border-borde p-6 z-10">
+                <div class="text-bosque text-6xl sm:text-7xl cursor-pointer" onclick="playAnimalSound()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();playAnimalSound();}" role="button" tabindex="0" aria-label="Escuchar la voz guía de la experiencia">
+                    <i class="fas fa-seedling" aria-hidden="true"></i>
                 </div>
-                <div class="absolute -bottom-2 bg-verdeLima text-verdeMusgo border-2 border-verdeMusgo px-3 py-1 rounded-full text-xs font-bold shadow-md">
-                    ¡Hazme clic! 🐛
+                <div class="absolute -bottom-3 bg-papel border border-borde text-bosque px-3 py-1 rounded-full text-xs font-semibold shadow-card">
+                    Escuchar guía
                 </div>
             </div>
         </section>
 
         <!-- SECCIÓN 1: TALLER DE CONSTRUCCIÓN ECOLÓGICA (SANDBOX) -->
-        <section id="taller" class="bg-cremaPapel/85 border-4 border-verdeMusgoHoja rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+        <section id="taller" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
             
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-3">
-                        <span class="text-3xl">🏗️</span>
-                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
-                            Taller de Construcción
+                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
+                            Taller de construcción
                         </h2>
-                        <button onclick="readText('Taller de Construcción. Selecciona un bloque de color en el menú y haz clic en la cuadrícula verde para colocarlo. ¡Construye tu parque o casa ideal!')" aria-label="Escuchar la sección Taller de Construcción" class="section-audio text-xl" title="Escuchar sección">
+                        <button onclick="readText('Taller de construcción. Selecciona un material en el menú y haz clic en la cuadrícula para colocarlo. Diseña un espacio sostenible para la comunidad.')" aria-label="Escuchar la sección Taller de construcción" class="section-audio text-lg" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
-                        Elige un bloque y haz clic en el terreno para armar tu casita sustentable.
+                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
+                        Elige un material y haz clic en el terreno para componer un espacio sostenible.
                     </p>
                 </div>
 
                 <!-- Sandbox Control Tools -->
                 <div class="flex items-center gap-2">
-                    <button onclick="clearSandbox()" class="btn-bubble bg-rose-100 hover:bg-rose-200 border-2 border-rose-300 text-rose-700 font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1 shadow-sm">
-                        <i class="fas fa-trash-alt"></i> Limpiar Todo
+                    <button onclick="clearSandbox()" class="btn-bubble bg-papel hover:bg-lienzo border border-borde text-pizarra font-semibold px-3 py-2 rounded-lg text-sm flex items-center gap-1.5 shadow-card">
+                        <i class="fas fa-trash-alt"></i> Limpiar todo
                     </button>
                 </div>
             </div>
 
             <!-- Material Selector Palettes -->
             <div>
-                <p class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">1. Elige tu Material:</p>
+                <p class="text-xs font-semibold uppercase text-pizarra tracking-wider mb-2">1. Elige el material</p>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                     
                     <!-- Madera -->
-                    <button onclick="selectMaterial('wood')" id="mat-wood" aria-label="Seleccionar material Madera" class="mat-btn btn-bubble bg-amber-100 border-4 border-amber-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-amber-900 font-bold">
-                        <span class="text-3xl">🪵</span>
+                    <button onclick="selectMaterial('wood')" id="mat-wood" aria-label="Seleccionar material Madera" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">🪵</span>
                         <span class="text-xs">Madera</span>
                     </button>
 
                     <!-- Techo Verde -->
-                    <button onclick="selectMaterial('plants')" id="mat-plants" aria-label="Seleccionar material Techo Verde" class="mat-btn btn-bubble bg-emerald-100 border-4 border-emerald-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-emerald-900 font-bold">
-                        <span class="text-3xl">🌱</span>
-                        <span class="text-xs">Techo Verde</span>
+                    <button onclick="selectMaterial('plants')" id="mat-plants" aria-label="Seleccionar material Techo Verde" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">🌱</span>
+                        <span class="text-xs">Techo verde</span>
                     </button>
 
                     <!-- Cristal Agua -->
-                    <button onclick="selectMaterial('water')" id="mat-water" aria-label="Seleccionar material Lago de Agua" class="mat-btn btn-bubble bg-sky-100 border-4 border-sky-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-sky-900 font-bold">
-                        <span class="text-3xl">💧</span>
-                        <span class="text-xs">Lago Agua</span>
+                    <button onclick="selectMaterial('water')" id="mat-water" aria-label="Seleccionar material Lago de Agua" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">💧</span>
+                        <span class="text-xs">Agua</span>
                     </button>
 
                     <!-- Panel Solar -->
-                    <button onclick="selectMaterial('solar')" id="mat-solar" aria-label="Seleccionar material Panel Solar" class="mat-btn btn-bubble bg-yellow-100 border-4 border-yellow-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-yellow-900 font-bold">
-                        <span class="text-3xl">☀️</span>
-                        <span class="text-xs">Panel Solar</span>
+                    <button onclick="selectMaterial('solar')" id="mat-solar" aria-label="Seleccionar material Panel Solar" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">☀️</span>
+                        <span class="text-xs">Panel solar</span>
                     </button>
 
-                    <!-- Piedra Mágica -->
-                    <button onclick="selectMaterial('stone')" id="mat-stone" aria-label="Seleccionar material Piedra" class="mat-btn btn-bubble bg-slate-200 border-4 border-slate-400 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-slate-800 font-bold">
-                        <span class="text-3xl">🪨</span>
+                    <!-- Piedra -->
+                    <button onclick="selectMaterial('stone')" id="mat-stone" aria-label="Seleccionar material Piedra" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">🪨</span>
                         <span class="text-xs">Piedra</span>
                     </button>
 
                     <!-- Borrador -->
-                    <button onclick="selectMaterial('eraser')" id="mat-eraser" aria-label="Seleccionar la herramienta Borrador" class="mat-btn btn-bubble bg-rose-100 border-4 border-rose-300 p-3 rounded-2xl flex flex-col items-center gap-1 shadow-bubble text-rose-800 font-bold">
-                        <span class="text-3xl">🧹</span>
+                    <button onclick="selectMaterial('eraser')" id="mat-eraser" aria-label="Seleccionar la herramienta Borrador" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
+                        <span class="text-2xl" aria-hidden="true">🧹</span>
                         <span class="text-xs">Borrador</span>
                     </button>
 
@@ -478,49 +443,48 @@
             <!-- Interactive Grid Canvas Area -->
             <div>
                 <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs font-bold uppercase text-slate-400 tracking-wider">2. Toca las casillas para construir:</p>
-                    <span id="activeMaterialBadge" class="bg-verdeLima/40 text-verdeMusgo text-xs px-3 py-1 rounded-full font-bold border border-verdeMusgoHoja">
+                    <p class="text-xs font-semibold uppercase text-pizarra tracking-wider">2. Construye en el terreno</p>
+                    <span id="activeMaterialBadge" class="bg-bosqueSuave text-bosque text-xs px-3 py-1 rounded-full font-semibold border border-borde">
                         Seleccionado: Madera 🪵
                     </span>
                 </div>
 
                 <!-- Main Build Grid -->
-                <div id="sandboxGrid" class="sandbox-grid bg-aguaClara/50 border-4 border-dashed border-aguaTurquesa rounded-3xl p-4 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 min-h-[340px] items-center justify-center">
+                <div id="sandboxGrid" class="sandbox-grid bg-lienzo border border-borde rounded-xl p-4 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 min-h-[340px] items-center justify-center">
                     <!-- Dynamic Grid Tiles populated via JS -->
                 </div>
             </div>
 
             <!-- Stats/Counters -->
-            <div class="bg-ocreMaderaClaro/30 rounded-2xl p-4 border-2 border-ocreMadera/50 flex flex-wrap items-center justify-around gap-4 text-center">
+            <div class="bg-lienzo rounded-xl p-4 border border-borde flex flex-wrap items-center justify-around gap-4 text-center">
                 <div>
-                    <span class="text-2xl font-black text-ocreMadera" id="statBlocksCount">0</span>
-                    <p class="text-xs font-bold text-verdeMusgo uppercase">Bloques Colocados</p>
+                    <span class="text-2xl font-bold text-bosqueOscuro" id="statBlocksCount">0</span>
+                    <p class="text-xs font-semibold text-pizarra uppercase">Bloques colocados</p>
                 </div>
                 <div>
-                    <span class="text-2xl font-black text-verdeMusgoHoja" id="statEcoScore">0%</span>
-                    <p class="text-xs font-bold text-verdeMusgo uppercase">Energía Limpia</p>
+                    <span class="text-2xl font-bold text-bosque" id="statEcoScore">0%</span>
+                    <p class="text-xs font-semibold text-pizarra uppercase">Energía limpia</p>
                 </div>
                 <div>
-                    <button onclick="checkSandboxAchievement()" class="btn-bubble bg-verdeLima hover:bg-verdeMusgoHoja text-verdeMusgo hover:text-white font-black px-4 py-2 rounded-xl text-sm border-2 border-verdeMusgo shadow-sm">
-                        ⭐ Evaluar mi Construcción
+                    <button onclick="checkSandboxAchievement()" class="btn-bubble bg-bosque hover:bg-bosqueOscuro text-white font-semibold px-4 py-2 rounded-lg text-sm border border-bosque shadow-card flex items-center gap-2">
+                        <i class="fas fa-star text-sm" aria-hidden="true"></i> Evaluar construcción
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- SECCIÓN 2: CUENTOS SONOROS Y COMUNITARIOS -->
-        <section id="cuentos" class="bg-cremaPapel/85 border-4 border-ocreMadera rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="section-header flex items-center gap-3 p-4">
-                <span class="text-3xl">🎧</span>
+        <section id="cuentos" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
+            <div class="section-header flex items-center gap-3">
                 <div>
-                    <h2 class="section-title text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
-                        Cuentos Sonoros de la Naturaleza
-                        <button onclick="readText('Cuentos Sonoros. Presiona el botón de reproducción en cada tarjeta para escuchar historias sobre cómo cuidar el agua, los árboles y a nuestros amigos.')" aria-label="Escuchar la sección Cuentos Sonoros de la Naturaleza" class="section-audio text-xl" title="Escuchar sección">
+                    <h2 class="section-title text-2xl sm:text-3xl font-bold flex items-center gap-2">
+                        Relatos sonoros
+                        <button onclick="readText('Relatos sonoros. Usa el botón de reproducción en cada tarjeta para escuchar historias sobre el cuidado del agua, los árboles y la comunidad.')" aria-label="Escuchar la sección Relatos sonoros" class="section-audio text-lg" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </h2>
-                    <p class="section-sub text-sm sm:text-base font-semibold">
-                        Haz clic en los personajes para escuchar sus aventuras comunitarias.
+                    <p class="section-sub text-sm sm:text-base font-medium">
+                        Historias breves que acompañan los valores de sostenibilidad y comunidad.
                     </p>
                 </div>
             </div>
@@ -529,50 +493,50 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 <!-- Story Card 1 -->
-                <div class="bg-gradient-to-b from-aguaClara to-aguaTurquesa/30 border-3 border-aguaTurquesa rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
-                    <div class="w-24 h-24 bg-cremaPapel rounded-full border-4 border-aguaTurquesa flex items-center justify-center text-5xl shadow-md floating-cloud">
+                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
+                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
                         🐻
                     </div>
                     <div>
-                        <h3 class="text-xl font-extrabold text-verdeMusgo">El Oso Mateo y la Casa Solar</h3>
-                        <p class="text-xs text-verdeMusgo/80 font-medium mt-1">
-                            Mateo aprendió a usar el sol para iluminar su hogar sin lastimar el bosque.
+                        <h3 class="text-lg font-bold text-bosqueOscuro">El oso Mateo y la casa solar</h3>
+                        <p class="text-sm text-pizarra font-medium mt-1">
+                            Mateo aprende a aprovechar el sol para iluminar su hogar sin dañar el bosque.
                         </p>
                     </div>
-                    <button onclick="playStory('mateo')" class="btn-bubble w-full bg-aguaTurquesa hover:bg-verdeMusgoHoja text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
-                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    <button onclick="playStory('mateo')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
+                        <i class="fas fa-play text-base"></i> Escuchar relato
                     </button>
                 </div>
 
                 <!-- Story Card 2 -->
-                <div class="bg-gradient-to-b from-verdeLima/25 to-verdeMusgoHoja/30 border-3 border-verdeMusgoHoja rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
-                    <div class="w-24 h-24 bg-cremaPapel rounded-full border-4 border-verdeMusgoHoja flex items-center justify-center text-5xl shadow-md floating-cloud-delayed">
+                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
+                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
                         🐸
                     </div>
                     <div>
-                        <h3 class="text-xl font-extrabold text-verdeMusgo">La Rana Renata y el Río Limpio</h3>
-                        <p class="text-xs text-verdeMusgo/80 font-medium mt-1">
-                            Junto a sus vecinos, Renata construyó un filtro con piedras para limpiar el agua del río.
+                        <h3 class="text-lg font-bold text-bosqueOscuro">La rana Renata y el río limpio</h3>
+                        <p class="text-sm text-pizarra font-medium mt-1">
+                            Junto a sus vecinos, Renata construye un filtro de piedras para limpiar el agua del río.
                         </p>
                     </div>
-                    <button onclick="playStory('renata')" class="btn-bubble w-full bg-verdeMusgoHoja hover:bg-verdeMusgo text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
-                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    <button onclick="playStory('renata')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
+                        <i class="fas fa-play text-base"></i> Escuchar relato
                     </button>
                 </div>
 
                 <!-- Story Card 3 -->
-                <div class="bg-gradient-to-b from-cremaPapel to-ocreMaderaClaro/35 border-3 border-ocreMaderaClaro rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-bubble space-y-4">
-                    <div class="w-24 h-24 bg-cremaPapel rounded-full border-4 border-ocreMadera flex items-center justify-center text-5xl shadow-md floating-cloud">
+                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
+                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
                         🐝
                     </div>
                     <div>
-                        <h3 class="text-xl font-extrabold text-ocreMadera">La Abeja Maya y el Techo Verde</h3>
-                        <p class="text-xs text-ocreMadera/80 font-medium mt-1">
-                            Sembrando flores en los techos de las casas, la comunidad hizo un gran parque elevado.
+                        <h3 class="text-lg font-bold text-bosqueOscuro">La abeja Maya y el techo verde</h3>
+                        <p class="text-sm text-pizarra font-medium mt-1">
+                            Al sembrar flores en los techos, la comunidad crea un parque elevado para todos.
                         </p>
                     </div>
-                    <button onclick="playStory('maya')" class="btn-bubble w-full bg-ocreMadera hover:bg-rojoCoral text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-md">
-                        <i class="fas fa-play text-lg"></i> Escuchar Cuento
+                    <button onclick="playStory('maya')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
+                        <i class="fas fa-play text-base"></i> Escuchar relato
                     </button>
                 </div>
 
@@ -580,19 +544,18 @@
         </section>
 
         <!-- SECCIÓN 3: DIARIO DE EXPLORADOR E INSIGNIAS -->
-        <section id="insignias" class="bg-cremaPapel/85 border-4 border-verdeLima rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="section-header flex items-center justify-between p-4">
+        <section id="insignias" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
+            <div class="section-header flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <span class="text-3xl">🏆</span>
                     <div>
-                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
-                            Mis Insignias de Creador
-                            <button onclick="readText('Mis Insignias de Creador. Construye y explora la página para desbloquear trofeos mágicos como Guardián de la Naturaleza y Amigo del Sol.')" aria-label="Escuchar la sección Mis Insignias de Creador" class="section-audio text-xl" title="Escuchar sección">
+                        <h2 class="section-title text-2xl sm:text-3xl font-bold flex items-center gap-2">
+                            Logros de aprendizaje
+                            <button onclick="readText('Logros de aprendizaje. A medida que construyes y exploras la experiencia se desbloquean los reconocimientos que resumen tu recorrido.')" aria-label="Escuchar la sección Logros de aprendizaje" class="section-audio text-lg" title="Escuchar sección">
                                 <i class="fas fa-volume-up"></i>
                             </button>
                         </h2>
-                        <p class="section-sub text-sm sm:text-base font-semibold">
-                            ¡Completa misiones para ganar medallas brillantes!
+                        <p class="section-sub text-sm sm:text-base font-medium">
+                            Reconocimientos que se activan al completar cada parte de la propuesta.
                         </p>
                     </div>
                 </div>
@@ -602,60 +565,59 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 
                 <!-- Badge 1 -->
-                <div id="badge-builder" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-5xl mb-2">🔨</div>
-                    <h4 class="font-extrabold text-sm text-verdeMusgo">Primer Bloque</h4>
-                    <p class="text-xs font-semibold text-verdeMusgo/80 mt-1">Coloca tu primer material en el taller.</p>
+                <div id="badge-builder" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-3xl mb-2" aria-hidden="true">🔨</div>
+                    <h4 class="font-bold text-sm text-tinta">Primer bloque</h4>
+                    <p class="text-xs font-medium text-pizarra mt-1">Coloca tu primer material en el taller.</p>
                 </div>
 
                 <!-- Badge 2 -->
-                <div id="badge-eco" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-5xl mb-2">🌻</div>
-                    <h4 class="font-extrabold text-sm text-verdeMusgo">Jardín Urbano</h4>
-                    <p class="text-xs font-semibold text-verdeMusgo/80 mt-1">Coloca 3 techos verdes en tu ciudad.</p>
+                <div id="badge-eco" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-3xl mb-2" aria-hidden="true">🌻</div>
+                    <h4 class="font-bold text-sm text-tinta">Jardín urbano</h4>
+                    <p class="text-xs font-medium text-pizarra mt-1">Coloca 3 techos verdes en tu ciudad.</p>
                 </div>
 
                 <!-- Badge 3 -->
-                <div id="badge-story" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-5xl mb-2">📜</div>
-                    <h4 class="font-extrabold text-sm text-verdeMusgo">Gran Oyente</h4>
-                    <p class="text-xs font-semibold text-verdeMusgo/80 mt-1">Escucha al menos uno de los cuentos.</p>
+                <div id="badge-story" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-3xl mb-2" aria-hidden="true">📜</div>
+                    <h4 class="font-bold text-sm text-tinta">Buen oyente</h4>
+                    <p class="text-xs font-medium text-pizarra mt-1">Escucha al menos uno de los relatos.</p>
                 </div>
 
                 <!-- Badge 4 -->
-                <div id="badge-master" class="bg-slate-100 border-3 border-slate-300 rounded-2xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-5xl mb-2">👑</div>
-                    <h4 class="font-extrabold text-sm text-verdeMusgo">Arquitecto EMC</h4>
-                    <p class="text-xs font-semibold text-verdeMusgo/80 mt-1">¡Construye una comunidad completa!</p>
+                <div id="badge-master" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
+                    <div class="text-3xl mb-2" aria-hidden="true">👑</div>
+                    <h4 class="font-bold text-sm text-tinta">Arquitecto EMC</h4>
+                    <p class="text-xs font-medium text-pizarra mt-1">Completa una comunidad sostenible.</p>
                 </div>
 
             </div>
         </section>
 
-        <!-- SECCIÓN 4: MISIONES DEL PEQUEÑO ARQUITECTO (RETOS INTERACTIVOS) -->
-        <section id="retos" class="bg-cremaPapel/85 border-4 border-rojoCoral rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+        <!-- SECCIÓN 4: MISIONES DE APRENDIZAJE (RETOS INTERACTIVOS) -->
+        <section id="retos" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-3">
-                        <span class="text-3xl">🎯</span>
-                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
-                            Misiones del Pequeño Arquitecto
+                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
+                            Misiones de aprendizaje
                         </h2>
-                        <button onclick="readText('Misiones del Pequeño Arquitecto. Completa retos divertidos en el taller y los cuentos. Cada vez que logres una misión, se encenderá sola y Bichi te felicitará.')" aria-label="Escuchar la sección Misiones del Pequeño Arquitecto" class="section-audio text-xl" title="Escuchar sección">
+                        <button onclick="readText('Misiones de aprendizaje. Completa retos en el taller y en los relatos. Cada misión se marca como cumplida en cuanto alcanzas su objetivo.')" aria-label="Escuchar la sección Misiones de aprendizaje" class="section-audio text-lg" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
-                        Cada misión se enciende solita cuando la completas jugando. ¡Consíguelas todas!
+                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
+                        Cada misión se marca como cumplida al alcanzar su objetivo mientras exploras la experiencia.
                     </p>
                 </div>
 
                 <!-- Contador de misiones + reinicio de progreso -->
                 <div class="flex items-center gap-2">
-                    <span id="questProgressBadge" class="bg-cremaPapel text-rojoCoral text-sm px-3 py-2 rounded-xl font-black border-2 border-rojoCoral">
+                    <span id="questProgressBadge" class="bg-bosqueSuave text-bosque text-sm px-3 py-2 rounded-lg font-bold border border-borde">
                         0 / 5 ⭐
                     </span>
-                    <button id="resetProgressBtn" onclick="resetProgress()" aria-label="Empezar de nuevo y borrar el progreso guardado" class="btn-bubble bg-cremaPapel hover:bg-ocreMaderaClaro/40 border-2 border-ocreMadera text-ocreMadera font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1 shadow-sm">
+                    <button id="resetProgressBtn" onclick="resetProgress()" aria-label="Empezar de nuevo y borrar el progreso guardado" class="btn-bubble bg-papel hover:bg-lienzo border border-borde text-pizarra font-semibold px-3 py-2 rounded-lg text-sm flex items-center gap-1.5 shadow-card">
                         <i class="fas fa-rotate-left"></i> Empezar de nuevo
                     </button>
                 </div>
@@ -666,65 +628,64 @@
                 <!-- Las tarjetas de misión se generan dinámicamente en renderQuests() -->
             </ul>
 
-            <div class="bg-rojoCoral/10 border-2 border-rojoCoral/40 rounded-2xl p-4 flex items-center gap-3">
-                <span class="text-3xl floating-cloud" aria-hidden="true">🐞</span>
-                <p id="questHint" class="text-sm sm:text-base font-semibold text-rojoCoral">
-                    ¡Ve al Taller a construir y escucha los cuentos para encender tus misiones!
+            <div class="bg-bosqueSuave border border-borde rounded-xl p-4 flex items-center gap-3">
+                <i class="fas fa-circle-info text-bosque text-lg" aria-hidden="true"></i>
+                <p id="questHint" class="text-sm sm:text-base font-medium text-bosqueOscuro">
+                    Visita el taller para construir y escucha los relatos para avanzar en las misiones.
                 </p>
             </div>
         </section>
 
         <!-- SECCIÓN 5: MAPA DE MI CIUDAD VERDE (RESUMEN DE PROGRESO) -->
-        <section id="mapa" class="bg-cremaPapel/85 border-4 border-aguaTurquesa rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+        <section id="mapa" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-3">
-                        <span class="text-3xl">🗺️</span>
-                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
-                            Mapa de mi Ciudad Verde
+                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
+                            Mapa de progreso
                         </h2>
-                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen de mi Ciudad Verde" class="section-audio text-xl" title="Escuchar sección">
+                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen del progreso" class="section-audio text-lg" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
-                        Mira crecer tu ciudad. Bichi, nuestro insecto guía, te cuenta cómo va tu obra.
+                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
+                        Un resumen del recorrido: bloques, energía limpia, reconocimientos y crecimiento de la ciudad.
                     </p>
                 </div>
-                <button onclick="speakCitySummary()" aria-label="Que Bichi me anime con el resumen" class="btn-bubble bg-aguaTurquesa hover:bg-verdeMusgoHoja border-2 border-verdeMusgo text-white font-extrabold px-4 py-2 rounded-2xl flex items-center gap-2 text-sm shadow-bubble">
-                    🐞 ¡Anímame, Bichi!
+                <button onclick="speakCitySummary()" aria-label="Escuchar el resumen del progreso" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 text-sm shadow-card">
+                    <i class="fas fa-volume-high text-sm" aria-hidden="true"></i> Escuchar resumen
                 </button>
             </div>
 
             <!-- Tarjetas resumen de progreso -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-gradient-to-b from-cremaPapel to-ocreMaderaClaro/35 border-3 border-ocreMaderaClaro rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
-                    <div class="text-5xl mb-2" aria-hidden="true">🧱</div>
-                    <span id="mapBlocks" class="text-3xl font-black text-[#6B4A1F]">0</span>
-                    <p class="text-xs font-bold text-[#6B4A1F] uppercase mt-1">Bloques Colocados</p>
+                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
+                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-cubes"></i></div>
+                    <span id="mapBlocks" class="text-3xl font-bold text-bosqueOscuro">0</span>
+                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Bloques colocados</p>
                 </div>
-                <div class="bg-gradient-to-b from-verdeLima/25 to-verdeMusgoHoja/30 border-3 border-verdeMusgoHoja rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
-                    <div class="text-5xl mb-2" aria-hidden="true">⚡</div>
-                    <span id="mapEco" class="text-3xl font-black text-verdeMusgo">0%</span>
-                    <p class="text-xs font-bold text-[#2F4718] uppercase mt-1">Energía Limpia</p>
+                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
+                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-bolt"></i></div>
+                    <span id="mapEco" class="text-3xl font-bold text-bosqueOscuro">0%</span>
+                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Energía limpia</p>
                 </div>
-                <div class="bg-gradient-to-b from-aguaClara to-aguaTurquesa/30 border-3 border-aguaTurquesa rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
-                    <div class="text-5xl mb-2" aria-hidden="true">🏆</div>
-                    <span id="mapBadges" class="text-3xl font-black text-verdeMusgo">0 / 4</span>
-                    <p class="text-xs font-bold text-[#2F4718] uppercase mt-1">Insignias Ganadas</p>
+                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
+                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-award"></i></div>
+                    <span id="mapBadges" class="text-3xl font-bold text-bosqueOscuro">0 / 4</span>
+                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Reconocimientos</p>
                 </div>
             </div>
 
             <!-- Barra de crecimiento de la ciudad + paisaje visual -->
-            <div class="bg-aguaClara/60 border-2 border-aguaTurquesa rounded-2xl p-4 space-y-3">
-                <div class="flex items-center justify-between text-sm font-bold text-verdeMusgo">
-                    <span>🌍 Crecimiento de la ciudad</span>
+            <div class="bg-lienzo border border-borde rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between text-sm font-semibold text-bosqueOscuro">
+                    <span>Crecimiento de la ciudad</span>
                     <span id="cityLevelLabel">Semilla 🌱</span>
                 </div>
-                <div class="w-full h-5 bg-white rounded-full border-2 border-aguaTurquesa overflow-hidden" role="progressbar" aria-label="Crecimiento de la ciudad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="cityProgressBar">
-                    <div id="cityProgressFill" class="h-full bg-gradient-to-r from-verdeLima via-aguaTurquesa to-verdeMusgoHoja transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full h-4 bg-papel rounded-full border border-borde overflow-hidden" role="progressbar" aria-label="Crecimiento de la ciudad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="cityProgressBar">
+                    <div id="cityProgressFill" class="h-full bg-gradient-to-r from-bosqueClaro to-bosque transition-all duration-500" style="width: 0%"></div>
                 </div>
-                <div id="citySkyline" class="text-3xl sm:text-4xl tracking-wide min-h-[2.5rem] flex items-center" aria-hidden="true">
+                <div id="citySkyline" class="text-2xl sm:text-3xl tracking-wide min-h-[2.5rem] flex items-center" aria-hidden="true">
                     🌱
                 </div>
             </div>
@@ -910,8 +871,8 @@
 
         function playAnimalSound() {
             playChimeSound();
-            showToast("¡Hola! Soy Bichi, tu insecto guía de arquitectura ecológica.", "🐞");
-            readText("¡Hola! Soy Bichi, tu insecto guía de arquitectura ecológica.");
+            showToast("Bienvenido a Arquitectos del Futuro, una propuesta de arquitectura sostenible.", "🌱");
+            readText("Bienvenido a Arquitectos del Futuro, una propuesta de arquitectura sostenible para la primera infancia.");
         }
 
         // --- SPEECH SYNTHESIS (VOICE READ-ALOUD) ---
@@ -921,8 +882,8 @@
                 window.speechSynthesis.cancel(); // Stop any active speech
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'es-ES';
-                utterance.rate = 0.95; // Slightly slower for kids
-                utterance.pitch = 1.1;  // Slightly higher pitched friendly voice
+                utterance.rate = 0.98; // Ritmo pausado para buena comprensión
+                utterance.pitch = 1.0;  // Tono neutro
                 window.speechSynthesis.speak(utterance);
             } else {
                 showToast("Tu navegador no soporta lectura de voz.", "🔊");
@@ -947,7 +908,7 @@
         let storiesHeard = {};
         let completedQuests = {};
 
-        // Definición de las misiones del Pequeño Arquitecto. Cada misión sabe
+        // Definición de las misiones de aprendizaje. Cada misión sabe
         // comprobarse sola a partir del estado existente (gridState, cuentos, insignias).
         const quests = [
             {
@@ -994,7 +955,7 @@
             // Generate 30 interactive tiles
             for (let i = 0; i < 30; i++) {
                 const tile = document.createElement('button');
-                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-2 border-dashed border-aguaTurquesa bg-white/70 hover:bg-aguaClara flex items-center justify-center text-3xl sm:text-4xl transition-all shadow-sm`;
+                tile.className = `w-full h-16 sm:h-20 rounded-lg border border-dashed border-borde bg-papel hover:bg-bosqueSuave flex items-center justify-center text-3xl sm:text-4xl transition-all`;
                 tile.id = `tile-${i}`;
                 tile.type = 'button';
                 tile.setAttribute('aria-label', `Casilla de construcción número ${i + 1}`);
@@ -1010,12 +971,12 @@
 
             // Highlight active button UI
             document.querySelectorAll('.mat-btn').forEach(btn => {
-                btn.classList.remove('ring-4', 'ring-purple-400', 'scale-105');
+                btn.classList.remove('ring-2', 'ring-bosque', 'border-bosque');
             });
 
             const activeBtn = document.getElementById(`mat-${matKey}`);
             if (activeBtn) {
-                activeBtn.classList.add('ring-4', 'ring-purple-400', 'scale-105');
+                activeBtn.classList.add('ring-2', 'ring-bosque', 'border-bosque');
             }
 
             const badge = document.getElementById('activeMaterialBadge');
@@ -1029,12 +990,12 @@
             if (currentMaterial === 'eraser') {
                 playPopSound();
                 gridState[index] = null;
-                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-2 border-dashed border-aguaTurquesa bg-white/70 hover:bg-aguaClara flex items-center justify-center text-3xl sm:text-4xl transition-all shadow-sm`;
+                tile.className = `w-full h-16 sm:h-20 rounded-lg border border-dashed border-borde bg-papel hover:bg-bosqueSuave flex items-center justify-center text-3xl sm:text-4xl transition-all`;
                 tile.innerText = '';
             } else {
                 playWoodSound();
                 gridState[index] = currentMaterial;
-                tile.className = `w-full h-16 sm:h-20 rounded-2xl border-4 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl placed-block shadow-md`;
+                tile.className = `w-full h-16 sm:h-20 rounded-lg border-2 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl placed-block shadow-card`;
                 tile.innerText = mat.emoji;
 
                 // Unlock First Block Badge
@@ -1083,12 +1044,12 @@
                 showToast("¡Coloca primero unos bloques en el terreno!", "🏗️");
                 readText("¡Coloca primero unos bloques en el terreno para poder evaluar!");
             } else if (count < 5) {
-                showToast("¡Vas muy bien! Agrega más materiales para completar la aldea.", "🌱");
-                readText("¡Vas muy bien! Agrega más materiales para completar tu aldea.");
+                showToast("Buen avance. Agrega más materiales para completar el espacio.", "🌱");
+                readText("Buen avance. Agrega más materiales para completar el espacio comunitario.");
             } else {
                 playChimeSound();
-                showToast("¡Felicidades! Creaste un espacio sustentable hermoso.", "🌟");
-                readText("¡Felicidades! Creaste un espacio sustentable hermoso para la comunidad.");
+                showToast("Excelente. Diseñaste un espacio sostenible para la comunidad.", "🌟");
+                readText("Excelente. Diseñaste un espacio sostenible para la comunidad.");
             }
         }
 
@@ -1200,7 +1161,7 @@
                         const tile = document.getElementById(`tile-${i}`);
                         if (tile) {
                             const mat = materials[matKey];
-                            tile.className = `w-full h-16 sm:h-20 rounded-2xl border-4 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl shadow-md`;
+                            tile.className = `w-full h-16 sm:h-20 rounded-lg border-2 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl shadow-card`;
                             tile.innerText = mat.emoji;
                         }
                     }
@@ -1250,15 +1211,15 @@
                 li.id = q.id;
                 li.setAttribute('aria-label', q.title + (done ? ', misión completada' : ', misión pendiente'));
                 li.className = done
-                    ? 'flex items-center gap-4 p-4 rounded-2xl border-4 border-verdeMusgoHoja bg-verdeLima/25 shadow-bubble transition-all'
-                    : 'flex items-center gap-4 p-4 rounded-2xl border-4 border-dashed border-ocreMaderaClaro bg-cremaPapel/70 transition-all';
+                    ? 'flex items-center gap-4 p-4 rounded-xl border border-bosque bg-bosqueSuave shadow-card transition-all'
+                    : 'flex items-center gap-4 p-4 rounded-xl border border-dashed border-borde bg-lienzo transition-all';
                 li.innerHTML = `
-                    <span class="text-3xl ${done ? '' : 'grayscale opacity-60'}" aria-hidden="true">${q.emoji}</span>
+                    <span class="text-2xl ${done ? '' : 'grayscale opacity-60'}" aria-hidden="true">${q.emoji}</span>
                     <div class="flex-grow">
-                        <h4 class="font-extrabold text-sm sm:text-base ${done ? 'text-verdeMusgo' : 'text-ocreMadera'}">${q.title}</h4>
-                        <p class="text-xs font-semibold ${done ? 'text-verdeMusgoHoja' : 'text-ocreMadera/80'}">${q.desc}</p>
+                        <h4 class="font-bold text-sm sm:text-base ${done ? 'text-bosqueOscuro' : 'text-tinta'}">${q.title}</h4>
+                        <p class="text-xs font-medium ${done ? 'text-bosque' : 'text-pizarra'}">${q.desc}</p>
                     </div>
-                    <span class="text-2xl" aria-hidden="true">${done ? '✅' : '⬜'}</span>
+                    <span class="text-xl ${done ? 'text-bosque' : 'text-pizarra'}" aria-hidden="true">${done ? '✅' : '⬜'}</span>
                 `;
                 list.appendChild(li);
             });
@@ -1273,11 +1234,11 @@
             const hint = document.getElementById('questHint');
             if (hint) {
                 if (done === 0) {
-                    hint.innerText = '¡Ve al Taller a construir y escucha los cuentos para encender tus misiones!';
+                    hint.innerText = 'Visita el taller para construir y escucha los relatos para avanzar en las misiones.';
                 } else if (done < total) {
-                    hint.innerText = `¡Genial! Llevas ${done} de ${total} misiones. ¡Sigue así, pequeño arquitecto!`;
+                    hint.innerText = `Buen avance: llevas ${done} de ${total} misiones completadas.`;
                 } else {
-                    hint.innerText = '¡Increíble! Completaste todas las misiones. ¡Eres un Arquitecto del Futuro!';
+                    hint.innerText = 'Completaste todas las misiones de la experiencia.';
                 }
             }
         }
@@ -1291,8 +1252,8 @@
                     completedQuests[q.id] = true;
                     newlyDone = true;
                     playChimeSound();
-                    showToast(`¡Misión cumplida: ${q.title}!`, q.emoji);
-                    readText(`¡Misión cumplida! ${q.title}. ¡Muy bien, pequeño arquitecto!`);
+                    showToast(`Misión cumplida: ${q.title}.`, q.emoji);
+                    readText(`Misión cumplida. ${q.title}.`);
                 }
             });
             return newlyDone;
@@ -1343,7 +1304,7 @@
             if (skylineEl) skylineEl.innerText = skyline;
         }
 
-        // Mensaje de ánimo por voz de Bichi con el resumen de la ciudad.
+        // Resumen por voz del progreso de la ciudad.
         function speakCitySummary() {
             const placed = gridState.filter(b => b !== null).length;
             const badgesWon = badgeIds.filter(id => {
@@ -1351,8 +1312,8 @@
                 return el && !el.classList.contains('grayscale');
             }).length;
             const done = quests.filter(q => completedQuests[q.id]).length;
-            const msg = `¡Hola, soy Bichi! Tu Ciudad Verde tiene ${placed} bloques, ${badgesWon} insignias ganadas y ${done} misiones cumplidas. ¡Qué gran trabajo, sigue construyendo!`;
-            showToast("Bichi revisa tu ciudad verde...", "🐞");
+            const msg = `Resumen del progreso: ${placed} bloques colocados, ${badgesWon} reconocimientos y ${done} misiones cumplidas. Puedes seguir ampliando tu ciudad sostenible.`;
+            showToast("Resumen del progreso de tu ciudad.", "🌱");
             readText(msg);
         }
 
@@ -1419,8 +1380,8 @@
             updateCityMap();
             saveState();
             playChimeSound();
-            showToast("¡Listo! Empezamos de nuevo. 🌱", "🔄");
-            readText("¡Listo! Borramos todo para empezar de nuevo. ¡A construir otra ciudad verde!");
+            showToast("Progreso reiniciado. Puedes comenzar de nuevo.", "🔄");
+            readText("Progreso reiniciado. Puedes comenzar de nuevo a construir tu ciudad sostenible.");
         }
 
         // --- NAVEGACIÓN: SCROLLSPY, SCROLL SUAVE Y VOLVER ARRIBA ---
