@@ -287,7 +287,17 @@
                         <span class="nav-emoji text-lg" aria-hidden="true">🏆</span> Insignias
                     </a>
                 </li>
-                <!-- FEAT-003: añadir aquí nuevos <li><a href="#retos"/#mapa data-section="..."> con el mismo patrón -->
+                <!-- FEAT-003: secciones nuevas interactivas -->
+                <li>
+                    <a href="#retos" data-section="retos" class="nav-link btn-bubble flex items-center gap-2 bg-rose-100 border-4 border-rose-300 text-rose-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🎯</span> Misiones
+                    </a>
+                </li>
+                <li>
+                    <a href="#mapa" data-section="mapa" class="nav-link btn-bubble flex items-center gap-2 bg-teal-100 border-4 border-teal-300 text-teal-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🗺️</span> Mi Ciudad
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -558,6 +568,104 @@
             </div>
         </section>
 
+        <!-- SECCIÓN 4: MISIONES DEL PEQUEÑO ARQUITECTO (RETOS INTERACTIVOS) -->
+        <section id="retos" class="bg-white border-4 border-rose-200 rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b-2 border-slate-100 pb-4">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🎯</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-rose-600">
+                            Misiones del Pequeño Arquitecto
+                        </h2>
+                        <button onclick="readText('Misiones del Pequeño Arquitecto. Completa retos divertidos en el taller y los cuentos. Cada vez que logres una misión, se encenderá sola y Zorro te felicitará.')" aria-label="Escuchar la sección Misiones del Pequeño Arquitecto" class="text-slate-400 hover:text-slate-600 text-xl" title="Escuchar sección">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <p class="text-slate-500 text-sm sm:text-base font-semibold mt-1">
+                        Cada misión se enciende solita cuando la completas jugando. ¡Consíguelas todas!
+                    </p>
+                </div>
+
+                <!-- Contador de misiones + reinicio de progreso -->
+                <div class="flex items-center gap-2">
+                    <span id="questProgressBadge" class="bg-rose-100 text-rose-800 text-sm px-3 py-2 rounded-xl font-black border-2 border-rose-300">
+                        0 / 5 ⭐
+                    </span>
+                    <button id="resetProgressBtn" onclick="resetProgress()" aria-label="Empezar de nuevo y borrar el progreso guardado" class="btn-bubble bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 text-slate-600 font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1 shadow-sm">
+                        <i class="fas fa-rotate-left"></i> Empezar de nuevo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de misiones (se pintan y actualizan desde JS) -->
+            <ul id="questList" class="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Lista de misiones">
+                <!-- Las tarjetas de misión se generan dinámicamente en renderQuests() -->
+            </ul>
+
+            <div class="bg-rose-50 border-2 border-rose-200 rounded-2xl p-4 flex items-center gap-3">
+                <span class="text-3xl floating-cloud" aria-hidden="true">🦊</span>
+                <p id="questHint" class="text-sm sm:text-base font-semibold text-rose-700">
+                    ¡Ve al Taller a construir y escucha los cuentos para encender tus misiones!
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: MAPA DE MI CIUDAD VERDE (RESUMEN DE PROGRESO) -->
+        <section id="mapa" class="bg-white border-4 border-teal-200 rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b-2 border-slate-100 pb-4">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-3xl">🗺️</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-teal-600">
+                            Mapa de mi Ciudad Verde
+                        </h2>
+                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen de mi Ciudad Verde" class="text-slate-400 hover:text-slate-600 text-xl" title="Escuchar sección">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <p class="text-slate-500 text-sm sm:text-base font-semibold mt-1">
+                        Mira crecer tu ciudad. El zorro Zorro te cuenta cómo va tu obra.
+                    </p>
+                </div>
+                <button onclick="speakCitySummary()" aria-label="Que Zorro me anime con el resumen" class="btn-bubble bg-teal-400 hover:bg-teal-500 border-2 border-teal-600 text-white font-extrabold px-4 py-2 rounded-2xl flex items-center gap-2 text-sm shadow-bubble">
+                    🦊 ¡Anímame, Zorro!
+                </button>
+            </div>
+
+            <!-- Tarjetas resumen de progreso -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-gradient-to-b from-amber-50 to-amber-100 border-3 border-amber-300 rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
+                    <div class="text-5xl mb-2" aria-hidden="true">🧱</div>
+                    <span id="mapBlocks" class="text-3xl font-black text-amber-600">0</span>
+                    <p class="text-xs font-bold text-slate-500 uppercase mt-1">Bloques Colocados</p>
+                </div>
+                <div class="bg-gradient-to-b from-emerald-50 to-emerald-100 border-3 border-emerald-300 rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
+                    <div class="text-5xl mb-2" aria-hidden="true">⚡</div>
+                    <span id="mapEco" class="text-3xl font-black text-emerald-600">0%</span>
+                    <p class="text-xs font-bold text-slate-500 uppercase mt-1">Energía Limpia</p>
+                </div>
+                <div class="bg-gradient-to-b from-yellow-50 to-yellow-100 border-3 border-yellow-300 rounded-3xl p-5 flex flex-col items-center text-center shadow-bubble">
+                    <div class="text-5xl mb-2" aria-hidden="true">🏆</div>
+                    <span id="mapBadges" class="text-3xl font-black text-yellow-600">0 / 4</span>
+                    <p class="text-xs font-bold text-slate-500 uppercase mt-1">Insignias Ganadas</p>
+                </div>
+            </div>
+
+            <!-- Barra de crecimiento de la ciudad + paisaje visual -->
+            <div class="bg-teal-50 border-2 border-teal-200 rounded-2xl p-4 space-y-3">
+                <div class="flex items-center justify-between text-sm font-bold text-teal-800">
+                    <span>🌍 Crecimiento de la ciudad</span>
+                    <span id="cityLevelLabel">Semilla 🌱</span>
+                </div>
+                <div class="w-full h-5 bg-white rounded-full border-2 border-teal-300 overflow-hidden" role="progressbar" aria-label="Crecimiento de la ciudad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="cityProgressBar">
+                    <div id="cityProgressFill" class="h-full bg-gradient-to-r from-emerald-300 via-teal-400 to-sky-400 transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div id="citySkyline" class="text-3xl sm:text-4xl tracking-wide min-h-[2.5rem] flex items-center" aria-hidden="true">
+                    🌱
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -606,7 +714,21 @@
                     <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
-            <!-- FEAT-003: añadir aquí los <li> gemelos para #retos / #mapa con el mismo patrón data-section -->
+            <!-- FEAT-003: tabs gemelas para las secciones nuevas -->
+            <li class="flex-1">
+                <a href="#retos" data-section="retos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🎯</span>
+                    <span>Misiones</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#mapa" data-section="mapa" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🗺️</span>
+                    <span>Ciudad</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -652,6 +774,7 @@
                 icon.className = 'fas fa-volume-mute text-lg text-slate-400';
                 label.innerText = 'Sonidos: OFF';
             }
+            saveState();
         }
 
         // Bouncy pop sound for clicking
@@ -755,6 +878,51 @@
         let currentMaterial = 'wood';
         let gridState = new Array(30).fill(null);
 
+        // --- ESTADO DE PROGRESO (FEAT-003) ---
+        // Cuentos escuchados (ids: mateo / renata / maya) y misiones completadas.
+        let storiesHeard = {};
+        let completedQuests = {};
+
+        // Definición de las misiones del Pequeño Arquitecto. Cada misión sabe
+        // comprobarse sola a partir del estado existente (gridState, cuentos, insignias).
+        const quests = [
+            {
+                id: 'quest-solar',
+                emoji: '☀️',
+                title: 'Energía del Sol',
+                desc: 'Coloca 5 paneles solares en el taller.',
+                check: () => gridState.filter(b => b === 'solar').length >= 5
+            },
+            {
+                id: 'quest-lake',
+                emoji: '💧',
+                title: 'Crea un Lago',
+                desc: 'Coloca 3 bloques de agua para tu lago.',
+                check: () => gridState.filter(b => b === 'water').length >= 3
+            },
+            {
+                id: 'quest-garden',
+                emoji: '🌱',
+                title: 'Jardín en las Alturas',
+                desc: 'Coloca 3 techos verdes en la ciudad.',
+                check: () => gridState.filter(b => b === 'plants').length >= 3
+            },
+            {
+                id: 'quest-stories',
+                emoji: '🎧',
+                title: 'Gran Cuentacuentos',
+                desc: 'Escucha los 3 cuentos de la naturaleza.',
+                check: () => ['mateo', 'renata', 'maya'].every(s => storiesHeard[s])
+            },
+            {
+                id: 'quest-city',
+                emoji: '🏙️',
+                title: 'Ciudad Completa',
+                desc: 'Construye una comunidad con 12 bloques o más.',
+                check: () => gridState.filter(b => b !== null).length >= 12
+            }
+        ];
+
         function initSandbox() {
             const gridContainer = document.getElementById('sandboxGrid');
             gridContainer.innerHTML = '';
@@ -810,6 +978,8 @@
             }
 
             updateStats();
+            refreshProgress();
+            saveState();
         }
 
         function updateStats() {
@@ -838,6 +1008,8 @@
             gridState = new Array(30).fill(null);
             initSandbox();
             updateStats();
+            refreshProgress();
+            saveState();
             showToast("Taller limpiado correctamente.", "🧹");
         }
 
@@ -859,6 +1031,9 @@
         // --- STORIES LOGIC ---
         function playStory(type) {
             unlockBadge('badge-story');
+            storiesHeard[type] = true;
+            refreshProgress();
+            saveState();
             if (type === 'mateo') {
                 showToast("Escuchando el Cuento del Oso Mateo...", "🐻");
                 readText("Había una vez en el gran bosque, el Oso Mateo quería iluminar su cueva por las noches. En lugar de quemar ramas, colocó un panel brillante en su techo para atrapar la luz del sol. ¡Así su cueva quedó calentita y los árboles del bosque siguieron creciendo felices!");
@@ -879,6 +1054,18 @@
                 badge.classList.add('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
                 playChimeSound();
                 showToast("¡Nueva Insignia Desbloqueada! 🏆", "⭐");
+                refreshProgress();
+                saveState();
+            }
+        }
+
+        // Aplica solo el aspecto "desbloqueado" a una insignia, sin sonido ni toast
+        // ni guardado (se usa al restaurar desde localStorage).
+        function applyBadgeUnlockedVisual(badgeId) {
+            const badge = document.getElementById(badgeId);
+            if (badge && badge.classList.contains('grayscale')) {
+                badge.classList.remove('grayscale', 'opacity-50', 'bg-slate-100', 'border-slate-300');
+                badge.classList.add('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
             }
         }
 
@@ -897,12 +1084,287 @@
             }, 4000);
         }
 
+        // ============================================================
+        // FEAT-003: MISIONES, MAPA DE LA CIUDAD Y PERSISTENCIA
+        // ============================================================
+
+        const STORAGE_KEY = 'arquitectosDelFuturo_v1';
+
+        // Lista de ids de insignias usada para guardar/restaurar su estado.
+        const badgeIds = ['badge-builder', 'badge-eco', 'badge-story', 'badge-master'];
+
+        // --- PERSISTENCIA EN localStorage (protegida con try/catch) ---
+        function saveState() {
+            try {
+                if (typeof localStorage === 'undefined' || !localStorage) return;
+                const unlockedBadges = badgeIds.filter(id => {
+                    const el = document.getElementById(id);
+                    return el && !el.classList.contains('grayscale');
+                });
+                const data = {
+                    gridState: gridState,
+                    unlockedBadges: unlockedBadges,
+                    soundEnabled: soundEnabled,
+                    storiesHeard: storiesHeard,
+                    completedQuests: completedQuests
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            } catch (e) {
+                // Si localStorage no está disponible o falla, seguimos sin persistir.
+            }
+        }
+
+        function loadState() {
+            let data = null;
+            try {
+                if (typeof localStorage === 'undefined' || !localStorage) return;
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                data = JSON.parse(raw);
+            } catch (e) {
+                // Datos corruptos o localStorage no disponible: no rompemos la carga.
+                return;
+            }
+            if (!data || typeof data !== 'object') return;
+
+            // (a) Restaurar el tablero del taller y repintar los tiles ocupados.
+            if (Array.isArray(data.gridState)) {
+                for (let i = 0; i < gridState.length; i++) {
+                    const matKey = data.gridState[i];
+                    if (matKey && materials[matKey] && matKey !== 'eraser') {
+                        gridState[i] = matKey;
+                        const tile = document.getElementById(`tile-${i}`);
+                        if (tile) {
+                            const mat = materials[matKey];
+                            tile.className = `w-full h-16 sm:h-20 rounded-2xl border-4 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl shadow-md`;
+                            tile.innerText = mat.emoji;
+                        }
+                    }
+                }
+            }
+
+            // (b) Re-aplicar el estado visual de las insignias desbloqueadas.
+            if (Array.isArray(data.unlockedBadges)) {
+                data.unlockedBadges.forEach(id => {
+                    if (badgeIds.indexOf(id) !== -1) applyBadgeUnlockedVisual(id);
+                });
+            }
+
+            // (c) Restaurar la preferencia de sonido.
+            if (typeof data.soundEnabled === 'boolean') {
+                soundEnabled = data.soundEnabled;
+                const icon = document.getElementById('soundIcon');
+                const label = document.getElementById('soundLabel');
+                if (soundEnabled) {
+                    if (icon) icon.className = 'fas fa-volume-up text-lg text-purple-600';
+                    if (label) label.innerText = 'Sonidos: ON';
+                } else {
+                    if (icon) icon.className = 'fas fa-volume-mute text-lg text-slate-400';
+                    if (label) label.innerText = 'Sonidos: OFF';
+                }
+            }
+
+            // (d) Restaurar cuentos escuchados y misiones ya completadas.
+            if (data.storiesHeard && typeof data.storiesHeard === 'object') {
+                storiesHeard = data.storiesHeard;
+            }
+            if (data.completedQuests && typeof data.completedQuests === 'object') {
+                completedQuests = data.completedQuests;
+            }
+
+            updateStats();
+        }
+
+        // --- MISIONES: PINTADO Y COMPROBACIÓN AUTOMÁTICA ---
+        function renderQuests() {
+            const list = document.getElementById('questList');
+            if (!list) return;
+            list.innerHTML = '';
+            quests.forEach(q => {
+                const done = !!completedQuests[q.id];
+                const li = document.createElement('li');
+                li.id = q.id;
+                li.setAttribute('aria-label', q.title + (done ? ', misión completada' : ', misión pendiente'));
+                li.className = done
+                    ? 'flex items-center gap-4 p-4 rounded-2xl border-4 border-emerald-300 bg-emerald-50 shadow-bubble transition-all'
+                    : 'flex items-center gap-4 p-4 rounded-2xl border-4 border-dashed border-rose-200 bg-rose-50/40 transition-all';
+                li.innerHTML = `
+                    <span class="text-3xl ${done ? '' : 'grayscale opacity-60'}" aria-hidden="true">${q.emoji}</span>
+                    <div class="flex-grow">
+                        <h4 class="font-extrabold text-sm sm:text-base ${done ? 'text-emerald-800' : 'text-slate-700'}">${q.title}</h4>
+                        <p class="text-xs font-semibold ${done ? 'text-emerald-600' : 'text-slate-500'}">${q.desc}</p>
+                    </div>
+                    <span class="text-2xl" aria-hidden="true">${done ? '✅' : '⬜'}</span>
+                `;
+                list.appendChild(li);
+            });
+            updateQuestProgressBadge();
+        }
+
+        function updateQuestProgressBadge() {
+            const total = quests.length;
+            const done = quests.filter(q => completedQuests[q.id]).length;
+            const badge = document.getElementById('questProgressBadge');
+            if (badge) badge.innerText = `${done} / ${total} ⭐`;
+            const hint = document.getElementById('questHint');
+            if (hint) {
+                if (done === 0) {
+                    hint.innerText = '¡Ve al Taller a construir y escucha los cuentos para encender tus misiones!';
+                } else if (done < total) {
+                    hint.innerText = `¡Genial! Llevas ${done} de ${total} misiones. ¡Sigue así, pequeño arquitecto!`;
+                } else {
+                    hint.innerText = '¡Increíble! Completaste todas las misiones. ¡Eres un Arquitecto del Futuro!';
+                }
+            }
+        }
+
+        // Comprueba todas las misiones; las recién completadas disparan sonido,
+        // toast y voz de felicitación. Devuelve true si hubo alguna nueva.
+        function checkQuests() {
+            let newlyDone = false;
+            quests.forEach(q => {
+                if (!completedQuests[q.id] && q.check()) {
+                    completedQuests[q.id] = true;
+                    newlyDone = true;
+                    playChimeSound();
+                    showToast(`¡Misión cumplida: ${q.title}!`, q.emoji);
+                    readText(`¡Misión cumplida! ${q.title}. ¡Muy bien, pequeño arquitecto!`);
+                }
+            });
+            return newlyDone;
+        }
+
+        // --- MAPA DE LA CIUDAD: RESUMEN VISUAL DEL PROGRESO ---
+        function updateCityMap() {
+            const placed = gridState.filter(b => b !== null);
+            const ecoBlocks = gridState.filter(b => b && materials[b].isEco);
+            const score = placed.length > 0 ? Math.round((ecoBlocks.length / placed.length) * 100) : 0;
+            const badgesWon = badgeIds.filter(id => {
+                const el = document.getElementById(id);
+                return el && !el.classList.contains('grayscale');
+            }).length;
+
+            const blocksEl = document.getElementById('mapBlocks');
+            const ecoEl = document.getElementById('mapEco');
+            const badgesEl = document.getElementById('mapBadges');
+            if (blocksEl) blocksEl.innerText = placed.length;
+            if (ecoEl) ecoEl.innerText = `${score}%`;
+            if (badgesEl) badgesEl.innerText = `${badgesWon} / ${badgeIds.length}`;
+
+            // Crecimiento de la ciudad: combina bloques (hasta 20) e insignias.
+            const growth = Math.min(100, Math.round((placed.length / 20) * 70) + badgesWon * 7);
+            const fill = document.getElementById('cityProgressFill');
+            const bar = document.getElementById('cityProgressBar');
+            if (fill) fill.style.width = `${growth}%`;
+            if (bar) bar.setAttribute('aria-valuenow', String(growth));
+
+            let level = 'Semilla 🌱';
+            let skyline = '🌱';
+            if (growth >= 85) {
+                level = 'Metrópoli Verde 🌆';
+                skyline = '🌳🏢🏙️🏡🌳🏫🌳🏢🌲';
+            } else if (growth >= 55) {
+                level = 'Ciudad Creciente 🏙️';
+                skyline = '🌳🏠🏢🏡🌲🏠';
+            } else if (growth >= 25) {
+                level = 'Pueblito 🏡';
+                skyline = '🌳🏠🌲';
+            } else if (growth > 0) {
+                level = 'Brote 🌿';
+                skyline = '🌱🌿';
+            }
+            const levelLabel = document.getElementById('cityLevelLabel');
+            const skylineEl = document.getElementById('citySkyline');
+            if (levelLabel) levelLabel.innerText = level;
+            if (skylineEl) skylineEl.innerText = skyline;
+        }
+
+        // Mensaje de ánimo por voz del zorro con el resumen de la ciudad.
+        function speakCitySummary() {
+            const placed = gridState.filter(b => b !== null).length;
+            const badgesWon = badgeIds.filter(id => {
+                const el = document.getElementById(id);
+                return el && !el.classList.contains('grayscale');
+            }).length;
+            const done = quests.filter(q => completedQuests[q.id]).length;
+            const msg = `¡Hola, soy Zorro! Tu Ciudad Verde tiene ${placed} bloques, ${badgesWon} insignias ganadas y ${done} misiones cumplidas. ¡Qué gran trabajo, sigue construyendo!`;
+            showToast("Zorro revisa tu ciudad verde...", "🦊");
+            readText(msg);
+        }
+
+        // Orquesta la actualización de misiones y mapa tras cualquier cambio de estado.
+        function refreshProgress() {
+            checkQuests();
+            renderQuests();
+            updateCityMap();
+        }
+
+        // --- REINICIAR PROGRESO (con confirmación por segundo clic) ---
+        let resetArmed = false;
+        let resetTimer = null;
+        function resetProgress() {
+            const btn = document.getElementById('resetProgressBtn');
+            if (!resetArmed) {
+                resetArmed = true;
+                playPopSound();
+                showToast("¿Seguro? Pulsa otra vez para empezar de nuevo.", "🤔");
+                if (btn) {
+                    btn.classList.add('ring-4', 'ring-rose-400');
+                    btn.setAttribute('aria-label', 'Confirmar: pulsa de nuevo para borrar el progreso guardado');
+                }
+                resetTimer = setTimeout(() => {
+                    resetArmed = false;
+                    if (btn) {
+                        btn.classList.remove('ring-4', 'ring-rose-400');
+                        btn.setAttribute('aria-label', 'Empezar de nuevo y borrar el progreso guardado');
+                    }
+                }, 4000);
+                return;
+            }
+
+            // Segundo clic confirmado: limpiar todo.
+            resetArmed = false;
+            if (resetTimer) clearTimeout(resetTimer);
+            if (btn) {
+                btn.classList.remove('ring-4', 'ring-rose-400');
+                btn.setAttribute('aria-label', 'Empezar de nuevo y borrar el progreso guardado');
+            }
+
+            try {
+                if (typeof localStorage !== 'undefined' && localStorage) {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            } catch (e) {}
+
+            gridState = new Array(30).fill(null);
+            storiesHeard = {};
+            completedQuests = {};
+
+            // Restablecer insignias al estado bloqueado.
+            badgeIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
+                    el.classList.add('bg-slate-100', 'border-slate-300', 'opacity-50', 'grayscale');
+                }
+            });
+
+            initSandbox();
+            updateStats();
+            renderQuests();
+            updateCityMap();
+            saveState();
+            playChimeSound();
+            showToast("¡Listo! Empezamos de nuevo. 🌱", "🔄");
+            readText("¡Listo! Borramos todo para empezar de nuevo. ¡A construir otra ciudad verde!");
+        }
+
         // --- NAVEGACIÓN: SCROLLSPY, SCROLL SUAVE Y VOLVER ARRIBA ---
 
         // Ids de las secciones observadas por el scrollspy. FEAT-003 debe añadir
         // aquí los ids de sus secciones nuevas (p. ej. 'retos', 'mapa') además de
         // insertar los enlaces correspondientes en #mainNav y #mobileTabBar.
-        const navSectionIds = ['inicio', 'taller', 'cuentos', 'insignias'];
+        const navSectionIds = ['inicio', 'taller', 'cuentos', 'insignias', 'retos', 'mapa'];
         let scrollSpyObserver = null;
 
         // Marca como activo el enlace de nav y el item de la tab bar de la sección
@@ -976,6 +1438,12 @@
         // --- INITIALIZATION ---
         window.onload = function() {
             initSandbox();
+            // Restaurar el progreso guardado DESPUÉS de crear los tiles vacíos,
+            // para repintar encima lo que estaba construido.
+            loadState();
+            // Pintar misiones y mapa a partir del estado (restaurado o inicial).
+            renderQuests();
+            updateCityMap();
             initNavigation();
         };
     </script>
