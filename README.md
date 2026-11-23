@@ -1,98 +1,174 @@
 # Arquitectos del Futuro
 
 Sitio web educativo e interactivo en espanol, creado como propuesta pedagogica
-por **Darcy Quiza** y **Nikol Espinosa** ("Arquitecturas de la Emancipacion
-Infantil"). La experiencia invita a construir espacios y ciudades sostenibles,
-escuchar relatos sonoros sobre el cuidado del entorno, completar misiones de
-aprendizaje y reunir reconocimientos. La interfaz esta pensada para un publico
-adulto e institucional (educadores, instituciones y jurados que evaluan la
-propuesta pedagogica), con un lenguaje visual sobrio y profesional.
+por **Darcy Quiza** y **Nikol Espinosa** ("Arquitecturas de la emancipacion
+infantil"). La experiencia invita a explorar materiales sostenibles, construir
+territorios de juego para la comunidad, escuchar relatos sonoros sobre el cuidado
+del agua, la energia y el entorno, completar misiones de aprendizaje y reunir
+insignias. Esta pensada para acompanar a la primera infancia y para que
+educadores, instituciones y jurados puedan recorrer la propuesta.
 
-## Identidad visual (diseno profesional e institucional)
+El sitio en vivo se publica con GitHub Pages desde la raiz del repositorio:
+[https://nikolortegae-spec.github.io/arquitectos-/](https://nikolortegae-spec.github.io/arquitectos-/).
 
-El sitio usa un estilo institucional y educativo serio, con superficies limpias y
-jerarquia clara, con estas caracteristicas:
+## Direccion de diseno: "Plano Vivo"
 
-- **Paleta:** verde bosque sobrio como color de acento, apoyado en neutros
-  (blancos, grises y azul pizarra). Los tokens de marca estan definidos en el
-  `tailwind.config` inline del `<head>`: `bosque`, `bosqueOscuro`, `bosqueClaro`
-  y `bosqueSuave` para el acento verde; `pizarra` y `tinta` para el texto;
-  `papel`, `lienzo` y `borde` para superficies y bordes neutros. El contraste se
-  mantiene legible segun WCAG.
-- **Superficies limpias:** el `body` usa un fondo neutro liso (gris verdoso muy
-  claro), sin texturas decorativas ni degradados llamativos. Las secciones son
-  tarjetas sobre fondo blanco con bordes discretos y sombras sutiles.
-- **Tipografia profesional:** el cuerpo usa la Google Font **Inter** (sans
-  moderna) y los titulos usan **Fraunces** (una display serif sobria),
-  registradas como familias `sans` y `display`. No se usan fuentes manuscritas ni
-  de estilo infantil.
-- **Encabezados tipograficos:** los encabezados de las seis secciones usan la
-  clase `.section-header` (con `.section-title`, `.section-audio` y
-  `.section-sub`), un tratamiento tipografico sobrio con una linea de acento
-  verde, en lugar de rotulos decorativos.
-- **Componentes sobrios:** tarjetas con radios moderados, bordes discretos y
-  sombras suaves (`card` y `cardHover`); se evitan los redondeos exagerados y las
-  sombras tipo juguete.
-- **Iconografia y voz guia:** se emplean iconos de FontAwesome y algun emoji
-  puntual con moderacion. El hero incluye una marca visual sobria (icono) que al
-  activarse reproduce una breve voz guia. Los textos de interfaz, avisos (toast)
-  y mensajes de voz usan un registro mesurado adecuado a un publico adulto e
-  institucional.
-- **Animaciones discretas:** micro interacciones sutiles (aparicion suave de
-  bloques, realce ligero de reconocimientos) y respeto de la preferencia del
-  sistema mediante `@media (prefers-reduced-motion: reduce)`.
+La identidad visual se llama **Plano Vivo** (eco-blueprint editorial): un lenguaje
+de plano de construccion aplicado a un tema ecologico, con base de petroleo
+profundo, acento solar ambar y resalte aqua. El sistema de diseno vive en
+`styles.css` como variables CSS (custom properties) en el selector `:root`, sin
+Tailwind ni ningun framework de estilos.
 
-El diseno cuida la accesibilidad: contraste legible sobre el fondo claro, foco
-visible por teclado (`:focus-visible`), `aria-label` descriptivos y la cobertura
-de `prefers-reduced-motion` para las animaciones restantes.
+- **Paleta (tokens en `styles.css`).** Superficies y texto: `--color-fondo`
+  (petroleo profundo), `--color-fondo-alt`, `--color-superficie` (blanco),
+  `--color-superficie-suave`, `--color-superficie-tinta`, `--color-borde` y
+  `--color-borde-tinta`. Texto: `--color-texto`, `--color-texto-suave`,
+  `--color-texto-claro` y `--color-texto-claro-suave`. Marca y materiales:
+  `--color-petroleo` y `--color-petroleo-oscuro`, `--color-aqua` y
+  `--color-aqua-suave`, `--color-solar` y `--color-solar-oscuro`, `--color-hoja`
+  y `--color-hoja-suave`, `--color-agua`, `--color-piedra` y `--color-madera`.
+  Estados: `--color-exito` y `--color-aviso`. El contraste se mantiene legible
+  segun WCAG.
+- **Tipografia con fallback del sistema.** El cuerpo usa la variable
+  `--fuente-cuerpo` con **Space Grotesk** y los titulos usan `--fuente-titulo`
+  con **Sora**. Ambas familias incluyen una pila de fallback del sistema
+  (`"Segoe UI"`, `system-ui`, `-apple-system`, Roboto, Helvetica, Arial,
+  sans-serif), por lo que el sitio se ve coherente aunque la fuente de Google
+  Fonts no cargue. Las fuentes se piden por CDN desde `index.html` con
+  `preconnect` y `display=swap`.
+- **Sistema de espaciado, radios y sombras.** Escala de espaciado `--esp-1` a
+  `--esp-8`, radios `--radio-sm`, `--radio-md`, `--radio-lg` y `--radio-full`, y
+  sombras `--sombra-sm`, `--sombra-md` y `--sombra-lg`. Hay tokens de ancho
+  maximo (`--ancho-max`) y de compensacion de la cabecera fija
+  (`--altura-cabecera`).
+- **Componentes.** Secciones como tarjetas (`.tarjeta`), encabezados de seccion
+  con eyebrow, titulo y subtitulo, botones con variantes (principal, solar,
+  contorno, neutro), cuadricula del taller, tarjetas de cuento, insignias, lista
+  de misiones y fichas del mapa con barra de progreso y skyline. Los iconos con
+  significado se dibujan con SVG inline o con emoji acompanado de `aria-label`;
+  no se depende de FontAwesome.
+- **Tono.** Lenguaje claro y amable para la primera infancia, con avisos (toast)
+  y mensajes de voz breves y en registro cercano.
+
+## Estructura de archivos (sitio estatico buildless)
+
+El sitio es estatico y no tiene ningun paso de compilacion. Son tres archivos en
+la raiz del repositorio:
+
+- `index.html`: punto de entrada (entry point). Declara `<!DOCTYPE html>` y
+  `<html lang="es">`, enlaza `styles.css` en el `<head>` y carga `app.js` con
+  `defer` al final del `<head>`.
+- `styles.css`: todo el sistema de diseno y los estilos (CSS propio con variables
+  en `:root`).
+- `app.js`: toda la logica interactiva (sin dependencias ni modulos externos).
+
+GitHub Pages publica el contenido directamente desde la raiz (`/`), sirviendo
+`index.html` tal cual. No hay bundler, ni npm, ni tarea de build: basta con abrir
+`index.html` en un navegador moderno para ver el sitio funcionando.
+
+## Experiencia interactiva
+
+- **Taller de construccion (`#taller`).** Selector de seis materiales (madera
+  `wood`, techo verde `plants`, agua `water`, panel solar `solar`, piedra
+  `stone` y borrador `eraser`) y un terreno de 40 casillas (cuadricula de 10 x 4).
+  Se elige un material y se hace clic en las casillas para colocarlo o borrarlo.
+  Muestra el contador de bloques colocados y un eco-score de "energia limpia"
+  (porcentaje de materiales ecologicos sobre lo colocado), con botones para
+  evaluar la construccion y para limpiar todo.
+- **Relatos sonoros (`#cuentos`).** Tres cuentos con claves estables `mateo`
+  (el oso y la casa solar), `renata` (la rana y el rio limpio) y `maya` (la abeja
+  y el techo verde). Cada tarjeta se escucha por voz, queda marcada como
+  escuchada y desbloquea la insignia de oyente.
+- **Insignias (`#insignias`).** Cuatro insignias que arrancan bloqueadas y se
+  iluminan al interactuar: Constructor (`badge-builder`), Energia limpia
+  (`badge-eco`), Oyente (`badge-story`) y Maestra del futuro (`badge-master`).
+  Al desbloquear suena un efecto y aparece un toast; al restaurar desde el
+  almacenamiento se aplican de forma solo visual.
+- **Misiones (`#retos`).** Cinco misiones que se marcan solas segun lo que
+  construyes y los relatos que escuchas (por ejemplo colocar paneles solares,
+  agua y techos verdes, escuchar los relatos y levantar una ciudad con bastantes
+  bloques). La lista se pinta desde `app.js` y hay un contador de avance X/5.
+- **Mi ciudad (`#mapa`).** Resumen global del progreso: bloques, energia limpia e
+  insignias (X/4), una barra de crecimiento de la ciudad con `role="progressbar"`
+  y `aria-valuenow`, y un skyline que crece por nivel. Incluye un boton para
+  escuchar el resumen por voz.
+- **Sonido (Web Audio API).** Motor de sonido propio con contexto de audio
+  perezoso para efectos de interaccion, de colocado y de logro, siempre bajo la
+  guardia del estado de sonido.
+- **Voz (SpeechSynthesis `es-ES`).** Lectura en voz alta de presentaciones,
+  secciones, relatos y resumen; cancela la locucion anterior antes de empezar y
+  avisa si el navegador no tiene soporte de voz.
+- **Toggle de sonido.** Boton global en la cabecera que activa o silencia todo el
+  audio (efectos y voz), actualiza su icono, etiqueta y `aria-label`, y guarda la
+  preferencia.
+- **Avisos (toasts).** Mensajes no bloqueantes en pantalla, sin usar `alert`.
+- **Persistencia (`localStorage`).** El progreso (cuadricula del taller,
+  insignias desbloqueadas, preferencia de sonido, relatos escuchados y misiones
+  completadas) se guarda con la clave `arquitectosDelFuturo_v2` dentro de un
+  `try/catch`, asi que se conserva al recargar. El boton **Empezar de nuevo**
+  (en `#mapa`) borra el progreso y pide confirmacion con un segundo clic.
+- **Navegacion.** Scroll suave que respeta `prefers-reduced-motion`, scrollspy
+  con `IntersectionObserver` que resalta la seccion visible, una tab bar movil
+  espejo del menu principal y un boton para volver arriba que aparece al bajar.
 
 ## Graficos oficiales (placeholders)
 
-Por decision del encargo (Opcion B), **no** se incrusta la ilustracion de
-referencia ni los logos institucionales (Educacion, Culturas, CO-CREA) ni el
-logo oficial de campana, por ser material de terceros con posible copyright o
-marca. En su lugar hay recuadros placeholder claramente marcados, con borde
-discontinuo discreto, fondo neutro y `aria-label` descriptivo, donde colocar los
-graficos oficiales cuando esten disponibles:
+Por decision del encargo, **no** se incrustan logos ni ilustraciones de terceros
+con copyright o marca (Educacion, Culturas, CO-CREA ni el logo o la ilustracion
+oficial de la campana). En su lugar hay recuadros placeholder claramente
+marcados, con borde discontinuo, fondo neutro y `aria-label` descriptivo en
+espanol. Ubicacion exacta de cada uno dentro de `index.html`:
 
-- **Franja de logos institucionales:** en el header, justo encima de la barra de
-  navegacion. Texto: "Franja de logos institucionales aqui: Educacion / Culturas
-  / CO-CREA". Reemplazar por la franja oficial de logos.
-- **Logo oficial de campana:** a la derecha de la franja anterior, en el header.
-  Texto: "Logo oficial de campana aqui". Reemplazar por el logo oficial de la
-  campana.
-- **Ilustracion oficial del heroe:** en el hero (`#inicio`), bajo los botones.
-  Texto: "Espacio reservado para la ilustracion oficial del heroe". Mientras
-  tanto, el espacio del heroe se representa con una marca visual sobria (icono).
+- **Franja de logos institucionales.** En la cabecera (`header.cabecera`), dentro
+  del bloque `div.franja-logos`, como el primer recuadro
+  (`div.placeholder.placeholder-logos`), justo encima de la barra de navegacion
+  principal. Texto: "Franja de logos institucionales (Educacion, Culturas,
+  CO-CREA)". Reemplazar por la franja oficial de logos.
+- **Logo oficial de campana.** En la misma cabecera, dentro de `div.franja-logos`,
+  como el segundo recuadro (`div.placeholder.placeholder-campana`), a la derecha
+  de la franja anterior. Texto: "Logo oficial de campana". Reemplazar por el logo
+  oficial de la campana.
+- **Ilustracion oficial del hero.** En la seccion de inicio (`#inicio`), dentro de
+  la columna de texto del hero y debajo de los botones de accion, en el recuadro
+  `div.placeholder.hero-placeholder`. Texto: "Espacio reservado para la
+  ilustracion oficial del hero". Reemplazar por la ilustracion oficial del hero.
 
-No existe carpeta `assets/` todavia. Si en el futuro se agregan los archivos
-oficiales, se recomienda crear `assets/` y colocar ahi las imagenes, actualizando
-cada placeholder para que apunte al archivo correspondiente. No usar CDNs de
-imagenes de terceros; Tailwind, Google Fonts y FontAwesome por CDN si estan
-permitidos.
+No existe carpeta `assets/` todavia. Cuando esten disponibles los archivos
+oficiales, se recomienda crear `assets/` en la raiz, colocar ahi las imagenes y
+actualizar cada placeholder para que apunte al archivo correspondiente (por
+ejemplo sustituyendo el recuadro por una etiqueta `<img>` con su `alt`). No se
+deben incrustar materiales de terceros con copyright directamente en el
+repositorio ni cargarlos desde CDNs de terceros.
 
-## Que se puede hacer
+## Accesibilidad
 
-- **Taller de construccion:** colocar materiales sostenibles (paneles solares,
-  techos verdes, agua, madera, piedra) en una cuadricula y medir la energia
-  limpia.
-- **Relatos sonoros:** escuchar historias breves leidas en voz alta (es-ES).
-- **Misiones de aprendizaje:** retos que se marcan como cumplidos segun lo que
-  construyes y los relatos que escuchas, con aviso por voz y sonido.
-- **Mapa de progreso:** resumen visual del recorrido (bloques, energia limpia,
-  reconocimientos) con un resumen por voz.
-- **Reconocimientos:** se desbloquean al cumplir objetivos de la propuesta.
+- **Contraste WCAG.** Combinaciones de color legibles para texto y controles,
+  tanto sobre superficies claras como sobre el petroleo profundo.
+- **Foco visible por teclado.** Estilos `:focus-visible` con contorno claro en
+  enlaces, botones y elementos interactivos.
+- **Etiquetas para iconos y emoji.** Todos los controles cuyo contenido es un
+  icono o un emoji llevan `aria-label` descriptivo (toggle de sonido, botones de
+  audio, materiales, casillas, volver arriba), y los graficos decorativos usan
+  `aria-hidden`.
+- **Estructura semantica.** Un solo `h1` y un `h2` por seccion, enlace para
+  saltar al contenido, regiones `header`, `nav`, `main` y `footer`, y navegacion
+  por teclado con botones reales.
+- **Movimiento reducido.** Soporte de `@media (prefers-reduced-motion: reduce)`
+  que neutraliza animaciones, transiciones y el scroll suave.
+- **Estados comunicados.** `aria-current` en el enlace de navegacion activo,
+  `role="progressbar"` con `aria-valuenow` en la barra de crecimiento y zonas
+  `aria-live` para avisos y estados de los relatos.
 
-El progreso (construccion, reconocimientos, relatos, misiones y preferencia de
-sonido) se guarda en el navegador con `localStorage`, asi que se conserva al
-recargar. Hay un boton "Empezar de nuevo" para borrarlo.
+## Como abrir y validar en local
 
-## Como abrir el sitio
+Es un sitio estatico sin pasos de compilacion:
 
-Es un sitio estatico de un solo archivo, sin pasos de compilacion. Abre
-`index.html` en un navegador moderno.
+1. Abre `index.html` en un navegador moderno (doble clic o arrastrarlo al
+   navegador). Para ver las fuentes de Google Fonts conviene tener conexion a
+   internet; si no la hay, el sitio usa la pila de fuentes del sistema. Los
+   sonidos usan la Web Audio API y la lectura en voz alta usa `SpeechSynthesis`,
+   ambos incluidos en los navegadores modernos.
+2. Valida la sintaxis de la logica con Node: `node --check app.js` (debe salir
+   sin errores).
 
-Usa recursos por CDN (Tailwind CSS, Google Fonts y FontAwesome), por lo que para
-ver los estilos e iconos completos conviene abrirlo **con conexion a internet**.
-Los sonidos usan la Web Audio API y la lectura en voz alta usa
-`SpeechSynthesis`, ambos incluidos en los navegadores modernos.
+No hace falta instalar dependencias ni ejecutar ningun servidor o tarea de build.
