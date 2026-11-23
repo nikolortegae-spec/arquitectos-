@@ -40,12 +40,77 @@
         }
     </script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Fredoka', cursive, sans-serif;
             background: linear-gradient(180deg, #E0F2FE 0%, #F0FDF4 50%, #FEF9C3 100%);
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
+        }
+
+        /* Compensa la altura del header sticky para que el título de cada
+           sección no quede tapado al navegar con las anclas. */
+        section[id] {
+            scroll-margin-top: 96px;
+        }
+
+        /* --- NAVEGACIÓN PRINCIPAL (estética bubble + scrollspy) --- */
+        .nav-link {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .nav-link:hover {
+            transform: translateY(-3px);
+        }
+        /* Enlace resaltado por el scrollspy (sección visible) */
+        .nav-link.activo {
+            background-color: #DDD6FE;
+            border-color: #7C3AED;
+            color: #5B21B6;
+            box-shadow: 0 6px 0px 0px rgba(124, 58, 237, 0.25);
+        }
+        .nav-link.activo .nav-emoji {
+            transform: scale(1.25) rotate(-6deg);
+        }
+        .nav-emoji {
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- TAB BAR INFERIOR (móvil, estilo app) --- */
+        .tab-link {
+            transition: all 0.2s ease;
+        }
+        .tab-link.activo {
+            color: #6D28D9;
+        }
+        .tab-link.activo .tab-emoji {
+            transform: translateY(-4px) scale(1.2);
+        }
+        .tab-link.activo .tab-dot {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .tab-emoji {
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .tab-dot {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- BOTÓN FLOTANTE VOLVER ARRIBA --- */
+        #backToTopBtn {
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #backToTopBtn.oculto {
+            opacity: 0;
+            transform: translateY(24px) scale(0.6);
+            pointer-events: none;
         }
 
         /* Animated bouncy buttons */
@@ -135,6 +200,23 @@
             .btn-bubble:active {
                 transform: none !important;
             }
+            html {
+                scroll-behavior: auto !important;
+            }
+            .nav-link,
+            .nav-emoji,
+            .tab-link,
+            .tab-emoji,
+            .tab-dot,
+            #backToTopBtn {
+                transition: none !important;
+            }
+            .nav-link:hover,
+            .nav-link.activo .nav-emoji,
+            .tab-link.activo .tab-emoji,
+            #backToTopBtn.oculto {
+                transform: none !important;
+            }
         }
     </style>
 </head>
@@ -180,10 +262,38 @@
                 </button>
             </div>
         </div>
+
+        <!-- BARRA DE NAVEGACIÓN PRINCIPAL (visible en pantallas medianas y grandes;
+             en móvil se usa la tab bar inferior) -->
+        <nav aria-label="Navegación principal" class="max-w-6xl mx-auto mt-3 hidden sm:block">
+            <ul id="mainNav" class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+                <li>
+                    <a href="#inicio" data-section="inicio" class="nav-link btn-bubble flex items-center gap-2 bg-sky-100 border-4 border-sky-300 text-sky-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🏡</span> Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="#taller" data-section="taller" class="nav-link btn-bubble flex items-center gap-2 bg-emerald-100 border-4 border-emerald-300 text-emerald-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🏗️</span> Taller
+                    </a>
+                </li>
+                <li>
+                    <a href="#cuentos" data-section="cuentos" class="nav-link btn-bubble flex items-center gap-2 bg-purple-100 border-4 border-purple-300 text-purple-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🎧</span> Cuentos
+                    </a>
+                </li>
+                <li>
+                    <a href="#insignias" data-section="insignias" class="nav-link btn-bubble flex items-center gap-2 bg-amber-100 border-4 border-amber-300 text-amber-800 font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
+                        <span class="nav-emoji text-lg" aria-hidden="true">🏆</span> Insignias
+                    </a>
+                </li>
+                <!-- FEAT-003: añadir aquí nuevos <li><a href="#retos"/#mapa data-section="..."> con el mismo patrón -->
+            </ul>
+        </nav>
     </header>
 
     <!-- MAIN CONTAINER -->
-    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8">
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8 pb-28 sm:pb-6">
 
         <!-- HERO INTRODUCTION BANNER -->
         <section id="inicio" class="bg-gradient-to-r from-teal-100 via-sky-100 to-indigo-100 border-4 border-white rounded-3xl p-6 shadow-bubble relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
@@ -464,6 +574,46 @@
             </span>
         </div>
     </footer>
+
+    <!-- TAB BAR INFERIOR FIJA (solo móvil, estilo app) -->
+    <nav aria-label="Navegación inferior" class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t-4 border-sky-200 shadow-[0_-6px_20px_-5px_rgba(0,0,0,0.12)]">
+        <ul id="mobileTabBar" class="flex items-stretch justify-around px-2 py-1">
+            <li class="flex-1">
+                <a href="#inicio" data-section="inicio" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🏡</span>
+                    <span>Inicio</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#taller" data-section="taller" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🏗️</span>
+                    <span>Taller</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#cuentos" data-section="cuentos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🎧</span>
+                    <span>Cuentos</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li class="flex-1">
+                <a href="#insignias" data-section="insignias" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
+                    <span class="tab-emoji text-2xl" aria-hidden="true">🏆</span>
+                    <span>Insignias</span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-purple-500 rounded-full" aria-hidden="true"></span>
+                </a>
+            </li>
+            <!-- FEAT-003: añadir aquí los <li> gemelos para #retos / #mapa con el mismo patrón data-section -->
+        </ul>
+    </nav>
+
+    <!-- BOTÓN FLOTANTE VOLVER ARRIBA (abajo a la izquierda para no chocar con el toast) -->
+    <button id="backToTopBtn" type="button" onclick="scrollToTop()" aria-label="Volver arriba" title="Volver arriba" class="oculto fixed bottom-20 left-5 sm:bottom-6 sm:left-6 z-50 btn-bubble bg-purple-500 hover:bg-purple-600 text-white border-4 border-purple-700 w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-bubble">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <!-- POPUP NOTIFICATION / MESSAGE BOX (NO ALERTS) -->
     <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-amber-300 border-4 border-amber-500 text-amber-950 font-extrabold px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 text-lg">
@@ -747,9 +897,86 @@
             }, 4000);
         }
 
+        // --- NAVEGACIÓN: SCROLLSPY, SCROLL SUAVE Y VOLVER ARRIBA ---
+
+        // Ids de las secciones observadas por el scrollspy. FEAT-003 debe añadir
+        // aquí los ids de sus secciones nuevas (p. ej. 'retos', 'mapa') además de
+        // insertar los enlaces correspondientes en #mainNav y #mobileTabBar.
+        const navSectionIds = ['inicio', 'taller', 'cuentos', 'insignias'];
+        let scrollSpyObserver = null;
+
+        // Marca como activo el enlace de nav y el item de la tab bar de la sección
+        // indicada, limpiando el estado del resto y exponiendo aria-current.
+        function setActiveNav(sectionId) {
+            document.querySelectorAll('.nav-link, .tab-link').forEach(link => {
+                const isActive = link.getAttribute('data-section') === sectionId;
+                link.classList.toggle('activo', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function initScrollSpy() {
+            // Evita registrar el observer dos veces si se reinicializa.
+            if (scrollSpyObserver) {
+                scrollSpyObserver.disconnect();
+                scrollSpyObserver = null;
+            }
+
+            const sections = navSectionIds
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+
+            if (!('IntersectionObserver' in window) || sections.length === 0) {
+                return;
+            }
+
+            // Compensa el header sticky: la "línea activa" está cerca del tope.
+            scrollSpyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setActiveNav(entry.target.id);
+                    }
+                });
+            }, {
+                rootMargin: '-45% 0px -50% 0px',
+                threshold: 0
+            });
+
+            sections.forEach(section => scrollSpyObserver.observe(section));
+            setActiveNav('inicio');
+        }
+
+        // Scroll suave al inicio desde el botón flotante.
+        function scrollToTop() {
+            playPopSound();
+            const reduceMotion = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+            setActiveNav('inicio');
+        }
+
+        // Muestra u oculta el botón volver-arriba según la posición del scroll.
+        function updateBackToTopVisibility() {
+            const btn = document.getElementById('backToTopBtn');
+            if (!btn) return;
+            const y = window.scrollY || window.pageYOffset || 0;
+            btn.classList.toggle('oculto', y <= 400);
+        }
+
+        function initNavigation() {
+            initScrollSpy();
+            updateBackToTopVisibility();
+            window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+        }
+
         // --- INITIALIZATION ---
         window.onload = function() {
             initSandbox();
+            initNavigation();
         };
     </script>
 </body>
