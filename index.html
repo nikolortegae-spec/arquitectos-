@@ -1,1476 +1,464 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquitectos del Futuro - Darcy Quiza & Nikol Espinosa</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter para cuerpo (sans profesional) + Fraunces para titulos (display sobria) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for visual icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        /* ===== NUEVA IDENTIDAD PROFESIONAL / INSTITUCIONAL =====
-                           Verde bosque sobrio como acento, apoyado en neutros.
-                           Pensada para publico adulto/institucional con buen contraste WCAG. */
-                        bosque: '#1F5138',        /* verde bosque institucional (acento principal) */
-                        bosqueOscuro: '#143A27',  /* verde profundo para texto/hover sobre claro */
-                        bosqueClaro: '#3C7A57',   /* verde medio para estados/hover */
-                        bosqueSuave: '#E6EFE9',   /* verde muy claro para superficies/fondos sutiles */
-                        pizarra: '#334155',       /* azul pizarra para texto secundario */
-                        tinta: '#1E293B',         /* texto principal oscuro */
-                        papel: '#FFFFFF',         /* superficie blanca limpia */
-                        lienzo: '#F6F7F5',         /* fondo neutro gris/verde muy claro del body */
-                        borde: '#D9DEDB'           /* gris neutro para bordes discretos */
-                    },
-                    fontFamily: {
-                        /* Sans profesional para cuerpo y display serif sobria para titulos */
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-                        display: ['Fraunces', 'Georgia', 'serif']
-                    },
-                    boxShadow: {
-                        /* Sombras sutiles profesionales (desenfoque suave, baja opacidad) */
-                        card: '0 1px 2px 0 rgba(15,23,42,0.04), 0 4px 16px -4px rgba(15,23,42,0.10)',
-                        cardHover: '0 2px 4px 0 rgba(15,23,42,0.06), 0 10px 28px -6px rgba(15,23,42,0.14)'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-            /* Superficie limpia neutra (gris/verde muy claro), sin textura decorativa. */
-            background-color: #F6F7F5;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arquitectos del Futuro: experiencia educativa interactiva para construir espacios sostenibles, escuchar relatos y completar misiones. Propuesta pedagogica de Darcy Quiza y Nikol Espinosa.">
+  <title>Arquitectos del Futuro | Darcy Quiza y Nikol Espinosa</title>
 
-        /* Titulos con la display serif sobria */
-        h1, h2, h3, h4 {
-            font-family: 'Fraunces', Georgia, serif;
-            letter-spacing: -0.01em;
-        }
+  <!-- Tipografia por CDN con fallback del sistema garantizado en styles.css -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Encabezado de seccion sobrio y reutilizable (reemplaza al antiguo cartel de madera).
-           El markup concreto lo define FEAT-002; aqui queda la base tipografica. */
-        .section-header {
-            border-left: 4px solid #1F5138;
-            padding-left: 0.9rem;
-        }
-        .section-header .section-title {
-            color: #143A27;
-        }
-        .section-header .section-audio {
-            color: #1F5138;
-            transition: color 0.2s ease;
-        }
-        .section-header .section-audio:hover {
-            color: #143A27;
-        }
-        .section-header .section-sub {
-            color: #334155;
-        }
-
-        /* Compensa la altura del header sticky para que el título de cada
-           sección no quede tapado al navegar con las anclas. */
-        section[id] {
-            scroll-margin-top: 96px;
-        }
-
-        /* --- NAVEGACIÓN PRINCIPAL (sobria + scrollspy) --- */
-        .nav-link {
-            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-        }
-        .nav-link:hover {
-            background-color: #E6EFE9;
-            color: #143A27;
-        }
-        /* Enlace resaltado por el scrollspy (sección visible) - verde institucional sobrio */
-        .nav-link.activo {
-            background-color: #1F5138;
-            border-color: #1F5138;
-            color: #FFFFFF;
-        }
-        .nav-link.activo .nav-emoji {
-            transform: none;
-        }
-        .nav-emoji {
-            display: inline-block;
-            transition: transform 0.18s ease;
-        }
-
-        /* --- TAB BAR INFERIOR (móvil, estilo app) --- */
-        .tab-link {
-            transition: color 0.18s ease;
-        }
-        .tab-link.activo {
-            color: #1F5138;
-        }
-        .tab-link.activo .tab-emoji {
-            transform: none;
-        }
-        .tab-link.activo .tab-dot {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .tab-emoji {
-            display: inline-block;
-            transition: transform 0.18s ease;
-        }
-        .tab-dot {
-            opacity: 0;
-            transform: scale(0);
-            transition: opacity 0.18s ease, transform 0.18s ease;
-        }
-
-        /* --- BOTÓN FLOTANTE VOLVER ARRIBA --- */
-        #backToTopBtn {
-            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        #backToTopBtn.oculto {
-            opacity: 0;
-            transform: translateY(24px) scale(0.6);
-            pointer-events: none;
-        }
-
-        /* Botones con micro-interaccion discreta (sin rebote tipo juguete) */
-        .btn-bubble {
-            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-        }
-        .btn-bubble:hover {
-            box-shadow: 0 2px 4px 0 rgba(15,23,42,0.06), 0 10px 28px -6px rgba(15,23,42,0.14);
-        }
-
-        /* Cuadricula del taller (puntos discretos en gris neutro) */
-        .sandbox-grid {
-            background-size: 40px 40px;
-            background-image: 
-                radial-gradient(circle, #CBD5CE 1.5px, transparent 1.5px);
-        }
-
-        /* Insignia desbloqueada: realce discreto, sin pulso luminoso.
-           HOOK JS: no renombrar .unlocked-badge. */
-        .unlocked-badge {
-            filter: drop-shadow(0 2px 6px rgba(31, 81, 56, 0.25));
-        }
-
-        /* Bloque colocado en el taller: aparicion suave, sin rebote.
-           HOOK JS: no renombrar .placed-block. */
-        @keyframes blockFadeIn {
-            0% { transform: scale(0.96); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .placed-block {
-            animation: blockFadeIn 0.2s ease-out;
-        }
-
-        /* Indicador de foco visible para navegación por teclado (verde de acento) */
-        a:focus-visible,
-        button:focus-visible,
-        [tabindex]:focus-visible {
-            outline: 3px solid #1F5138;
-            outline-offset: 2px;
-            border-radius: 0.5rem;
-        }
-
-        /* Enlace de salto al contenido (skip to content) */
-        .skip-to-content:focus-visible {
-            outline: 3px solid #1F5138;
-            outline-offset: 2px;
-        }
-
-        /* Respeta la preferencia de movimiento reducido del sistema */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.001ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
-            .placed-block {
-                animation: none !important;
-            }
-            .btn-bubble {
-                transition: none !important;
-            }
-            .btn-bubble:hover {
-                box-shadow: none !important;
-            }
-            html {
-                scroll-behavior: auto !important;
-            }
-            .nav-link,
-            .nav-emoji,
-            .tab-link,
-            .tab-emoji,
-            .tab-dot,
-            #backToTopBtn {
-                transition: none !important;
-            }
-            .tab-link.activo .tab-dot,
-            #backToTopBtn.oculto {
-                transform: none !important;
-            }
-        }
-    </style>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
-<body class="text-tinta overflow-x-hidden flex flex-col min-h-screen">
+<body>
 
-    <!-- SKIP TO CONTENT (accesibilidad por teclado) -->
-    <a href="#taller" class="skip-to-content sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] bg-papel border-2 border-bosque text-bosque font-bold px-4 py-2 rounded-lg shadow-card">
-        Saltar al contenido principal
-    </a>
+  <!-- Saltar al contenido -->
+  <a class="saltar" href="#taller">Saltar al contenido principal</a>
 
-    <!-- TOP HEADER / NAV BAR -->
-    <header class="sticky top-0 z-50 bg-papel/95 backdrop-blur-md border-b border-borde px-4 py-3 shadow-card">
-        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            
-            <!-- Brand & Title -->
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-bosque rounded-lg flex items-center justify-center text-white text-xl">
-                    <i class="fas fa-seedling" aria-hidden="true"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-bold text-bosqueOscuro flex items-center gap-2">
-                        Arquitectos del Futuro
-                        <span class="text-[10px] bg-bosqueSuave text-bosque px-2 py-0.5 rounded font-sans font-semibold uppercase tracking-wider hidden sm:inline-block">EMC</span>
-                    </h1>
-                    <p class="text-xs sm:text-sm font-medium text-pizarra">
-                        Una propuesta pedagógica por <span class="text-bosque font-semibold">Darcy Quiza</span> y <span class="text-bosque font-semibold">Nikol Espinosa</span>
-                    </p>
-                </div>
-            </div>
+  <!-- ===================== CABECERA ===================== -->
+  <header class="cabecera">
+    <div class="contenedor">
 
-            <!-- Global Controls: Sound & Voice -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Sound Toggle -->
-                <button id="soundToggleBtn" onclick="toggleSoundMaster()" aria-label="Activar o desactivar los sonidos" class="btn-bubble bg-papel border border-borde text-tinta font-semibold px-3 py-2 rounded-lg flex items-center gap-2 text-sm sm:text-base shadow-card" title="Activar/Desactivar Sonidos">
-                    <i id="soundIcon" class="fas fa-volume-up text-lg text-bosque"></i>
-                    <span id="soundLabel" class="hidden md:inline">Sonidos: ON</span>
-                </button>
-
-                <!-- Help Voice Assist -->
-                <button onclick="readText('Bienvenidos a Arquitectos del Futuro. Una propuesta pedagogica para construir espacios ecologicos, escuchar relatos y conocer la trayectoria de aprendizaje.')" aria-label="Escuchar qué es esta página" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-3 py-2 rounded-lg flex items-center gap-2 text-sm sm:text-base shadow-card">
-                    <i class="fas fa-circle-info text-lg text-white"></i>
-                    <span class="hidden md:inline">¿Qué es esto?</span>
-                </button>
-            </div>
+      <div class="cabecera-fila">
+        <div class="marca">
+          <span class="marca-logo" aria-hidden="true">
+            <!-- Icono inline: brote (decorativo) -->
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 21v-7"></path>
+              <path d="M12 14c0-3 2-5 6-5 0 4-3 5-6 5z"></path>
+              <path d="M12 11C12 8 9 6 5 7c0 4 4 4 7 4z"></path>
+            </svg>
+          </span>
+          <div>
+            <p class="marca-titulo">
+              Arquitectos del Futuro
+              <span class="marca-etiqueta">AEI</span>
+            </p>
+            <p class="marca-sub">
+              Propuesta pedagogica por <strong>Darcy Quiza</strong> y <strong>Nikol Espinosa</strong>
+            </p>
+          </div>
         </div>
 
-        <!-- FRANJA DE LOGOS OFICIALES (PLACEHOLDER - Opcion B) -->
-        <!-- No se incrusta material de terceros. Aqui va la franja oficial de logos
-             institucionales y el logo de campana cuando esten disponibles. -->
-        <div class="max-w-6xl mx-auto mt-3 flex flex-col sm:flex-row items-stretch gap-2">
-            <div role="img" aria-label="Espacio reservado para la franja de logos institucionales oficiales: Educacion, Culturas y CO-CREA" class="flex-grow border border-dashed border-borde bg-lienzo rounded-lg px-3 py-2 text-center text-[11px] sm:text-xs font-medium text-pizarra flex items-center justify-center gap-2">
-                <i class="fas fa-landmark text-pizarra" aria-hidden="true"></i>
-                Franja de logos institucionales aqui: Educacion / Culturas / CO-CREA
-            </div>
-            <div role="img" aria-label="Espacio reservado para el logo oficial de la campana institucional" class="sm:w-56 border border-dashed border-bosque bg-bosqueSuave rounded-lg px-3 py-2 text-center text-[11px] sm:text-xs font-semibold text-bosque flex items-center justify-center gap-2">
-                <i class="fas fa-award text-bosque" aria-hidden="true"></i>
-                Logo oficial de campana aqui
-            </div>
+        <div class="cabecera-controles">
+          <button id="soundToggleBtn" type="button" class="btn btn-neutro btn-sm"
+                  onclick="toggleSoundMaster()" aria-label="Activar o desactivar los sonidos">
+            <span id="soundIcon" aria-hidden="true">🔊</span>
+            <span id="soundLabel">Sonido activo</span>
+          </button>
+          <button type="button" class="btn btn-principal btn-sm"
+                  onclick="readText('Bienvenidos a Arquitectos del Futuro. Una propuesta pedagogica para construir espacios ecologicos, escuchar relatos y conocer la trayectoria de aprendizaje de la primera infancia.')"
+                  aria-label="Escuchar que es esta pagina">
+            <span aria-hidden="true">💬</span>
+            <span>Que es esto</span>
+          </button>
         </div>
+      </div>
 
-        <!-- BARRA DE NAVEGACIÓN PRINCIPAL (visible en pantallas medianas y grandes;
-             en móvil se usa la tab bar inferior) -->
-        <nav aria-label="Navegación principal" class="max-w-6xl mx-auto mt-3 hidden sm:block">
-            <ul id="mainNav" class="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
-                <li>
-                    <a href="#inicio" data-section="inicio" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-house"></i></span> Inicio
-                    </a>
-                </li>
-                <li>
-                    <a href="#taller" data-section="taller" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-helmet-safety"></i></span> Taller
-                    </a>
-                </li>
-                <li>
-                    <a href="#cuentos" data-section="cuentos" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-headphones"></i></span> Cuentos
-                    </a>
-                </li>
-                <li>
-                    <a href="#insignias" data-section="insignias" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-award"></i></span> Insignias
-                    </a>
-                </li>
-                <!-- FEAT-003: secciones nuevas interactivas -->
-                <li>
-                    <a href="#retos" data-section="retos" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-bullseye"></i></span> Misiones
-                    </a>
-                </li>
-                <li>
-                    <a href="#mapa" data-section="mapa" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
-                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-map-location-dot"></i></span> Mi Ciudad
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- MAIN CONTAINER -->
-    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-8 pb-28 sm:pb-6">
-
-        <!-- HERO INTRODUCTION BANNER -->
-        <section id="inicio" class="bg-papel border border-borde rounded-2xl p-6 sm:p-8 shadow-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="space-y-5 max-w-xl text-center md:text-left z-10">
-                <div class="inline-flex items-center gap-2 bg-bosqueSuave px-3 py-1 rounded-full text-xs sm:text-sm font-semibold text-bosque">
-                    <i class="fas fa-leaf text-bosque" aria-hidden="true"></i>
-                    Propuesta pedagógica para la primera infancia
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-bosqueOscuro leading-tight">
-                    Arquitecturas de la emancipación infantil
-                </h2>
-                <p class="text-base sm:text-lg text-pizarra font-medium">
-                    Una experiencia educativa para explorar materiales sostenibles, construir territorios de juego para la comunidad y acompañar relatos sobre el cuidado del entorno.
-                </p>
-
-                <!-- Audio Reader Button for Intro -->
-                <div class="pt-1 flex flex-wrap justify-center md:justify-start gap-3">
-                    <button onclick="readText('Arquitecturas de la emancipación infantil. Una experiencia educativa para explorar materiales sostenibles, construir territorios de juego para la comunidad y acompañar relatos sobre el cuidado del entorno.')" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-base shadow-card">
-                        <i class="fas fa-volume-high text-lg"></i> Escuchar presentación
-                    </button>
-                    <a href="#taller" class="btn-bubble bg-papel hover:bg-bosqueSuave border border-bosque text-bosque font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-base shadow-card">
-                        <i class="fas fa-arrow-right text-sm"></i> Ir al taller
-                    </a>
-                </div>
-
-                <!-- PLACEHOLDER de la ilustracion oficial del heroe (Opcion B) -->
-                <div role="img" aria-label="Espacio reservado para reemplazar por la ilustracion oficial del heroe de la campana" class="mt-1 inline-flex items-center gap-2 border border-dashed border-borde bg-lienzo rounded-lg px-3 py-2 text-[11px] sm:text-xs font-medium text-pizarra">
-                    <i class="fas fa-image text-pizarra" aria-hidden="true"></i>
-                    Espacio reservado para la ilustracion oficial del heroe
-                </div>
-            </div>
-
-            <!-- Marca visual del proyecto (icono sobrio con accion de audio guia) -->
-            <div class="relative flex justify-center items-center w-44 h-44 sm:w-52 sm:h-52 bg-bosqueSuave rounded-2xl border border-borde p-6 z-10">
-                <div class="text-bosque text-6xl sm:text-7xl cursor-pointer" onclick="playAnimalSound()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();playAnimalSound();}" role="button" tabindex="0" aria-label="Escuchar la voz guía de la experiencia">
-                    <i class="fas fa-seedling" aria-hidden="true"></i>
-                </div>
-                <div class="absolute -bottom-3 bg-papel border border-borde text-bosque px-3 py-1 rounded-full text-xs font-semibold shadow-card">
-                    Escuchar guía
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 1: TALLER DE CONSTRUCCIÓN ECOLÓGICA (SANDBOX) -->
-        <section id="taller" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
-            
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-3">
-                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
-                            Taller de construcción
-                        </h2>
-                        <button onclick="readText('Taller de construcción. Selecciona un material en el menú y haz clic en la cuadrícula para colocarlo. Diseña un espacio sostenible para la comunidad.')" aria-label="Escuchar la sección Taller de construcción" class="section-audio text-lg" title="Escuchar sección">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                    </div>
-                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
-                        Elige un material y haz clic en el terreno para componer un espacio sostenible.
-                    </p>
-                </div>
-
-                <!-- Sandbox Control Tools -->
-                <div class="flex items-center gap-2">
-                    <button onclick="clearSandbox()" class="btn-bubble bg-papel hover:bg-lienzo border border-borde text-pizarra font-semibold px-3 py-2 rounded-lg text-sm flex items-center gap-1.5 shadow-card">
-                        <i class="fas fa-trash-alt"></i> Limpiar todo
-                    </button>
-                </div>
-            </div>
-
-            <!-- Material Selector Palettes -->
-            <div>
-                <p class="text-xs font-semibold uppercase text-pizarra tracking-wider mb-2">1. Elige el material</p>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                    
-                    <!-- Madera -->
-                    <button onclick="selectMaterial('wood')" id="mat-wood" aria-label="Seleccionar material Madera" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">🪵</span>
-                        <span class="text-xs">Madera</span>
-                    </button>
-
-                    <!-- Techo Verde -->
-                    <button onclick="selectMaterial('plants')" id="mat-plants" aria-label="Seleccionar material Techo Verde" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">🌱</span>
-                        <span class="text-xs">Techo verde</span>
-                    </button>
-
-                    <!-- Cristal Agua -->
-                    <button onclick="selectMaterial('water')" id="mat-water" aria-label="Seleccionar material Lago de Agua" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">💧</span>
-                        <span class="text-xs">Agua</span>
-                    </button>
-
-                    <!-- Panel Solar -->
-                    <button onclick="selectMaterial('solar')" id="mat-solar" aria-label="Seleccionar material Panel Solar" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">☀️</span>
-                        <span class="text-xs">Panel solar</span>
-                    </button>
-
-                    <!-- Piedra -->
-                    <button onclick="selectMaterial('stone')" id="mat-stone" aria-label="Seleccionar material Piedra" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">🪨</span>
-                        <span class="text-xs">Piedra</span>
-                    </button>
-
-                    <!-- Borrador -->
-                    <button onclick="selectMaterial('eraser')" id="mat-eraser" aria-label="Seleccionar la herramienta Borrador" class="mat-btn btn-bubble bg-papel border border-borde p-3 rounded-lg flex flex-col items-center gap-1 shadow-card text-tinta font-semibold">
-                        <span class="text-2xl" aria-hidden="true">🧹</span>
-                        <span class="text-xs">Borrador</span>
-                    </button>
-
-                </div>
-            </div>
-
-            <!-- Interactive Grid Canvas Area -->
-            <div>
-                <div class="flex items-center justify-between mb-2">
-                    <p class="text-xs font-semibold uppercase text-pizarra tracking-wider">2. Construye en el terreno</p>
-                    <span id="activeMaterialBadge" class="bg-bosqueSuave text-bosque text-xs px-3 py-1 rounded-full font-semibold border border-borde">
-                        Seleccionado: Madera 🪵
-                    </span>
-                </div>
-
-                <!-- Main Build Grid -->
-                <div id="sandboxGrid" class="sandbox-grid bg-lienzo border border-borde rounded-xl p-4 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 min-h-[340px] items-center justify-center">
-                    <!-- Dynamic Grid Tiles populated via JS -->
-                </div>
-            </div>
-
-            <!-- Stats/Counters -->
-            <div class="bg-lienzo rounded-xl p-4 border border-borde flex flex-wrap items-center justify-around gap-4 text-center">
-                <div>
-                    <span class="text-2xl font-bold text-bosqueOscuro" id="statBlocksCount">0</span>
-                    <p class="text-xs font-semibold text-pizarra uppercase">Bloques colocados</p>
-                </div>
-                <div>
-                    <span class="text-2xl font-bold text-bosque" id="statEcoScore">0%</span>
-                    <p class="text-xs font-semibold text-pizarra uppercase">Energía limpia</p>
-                </div>
-                <div>
-                    <button onclick="checkSandboxAchievement()" class="btn-bubble bg-bosque hover:bg-bosqueOscuro text-white font-semibold px-4 py-2 rounded-lg text-sm border border-bosque shadow-card flex items-center gap-2">
-                        <i class="fas fa-star text-sm" aria-hidden="true"></i> Evaluar construcción
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 2: CUENTOS SONOROS Y COMUNITARIOS -->
-        <section id="cuentos" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
-            <div class="section-header flex items-center gap-3">
-                <div>
-                    <h2 class="section-title text-2xl sm:text-3xl font-bold flex items-center gap-2">
-                        Relatos sonoros
-                        <button onclick="readText('Relatos sonoros. Usa el botón de reproducción en cada tarjeta para escuchar historias sobre el cuidado del agua, los árboles y la comunidad.')" aria-label="Escuchar la sección Relatos sonoros" class="section-audio text-lg" title="Escuchar sección">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                    </h2>
-                    <p class="section-sub text-sm sm:text-base font-medium">
-                        Historias breves que acompañan los valores de sostenibilidad y comunidad.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Stories Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- Story Card 1 -->
-                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
-                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
-                        🐻
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-bosqueOscuro">El oso Mateo y la casa solar</h3>
-                        <p class="text-sm text-pizarra font-medium mt-1">
-                            Mateo aprende a aprovechar el sol para iluminar su hogar sin dañar el bosque.
-                        </p>
-                    </div>
-                    <button onclick="playStory('mateo')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
-                        <i class="fas fa-play text-base"></i> Escuchar relato
-                    </button>
-                </div>
-
-                <!-- Story Card 2 -->
-                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
-                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
-                        🐸
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-bosqueOscuro">La rana Renata y el río limpio</h3>
-                        <p class="text-sm text-pizarra font-medium mt-1">
-                            Junto a sus vecinos, Renata construye un filtro de piedras para limpiar el agua del río.
-                        </p>
-                    </div>
-                    <button onclick="playStory('renata')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
-                        <i class="fas fa-play text-base"></i> Escuchar relato
-                    </button>
-                </div>
-
-                <!-- Story Card 3 -->
-                <div class="bg-papel border border-borde rounded-xl p-5 flex flex-col justify-between items-center text-center shadow-card space-y-4">
-                    <div class="w-16 h-16 bg-bosqueSuave rounded-full border border-borde flex items-center justify-center text-3xl" aria-hidden="true">
-                        🐝
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-bosqueOscuro">La abeja Maya y el techo verde</h3>
-                        <p class="text-sm text-pizarra font-medium mt-1">
-                            Al sembrar flores en los techos, la comunidad crea un parque elevado para todos.
-                        </p>
-                    </div>
-                    <button onclick="playStory('maya')" class="btn-bubble w-full bg-bosque hover:bg-bosqueOscuro text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 shadow-card">
-                        <i class="fas fa-play text-base"></i> Escuchar relato
-                    </button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECCIÓN 3: DIARIO DE EXPLORADOR E INSIGNIAS -->
-        <section id="insignias" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
-            <div class="section-header flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div>
-                        <h2 class="section-title text-2xl sm:text-3xl font-bold flex items-center gap-2">
-                            Logros de aprendizaje
-                            <button onclick="readText('Logros de aprendizaje. A medida que construyes y exploras la experiencia se desbloquean los reconocimientos que resumen tu recorrido.')" aria-label="Escuchar la sección Logros de aprendizaje" class="section-audio text-lg" title="Escuchar sección">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </h2>
-                        <p class="section-sub text-sm sm:text-base font-medium">
-                            Reconocimientos que se activan al completar cada parte de la propuesta.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Badges List Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                
-                <!-- Badge 1 -->
-                <div id="badge-builder" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-3xl mb-2" aria-hidden="true">🔨</div>
-                    <h4 class="font-bold text-sm text-tinta">Primer bloque</h4>
-                    <p class="text-xs font-medium text-pizarra mt-1">Coloca tu primer material en el taller.</p>
-                </div>
-
-                <!-- Badge 2 -->
-                <div id="badge-eco" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-3xl mb-2" aria-hidden="true">🌻</div>
-                    <h4 class="font-bold text-sm text-tinta">Jardín urbano</h4>
-                    <p class="text-xs font-medium text-pizarra mt-1">Coloca 3 techos verdes en tu ciudad.</p>
-                </div>
-
-                <!-- Badge 3 -->
-                <div id="badge-story" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-3xl mb-2" aria-hidden="true">📜</div>
-                    <h4 class="font-bold text-sm text-tinta">Buen oyente</h4>
-                    <p class="text-xs font-medium text-pizarra mt-1">Escucha al menos uno de los relatos.</p>
-                </div>
-
-                <!-- Badge 4 -->
-                <div id="badge-master" class="bg-slate-100 border border-slate-300 rounded-xl p-4 flex flex-col items-center text-center opacity-50 grayscale transition-all duration-300">
-                    <div class="text-3xl mb-2" aria-hidden="true">👑</div>
-                    <h4 class="font-bold text-sm text-tinta">Arquitecto EMC</h4>
-                    <p class="text-xs font-medium text-pizarra mt-1">Completa una comunidad sostenible.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECCIÓN 4: MISIONES DE APRENDIZAJE (RETOS INTERACTIVOS) -->
-        <section id="retos" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-3">
-                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
-                            Misiones de aprendizaje
-                        </h2>
-                        <button onclick="readText('Misiones de aprendizaje. Completa retos en el taller y en los relatos. Cada misión se marca como cumplida en cuanto alcanzas su objetivo.')" aria-label="Escuchar la sección Misiones de aprendizaje" class="section-audio text-lg" title="Escuchar sección">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                    </div>
-                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
-                        Cada misión se marca como cumplida al alcanzar su objetivo mientras exploras la experiencia.
-                    </p>
-                </div>
-
-                <!-- Contador de misiones + reinicio de progreso -->
-                <div class="flex items-center gap-2">
-                    <span id="questProgressBadge" class="bg-bosqueSuave text-bosque text-sm px-3 py-2 rounded-lg font-bold border border-borde">
-                        0 / 5 ⭐
-                    </span>
-                    <button id="resetProgressBtn" onclick="resetProgress()" aria-label="Empezar de nuevo y borrar el progreso guardado" class="btn-bubble bg-papel hover:bg-lienzo border border-borde text-pizarra font-semibold px-3 py-2 rounded-lg text-sm flex items-center gap-1.5 shadow-card">
-                        <i class="fas fa-rotate-left"></i> Empezar de nuevo
-                    </button>
-                </div>
-            </div>
-
-            <!-- Lista de misiones (se pintan y actualizan desde JS) -->
-            <ul id="questList" class="grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Lista de misiones">
-                <!-- Las tarjetas de misión se generan dinámicamente en renderQuests() -->
-            </ul>
-
-            <div class="bg-bosqueSuave border border-borde rounded-xl p-4 flex items-center gap-3">
-                <i class="fas fa-circle-info text-bosque text-lg" aria-hidden="true"></i>
-                <p id="questHint" class="text-sm sm:text-base font-medium text-bosqueOscuro">
-                    Visita el taller para construir y escucha los relatos para avanzar en las misiones.
-                </p>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 5: MAPA DE MI CIUDAD VERDE (RESUMEN DE PROGRESO) -->
-        <section id="mapa" class="bg-papel border border-borde rounded-2xl p-5 sm:p-6 shadow-card space-y-6">
-            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-3">
-                        <h2 class="section-title text-2xl sm:text-3xl font-bold">
-                            Mapa de progreso
-                        </h2>
-                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen del progreso" class="section-audio text-lg" title="Escuchar sección">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
-                    </div>
-                    <p class="section-sub text-sm sm:text-base font-medium mt-1">
-                        Un resumen del recorrido: bloques, energía limpia, reconocimientos y crecimiento de la ciudad.
-                    </p>
-                </div>
-                <button onclick="speakCitySummary()" aria-label="Escuchar el resumen del progreso" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 text-sm shadow-card">
-                    <i class="fas fa-volume-high text-sm" aria-hidden="true"></i> Escuchar resumen
-                </button>
-            </div>
-
-            <!-- Tarjetas resumen de progreso -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
-                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-cubes"></i></div>
-                    <span id="mapBlocks" class="text-3xl font-bold text-bosqueOscuro">0</span>
-                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Bloques colocados</p>
-                </div>
-                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
-                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-bolt"></i></div>
-                    <span id="mapEco" class="text-3xl font-bold text-bosqueOscuro">0%</span>
-                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Energía limpia</p>
-                </div>
-                <div class="bg-lienzo border border-borde rounded-xl p-5 flex flex-col items-center text-center shadow-card">
-                    <div class="text-2xl mb-2 text-bosque" aria-hidden="true"><i class="fas fa-award"></i></div>
-                    <span id="mapBadges" class="text-3xl font-bold text-bosqueOscuro">0 / 4</span>
-                    <p class="text-xs font-semibold text-pizarra uppercase mt-1">Reconocimientos</p>
-                </div>
-            </div>
-
-            <!-- Barra de crecimiento de la ciudad + paisaje visual -->
-            <div class="bg-lienzo border border-borde rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between text-sm font-semibold text-bosqueOscuro">
-                    <span>Crecimiento de la ciudad</span>
-                    <span id="cityLevelLabel">Semilla 🌱</span>
-                </div>
-                <div class="w-full h-4 bg-papel rounded-full border border-borde overflow-hidden" role="progressbar" aria-label="Crecimiento de la ciudad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="cityProgressBar">
-                    <div id="cityProgressFill" class="h-full bg-gradient-to-r from-bosqueClaro to-bosque transition-all duration-500" style="width: 0%"></div>
-                </div>
-                <div id="citySkyline" class="text-2xl sm:text-3xl tracking-wide min-h-[2.5rem] flex items-center" aria-hidden="true">
-                    🌱
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-papel border-t border-borde py-6 px-4 text-center mt-12 space-y-2">
-        <p class="text-base font-semibold text-bosqueOscuro">
-            "Arquitecturas de la Emancipación Infantil"
-        </p>
-        <p class="text-xs sm:text-sm text-pizarra font-medium max-w-xl mx-auto">
-            Propuesta Pedagógica y de Diseño Transmedia desarrollada por <strong class="text-bosque">Darcy Quiza</strong> y <strong class="text-bosque">Nikol Espinosa</strong>.
-        </p>
-        <div class="pt-2">
-            <span class="inline-block bg-bosqueSuave text-bosque text-xs px-3 py-1 rounded-full font-semibold">
-                Territorios de arte, juego y vida para la primera infancia
-            </span>
+      <!-- Franja de placeholders institucionales (no se incrusta material de terceros) -->
+      <div class="franja-logos">
+        <div class="placeholder placeholder-logos" role="img"
+             aria-label="Espacio reservado para la franja oficial de logos institucionales: Educacion, Culturas y CO-CREA">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 21h18"></path><path d="M5 21V10l7-5 7 5v11"></path><path d="M9 21v-6h6v6"></path>
+          </svg>
+          Franja de logos institucionales (Educacion, Culturas, CO-CREA)
         </div>
-    </footer>
+        <div class="placeholder placeholder-campana" role="img"
+             aria-label="Espacio reservado para el logo oficial de la campana institucional">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="8" r="6"></circle><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"></path>
+          </svg>
+          Logo oficial de campana
+        </div>
+      </div>
 
-    <!-- TAB BAR INFERIOR FIJA (solo móvil, estilo app) -->
-    <nav aria-label="Navegación inferior" class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-papel/97 backdrop-blur-md border-t border-borde shadow-[0_-4px_16px_-6px_rgba(15,23,42,0.12)]">
-        <ul id="mobileTabBar" class="flex items-stretch justify-around px-2 py-1">
-            <li class="flex-1">
-                <a href="#inicio" data-section="inicio" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-house"></i></span>
-                    <span>Inicio</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#taller" data-section="taller" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-helmet-safety"></i></span>
-                    <span>Taller</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#cuentos" data-section="cuentos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-headphones"></i></span>
-                    <span>Cuentos</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#insignias" data-section="insignias" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-award"></i></span>
-                    <span>Insignias</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
-            <!-- FEAT-003: tabs gemelas para las secciones nuevas -->
-            <li class="flex-1">
-                <a href="#retos" data-section="retos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-bullseye"></i></span>
-                    <span>Misiones</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li class="flex-1">
-                <a href="#mapa" data-section="mapa" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
-                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-map-location-dot"></i></span>
-                    <span>Ciudad</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
-                </a>
-            </li>
+      <!-- Navegacion principal (escritorio) -->
+      <nav class="nav-principal" aria-label="Navegacion principal">
+        <ul class="nav-lista" id="mainNav">
+          <li>
+            <a class="nav-enlace" href="#inicio" data-section="inicio">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7"></path><path d="M5 10v10h14V10"></path></svg>
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a class="nav-enlace" href="#taller" data-section="taller">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"></path><rect x="4" y="13" width="6" height="7"></rect><rect x="14" y="8" width="6" height="12"></rect></svg>
+              Taller
+            </a>
+          </li>
+          <li>
+            <a class="nav-enlace" href="#cuentos" data-section="cuentos">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18V7a2 2 0 0 1 2-2h5v13H5a2 2 0 0 0-2 2z"></path><path d="M21 18V7a2 2 0 0 0-2-2h-5v13h5a2 2 0 0 1 2 2z"></path></svg>
+              Cuentos
+            </a>
+          </li>
+          <li>
+            <a class="nav-enlace" href="#insignias" data-section="insignias">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"></circle><path d="M8.5 14 7 22l5-3 5 3-1.5-8"></path></svg>
+              Insignias
+            </a>
+          </li>
+          <li>
+            <a class="nav-enlace" href="#retos" data-section="retos">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="0.6"></circle></svg>
+              Misiones
+            </a>
+          </li>
+          <li>
+            <a class="nav-enlace" href="#mapa" data-section="mapa">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14"></path><path d="M15 6v14"></path></svg>
+              Mi ciudad
+            </a>
+          </li>
         </ul>
-    </nav>
+      </nav>
 
-    <!-- BOTÓN FLOTANTE VOLVER ARRIBA (abajo a la izquierda para no chocar con el toast) -->
-    <button id="backToTopBtn" type="button" onclick="scrollToTop()" aria-label="Volver arriba" title="Volver arriba" class="oculto fixed bottom-20 left-5 sm:bottom-6 sm:left-6 z-50 btn-bubble bg-bosque hover:bg-bosqueOscuro text-white border border-bosque w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-card">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-    </button>
-
-    <!-- POPUP NOTIFICATION / MESSAGE BOX (NO ALERTS) -->
-    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-papel border border-bosque text-tinta font-semibold px-5 py-3.5 rounded-xl shadow-cardHover flex items-center gap-3 text-base">
-        <span id="toastEmoji" class="text-2xl">🎉</span>
-        <span id="toastText">¡Genial!</span>
     </div>
+  </header>
+
+  <!-- ===================== PRINCIPAL ===================== -->
+  <main class="contenedor">
+
+    <!-- ===== HERO / INICIO ===== -->
+    <section id="inicio" class="tarjeta hero">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-pildora">
+            <span aria-hidden="true">🌍</span> Propuesta pedagogica para la primera infancia
+          </span>
+          <h1 class="hero-titulo">Arquitecturas de la emancipacion infantil</h1>
+          <p class="hero-texto">
+            Una experiencia educativa para explorar materiales sostenibles, construir
+            territorios de juego para la comunidad y acompanar relatos sobre el cuidado
+            del agua, la energia y el entorno.
+          </p>
+          <div class="hero-acciones">
+            <button type="button" class="btn btn-solar"
+                    onclick="readText('Arquitecturas de la emancipacion infantil. Una experiencia educativa para explorar materiales sostenibles, construir territorios de juego para la comunidad y acompanar relatos sobre el cuidado del entorno.')"
+                    aria-label="Escuchar la presentacion del proyecto">
+              <span aria-hidden="true">🔊</span> Escuchar presentacion
+            </button>
+            <a class="btn btn-contorno" href="#taller">
+              Ir al taller
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+            </a>
+          </div>
+          <div class="placeholder hero-placeholder" role="img"
+               aria-label="Espacio reservado para reemplazar por la ilustracion oficial del hero de la campana">
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9.5" r="1.5"></circle><path d="m21 16-5-5L5 20"></path></svg>
+            Espacio reservado para la ilustracion oficial del hero
+          </div>
+        </div>
+
+        <div class="hero-marca">
+          <button type="button" class="hero-marca-icono" onclick="playGuideVoice()"
+                  aria-label="Escuchar la voz guia de la experiencia">
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 21v-7"></path>
+              <path d="M12 14c0-3 2-5 6-5 0 4-3 5-6 5z"></path>
+              <path d="M12 11C12 8 9 6 5 7c0 4 4 4 7 4z"></path>
+            </svg>
+          </button>
+          <span class="hero-marca-nota">Pulsa para escuchar la guia</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TALLER ===== -->
+    <section id="taller" class="tarjeta">
+      <div class="seccion-cabecera">
+        <div class="seccion-cabecera-texto">
+          <p class="seccion-eyebrow">Construye</p>
+          <h2 class="seccion-titulo">
+            Taller de construccion
+            <button type="button" class="btn-audio"
+                    onclick="readText('Taller de construccion. Selecciona un material en el menu y haz clic en la cuadricula para colocarlo. Disena un espacio sostenible para la comunidad.')"
+                    aria-label="Escuchar la seccion Taller de construccion">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+            </button>
+          </h2>
+          <p class="seccion-sub">Elige un material y haz clic en el terreno para componer un espacio sostenible.</p>
+        </div>
+        <button type="button" class="btn btn-neutro btn-sm" onclick="clearSandbox()">
+          <span aria-hidden="true">🧽</span> Limpiar todo
+        </button>
+      </div>
+
+      <p class="paso-rotulo">1. Elige el material</p>
+      <div class="materiales" id="materiales" role="group" aria-label="Materiales de construccion">
+        <button type="button" class="material" id="mat-wood" onclick="selectMaterial('wood')" aria-label="Seleccionar material madera">
+          <span class="material-emoji" aria-hidden="true">🪵</span><span>Madera</span>
+        </button>
+        <button type="button" class="material" id="mat-plants" onclick="selectMaterial('plants')" aria-label="Seleccionar material techo verde">
+          <span class="material-emoji" aria-hidden="true">🌱</span><span>Techo verde</span>
+        </button>
+        <button type="button" class="material" id="mat-water" onclick="selectMaterial('water')" aria-label="Seleccionar material agua">
+          <span class="material-emoji" aria-hidden="true">💧</span><span>Agua</span>
+        </button>
+        <button type="button" class="material" id="mat-solar" onclick="selectMaterial('solar')" aria-label="Seleccionar material panel solar">
+          <span class="material-emoji" aria-hidden="true">☀️</span><span>Panel solar</span>
+        </button>
+        <button type="button" class="material" id="mat-stone" onclick="selectMaterial('stone')" aria-label="Seleccionar material piedra">
+          <span class="material-emoji" aria-hidden="true">🪨</span><span>Piedra</span>
+        </button>
+        <button type="button" class="material" id="mat-eraser" onclick="selectMaterial('eraser')" aria-label="Seleccionar herramienta borrador">
+          <span class="material-emoji" aria-hidden="true">🧹</span><span>Borrador</span>
+        </button>
+      </div>
+
+      <div class="taller-barra">
+        <p class="paso-rotulo" style="margin-bottom:0;">2. Construye en el terreno</p>
+        <span class="insignia-material" id="activeMaterialBadge">Seleccionado: madera 🪵</span>
+      </div>
+
+      <div class="cuadricula" id="sandboxGrid" role="group" aria-label="Terreno de construccion interactivo">
+        <!-- Casillas generadas por app.js -->
+      </div>
+
+      <div class="taller-stats">
+        <div>
+          <div class="stat-valor" id="statBlocksCount">0</div>
+          <p class="stat-rotulo">Bloques colocados</p>
+        </div>
+        <div>
+          <div class="stat-valor solar" id="statEcoScore">0%</div>
+          <p class="stat-rotulo">Energia limpia</p>
+        </div>
+        <div>
+          <button type="button" class="btn btn-principal btn-sm" onclick="checkSandboxAchievement()">
+            <span aria-hidden="true">⭐</span> Evaluar construccion
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUENTOS ===== -->
+    <section id="cuentos" class="tarjeta">
+      <div class="seccion-cabecera">
+        <div class="seccion-cabecera-texto">
+          <p class="seccion-eyebrow">Escucha</p>
+          <h2 class="seccion-titulo">
+            Relatos sonoros
+            <button type="button" class="btn-audio"
+                    onclick="readText('Relatos sonoros. Usa el boton de reproduccion en cada tarjeta para escuchar historias sobre el cuidado del agua, los arboles y la comunidad.')"
+                    aria-label="Escuchar la seccion Relatos sonoros">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+            </button>
+          </h2>
+          <p class="seccion-sub">Historias breves que acompanan los valores de sostenibilidad y comunidad.</p>
+        </div>
+      </div>
+
+      <div class="rejilla-3">
+        <article class="cuento">
+          <div class="cuento-emoji" aria-hidden="true">🐻</div>
+          <h3 class="cuento-titulo">El oso Mateo y la casa solar</h3>
+          <p class="cuento-texto">Mateo aprende a aprovechar el sol para iluminar su hogar sin danar el bosque.</p>
+          <p class="cuento-estado" id="estado-cuento-mateo" aria-live="polite"></p>
+          <button type="button" class="btn btn-principal" onclick="playStory('mateo')" aria-label="Escuchar el relato del oso Mateo">
+            <span aria-hidden="true">▶️</span> Escuchar relato
+          </button>
+        </article>
+        <article class="cuento">
+          <div class="cuento-emoji" aria-hidden="true">🐸</div>
+          <h3 class="cuento-titulo">La rana Renata y el rio limpio</h3>
+          <p class="cuento-texto">Junto a sus vecinos, Renata construye un filtro de piedras para limpiar el agua del rio.</p>
+          <p class="cuento-estado" id="estado-cuento-renata" aria-live="polite"></p>
+          <button type="button" class="btn btn-principal" onclick="playStory('renata')" aria-label="Escuchar el relato de la rana Renata">
+            <span aria-hidden="true">▶️</span> Escuchar relato
+          </button>
+        </article>
+        <article class="cuento">
+          <div class="cuento-emoji" aria-hidden="true">🐝</div>
+          <h3 class="cuento-titulo">La abeja Maya y el techo verde</h3>
+          <p class="cuento-texto">Maya descubre como los techos verdes dan flores, sombra y un hogar a los polinizadores.</p>
+          <p class="cuento-estado" id="estado-cuento-maya" aria-live="polite"></p>
+          <button type="button" class="btn btn-principal" onclick="playStory('maya')" aria-label="Escuchar el relato de la abeja Maya">
+            <span aria-hidden="true">▶️</span> Escuchar relato
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== INSIGNIAS ===== -->
+    <section id="insignias" class="tarjeta">
+      <div class="seccion-cabecera">
+        <div class="seccion-cabecera-texto">
+          <p class="seccion-eyebrow">Reconocimientos</p>
+          <h2 class="seccion-titulo">
+            Insignias
+            <button type="button" class="btn-audio"
+                    onclick="readText('Insignias. Se desbloquean cuando construyes, escuchas relatos y completas misiones. Cada una celebra un logro de la propuesta.')"
+                    aria-label="Escuchar la seccion Insignias">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+            </button>
+          </h2>
+          <p class="seccion-sub">Arrancan bloqueadas y se iluminan al interactuar con la experiencia.</p>
+        </div>
+      </div>
+
+      <div class="rejilla-4" id="insigniasContenedor">
+        <div class="insignia" id="badge-builder">
+          <div class="insignia-icono" aria-hidden="true">🧱</div>
+          <p class="insignia-nombre">Constructor</p>
+          <p class="insignia-desc">Coloca 12 bloques o mas en el taller.</p>
+          <p class="insignia-candado">Bloqueada</p>
+        </div>
+        <div class="insignia" id="badge-eco">
+          <div class="insignia-icono" aria-hidden="true">♻️</div>
+          <p class="insignia-nombre">Energia limpia</p>
+          <p class="insignia-desc">Alcanza 60% o mas de energia limpia.</p>
+          <p class="insignia-candado">Bloqueada</p>
+        </div>
+        <div class="insignia" id="badge-story">
+          <div class="insignia-icono" aria-hidden="true">🎧</div>
+          <p class="insignia-nombre">Oyente</p>
+          <p class="insignia-desc">Escucha tu primer relato sonoro.</p>
+          <p class="insignia-candado">Bloqueada</p>
+        </div>
+        <div class="insignia" id="badge-master">
+          <div class="insignia-icono" aria-hidden="true">🏆</div>
+          <p class="insignia-nombre">Maestra del futuro</p>
+          <p class="insignia-desc">Completa las cinco misiones.</p>
+          <p class="insignia-candado">Bloqueada</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MISIONES / RETOS ===== -->
+    <section id="retos" class="tarjeta">
+      <div class="seccion-cabecera">
+        <div class="seccion-cabecera-texto" style="width:100%;">
+          <p class="seccion-eyebrow">Objetivos</p>
+          <div class="misiones-cabecera">
+            <h2 class="seccion-titulo">
+              Misiones
+              <button type="button" class="btn-audio"
+                      onclick="readText('Misiones. Cinco retos que se completan solos segun lo que construyes y los relatos que escuchas. Sigue tu avance con el contador.')"
+                      aria-label="Escuchar la seccion Misiones">
+                <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+              </button>
+            </h2>
+            <span class="misiones-contador" id="misionesContador" aria-live="polite">0/5</span>
+          </div>
+          <p class="seccion-sub">Se marcan automaticamente cuando cumples cada objetivo.</p>
+        </div>
+      </div>
+
+      <ul class="misiones-lista" id="misionesLista">
+        <!-- Misiones generadas por app.js -->
+      </ul>
+    </section>
+
+    <!-- ===== MAPA / RESUMEN ===== -->
+    <section id="mapa" class="tarjeta">
+      <div class="seccion-cabecera">
+        <div class="seccion-cabecera-texto">
+          <p class="seccion-eyebrow">Resumen</p>
+          <h2 class="seccion-titulo">
+            Mi ciudad
+            <button type="button" class="btn-audio"
+                    onclick="speakCitySummary()"
+                    aria-label="Escuchar el resumen de mi ciudad">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
+            </button>
+          </h2>
+          <p class="seccion-sub">Tu avance global: bloques, energia limpia, insignias y el crecimiento de la ciudad.</p>
+        </div>
+      </div>
+
+      <div class="mapa-grid">
+        <div class="mapa-ficha">
+          <div class="stat-valor" id="mapaBloques">0</div>
+          <p class="stat-rotulo">Bloques</p>
+        </div>
+        <div class="mapa-ficha">
+          <div class="stat-valor solar" id="mapaEco">0%</div>
+          <p class="stat-rotulo">Energia limpia</p>
+        </div>
+        <div class="mapa-ficha">
+          <div class="stat-valor" id="mapaBadges">0/4</div>
+          <p class="stat-rotulo">Insignias</p>
+        </div>
+      </div>
+
+      <div class="progreso-bloque">
+        <div class="progreso-etiqueta">
+          <span>Crecimiento de la ciudad</span>
+          <span id="progresoTexto">Nivel 0</span>
+        </div>
+        <div class="progreso-pista" role="progressbar" id="progresoBarra"
+             aria-label="Crecimiento de la ciudad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progreso-relleno" id="progresoRelleno"></div>
+        </div>
+      </div>
+
+      <div class="skyline" id="skyline" aria-label="Horizonte de la ciudad segun tu progreso" role="img">
+        <span class="skyline-vacio" id="skylineVacio">Construye bloques para levantar tu ciudad.</span>
+      </div>
+
+      <div class="mapa-resumen-accion">
+        <button type="button" class="btn btn-contorno" id="reiniciarBtn" onclick="resetProgress()">
+          <span aria-hidden="true">🔄</span> Empezar de nuevo
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== PIE ===================== -->
+  <footer class="pie">
+    <p><strong>Arquitecturas de la emancipacion infantil</strong></p>
+    <p class="pie-creditos">Propuesta pedagogica de Darcy Quiza y Nikol Espinosa.</p>
+  </footer>
+
+  <!-- ===================== TAB BAR MOVIL ===================== -->
+  <nav class="tabbar" id="tabBar" aria-label="Navegacion movil">
+    <a class="tab-enlace" href="#inicio" data-section="inicio">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7"></path><path d="M5 10v10h14V10"></path></svg>
+      <span>Inicio</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+    <a class="tab-enlace" href="#taller" data-section="taller">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"></path><rect x="4" y="13" width="6" height="7"></rect><rect x="14" y="8" width="6" height="12"></rect></svg>
+      <span>Taller</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+    <a class="tab-enlace" href="#cuentos" data-section="cuentos">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 18V7a2 2 0 0 1 2-2h5v13H5a2 2 0 0 0-2 2z"></path><path d="M21 18V7a2 2 0 0 0-2-2h-5v13h5a2 2 0 0 1 2 2z"></path></svg>
+      <span>Cuentos</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+    <a class="tab-enlace" href="#insignias" data-section="insignias">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"></circle><path d="M8.5 14 7 22l5-3 5 3-1.5-8"></path></svg>
+      <span>Insignias</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+    <a class="tab-enlace" href="#retos" data-section="retos">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="0.6"></circle></svg>
+      <span>Misiones</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+    <a class="tab-enlace" href="#mapa" data-section="mapa">
+      <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14"></path><path d="M15 6v14"></path></svg>
+      <span>Ciudad</span>
+      <span class="tab-punto" aria-hidden="true"></span>
+    </a>
+  </nav>
+
+  <!-- Volver arriba -->
+  <button type="button" class="volver-arriba oculto" id="backToTopBtn" onclick="scrollToTop()" aria-label="Volver al inicio de la pagina">
+    <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5"></path><path d="m6 11 6-6 6 6"></path></svg>
+  </button>
+
+  <!-- Zona de toasts -->
+  <div class="toast-zona" id="toastZona" aria-live="polite" aria-atomic="false"></div>
 
-    <!-- JAVASCRIPT & AUDIO ENGINE -->
-    <script>
-        // --- SOUND ENGINE USING WEB AUDIO API ---
-        let soundEnabled = true;
-        let audioCtx = null;
-
-        function getAudioContext() {
-            if (!audioCtx) {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            return audioCtx;
-        }
-
-        function toggleSoundMaster() {
-            soundEnabled = !soundEnabled;
-            const btn = document.getElementById('soundToggleBtn');
-            const icon = document.getElementById('soundIcon');
-            const label = document.getElementById('soundLabel');
-
-            if (soundEnabled) {
-                icon.className = 'fas fa-volume-up text-lg text-bosque';
-                label.innerText = 'Sonidos: ON';
-                playPopSound();
-            } else {
-                icon.className = 'fas fa-volume-mute text-lg text-slate-400';
-                label.innerText = 'Sonidos: OFF';
-            }
-            saveState();
-        }
-
-        // Bouncy pop sound for clicking
-        function playPopSound() {
-            if (!soundEnabled) return;
-            try {
-                const ctx = getAudioContext();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
-
-                gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch(e) {}
-        }
-
-        // Wood placing sound
-        function playWoodSound() {
-            if (!soundEnabled) return;
-            try {
-                const ctx = getAudioContext();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(150, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.1);
-
-                gain.gain.setValueAtTime(0.5, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                osc.start();
-                osc.stop(ctx.currentTime + 0.1);
-            } catch(e) {}
-        }
-
-        // Magic Chime for achievements
-        function playChimeSound() {
-            if (!soundEnabled) return;
-            try {
-                const ctx = getAudioContext();
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-                notes.forEach((freq, index) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.2, ctx.currentTime + index * 0.08);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + index * 0.08 + 0.3);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(ctx.currentTime + index * 0.08);
-                    osc.stop(ctx.currentTime + index * 0.08 + 0.3);
-                });
-            } catch(e) {}
-        }
-
-        function playAnimalSound() {
-            playChimeSound();
-            showToast("Bienvenido a Arquitectos del Futuro, una propuesta de arquitectura sostenible.", "🌱");
-            readText("Bienvenido a Arquitectos del Futuro, una propuesta de arquitectura sostenible para la primera infancia.");
-        }
-
-        // --- SPEECH SYNTHESIS (VOICE READ-ALOUD) ---
-        function readText(text) {
-            playPopSound();
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop any active speech
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-ES';
-                utterance.rate = 0.98; // Ritmo pausado para buena comprensión
-                utterance.pitch = 1.0;  // Tono neutro
-                window.speechSynthesis.speak(utterance);
-            } else {
-                showToast("Tu navegador no soporta lectura de voz.", "🔊");
-            }
-        }
-
-        // --- SANDBOX BUILDER LOGIC ---
-        const materials = {
-            wood: { name: 'Madera', emoji: '🪵', bg: 'bg-amber-200', border: 'border-amber-400', isEco: false },
-            plants: { name: 'Techo Verde', emoji: '🌱', bg: 'bg-emerald-200', border: 'border-emerald-400', isEco: true },
-            water: { name: 'Lago Agua', emoji: '💧', bg: 'bg-sky-200', border: 'border-sky-400', isEco: true },
-            solar: { name: 'Panel Solar', emoji: '☀️', bg: 'bg-yellow-200', border: 'border-yellow-400', isEco: true },
-            stone: { name: 'Piedra', emoji: '🪨', bg: 'bg-slate-300', border: 'border-slate-400', isEco: false },
-            eraser: { name: 'Vaciador', emoji: '', bg: 'bg-emerald-50', border: 'border-transparent', isEco: false }
-        };
-
-        let currentMaterial = 'wood';
-        let gridState = new Array(30).fill(null);
-
-        // --- ESTADO DE PROGRESO (FEAT-003) ---
-        // Cuentos escuchados (ids: mateo / renata / maya) y misiones completadas.
-        let storiesHeard = {};
-        let completedQuests = {};
-
-        // Definición de las misiones de aprendizaje. Cada misión sabe
-        // comprobarse sola a partir del estado existente (gridState, cuentos, insignias).
-        const quests = [
-            {
-                id: 'quest-solar',
-                emoji: '☀️',
-                title: 'Energía del Sol',
-                desc: 'Coloca 5 paneles solares en el taller.',
-                check: () => gridState.filter(b => b === 'solar').length >= 5
-            },
-            {
-                id: 'quest-lake',
-                emoji: '💧',
-                title: 'Crea un Lago',
-                desc: 'Coloca 3 bloques de agua para tu lago.',
-                check: () => gridState.filter(b => b === 'water').length >= 3
-            },
-            {
-                id: 'quest-garden',
-                emoji: '🌱',
-                title: 'Jardín en las Alturas',
-                desc: 'Coloca 3 techos verdes en la ciudad.',
-                check: () => gridState.filter(b => b === 'plants').length >= 3
-            },
-            {
-                id: 'quest-stories',
-                emoji: '🎧',
-                title: 'Gran Cuentacuentos',
-                desc: 'Escucha los 3 cuentos de la naturaleza.',
-                check: () => ['mateo', 'renata', 'maya'].every(s => storiesHeard[s])
-            },
-            {
-                id: 'quest-city',
-                emoji: '🏙️',
-                title: 'Ciudad Completa',
-                desc: 'Construye una comunidad con 12 bloques o más.',
-                check: () => gridState.filter(b => b !== null).length >= 12
-            }
-        ];
-
-        function initSandbox() {
-            const gridContainer = document.getElementById('sandboxGrid');
-            gridContainer.innerHTML = '';
-            
-            // Generate 30 interactive tiles
-            for (let i = 0; i < 30; i++) {
-                const tile = document.createElement('button');
-                tile.className = `w-full h-16 sm:h-20 rounded-lg border border-dashed border-borde bg-papel hover:bg-bosqueSuave flex items-center justify-center text-3xl sm:text-4xl transition-all`;
-                tile.id = `tile-${i}`;
-                tile.type = 'button';
-                tile.setAttribute('aria-label', `Casilla de construcción número ${i + 1}`);
-                tile.onclick = () => handleTileClick(i);
-                gridContainer.appendChild(tile);
-            }
-            selectMaterial('wood');
-        }
-
-        function selectMaterial(matKey) {
-            playPopSound();
-            currentMaterial = matKey;
-
-            // Highlight active button UI
-            document.querySelectorAll('.mat-btn').forEach(btn => {
-                btn.classList.remove('ring-2', 'ring-bosque', 'border-bosque');
-            });
-
-            const activeBtn = document.getElementById(`mat-${matKey}`);
-            if (activeBtn) {
-                activeBtn.classList.add('ring-2', 'ring-bosque', 'border-bosque');
-            }
-
-            const badge = document.getElementById('activeMaterialBadge');
-            badge.innerHTML = `Seleccionado: ${materials[matKey].name} ${materials[matKey].emoji}`;
-        }
-
-        function handleTileClick(index) {
-            const tile = document.getElementById(`tile-${index}`);
-            const mat = materials[currentMaterial];
-
-            if (currentMaterial === 'eraser') {
-                playPopSound();
-                gridState[index] = null;
-                tile.className = `w-full h-16 sm:h-20 rounded-lg border border-dashed border-borde bg-papel hover:bg-bosqueSuave flex items-center justify-center text-3xl sm:text-4xl transition-all`;
-                tile.innerText = '';
-            } else {
-                playWoodSound();
-                gridState[index] = currentMaterial;
-                tile.className = `w-full h-16 sm:h-20 rounded-lg border-2 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl placed-block shadow-card`;
-                tile.innerText = mat.emoji;
-
-                // Unlock First Block Badge
-                unlockBadge('badge-builder');
-            }
-
-            updateStats();
-            refreshProgress();
-            saveState();
-        }
-
-        function updateStats() {
-            const placedBlocks = gridState.filter(b => b !== null);
-            const ecoBlocks = gridState.filter(b => b && materials[b].isEco);
-
-            document.getElementById('statBlocksCount').innerText = placedBlocks.length;
-
-            const score = placedBlocks.length > 0 ? Math.round((ecoBlocks.length / placedBlocks.length) * 100) : 0;
-            document.getElementById('statEcoScore').innerText = `${score}%`;
-
-            // Check plant count for garden badge
-            const plantCount = gridState.filter(b => b === 'plants').length;
-            if (plantCount >= 3) {
-                unlockBadge('badge-eco');
-            }
-
-            // Check full build badge
-            if (placedBlocks.length >= 12) {
-                unlockBadge('badge-master');
-            }
-        }
-
-        function clearSandbox() {
-            playPopSound();
-            gridState = new Array(30).fill(null);
-            initSandbox();
-            updateStats();
-            refreshProgress();
-            saveState();
-            showToast("Taller limpiado correctamente.", "🧹");
-        }
-
-        function checkSandboxAchievement() {
-            const count = gridState.filter(b => b !== null).length;
-            if (count === 0) {
-                showToast("¡Coloca primero unos bloques en el terreno!", "🏗️");
-                readText("¡Coloca primero unos bloques en el terreno para poder evaluar!");
-            } else if (count < 5) {
-                showToast("Buen avance. Agrega más materiales para completar el espacio.", "🌱");
-                readText("Buen avance. Agrega más materiales para completar el espacio comunitario.");
-            } else {
-                playChimeSound();
-                showToast("Excelente. Diseñaste un espacio sostenible para la comunidad.", "🌟");
-                readText("Excelente. Diseñaste un espacio sostenible para la comunidad.");
-            }
-        }
-
-        // --- STORIES LOGIC ---
-        function playStory(type) {
-            unlockBadge('badge-story');
-            storiesHeard[type] = true;
-            refreshProgress();
-            saveState();
-            if (type === 'mateo') {
-                showToast("Escuchando el Cuento del Oso Mateo...", "🐻");
-                readText("Había una vez en el gran bosque, el Oso Mateo quería iluminar su cueva por las noches. En lugar de quemar ramas, colocó un panel brillante en su techo para atrapar la luz del sol. ¡Así su cueva quedó calentita y los árboles del bosque siguieron creciendo felices!");
-            } else if (type === 'renata') {
-                showToast("Escuchando el Cuento de la Rana Renata...", "🐸");
-                readText("La rana Renata notó que la charca del parque tenía hojas secas. Con sus amigos animales, construyó un canal de piedras de río y arena suave que filtraba el agua. ¡Ahora el agua está cristalina y fresca para todos los pececitos!");
-            } else if (type === 'maya') {
-                showToast("Escuchando el Cuento de la Abeja Maya...", "🐝");
-                readText("La abeja Maya quería más flores en la ciudad. Habló con los niños arquitectos y juntos sembraron plantitas en los techos de las casas. Ahora las casas están frescas y los pajaritos tienen un lindo parque en la altura.");
-            }
-        }
-
-        // --- BADGES LOGIC ---
-        function unlockBadge(badgeId) {
-            const badge = document.getElementById(badgeId);
-            if (badge && badge.classList.contains('grayscale')) {
-                badge.classList.remove('grayscale', 'opacity-50', 'bg-slate-100', 'border-slate-300');
-                badge.classList.add('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
-                playChimeSound();
-                showToast("¡Nueva Insignia Desbloqueada! 🏆", "⭐");
-                refreshProgress();
-                saveState();
-            }
-        }
-
-        // Aplica solo el aspecto "desbloqueado" a una insignia, sin sonido ni toast
-        // ni guardado (se usa al restaurar desde localStorage).
-        function applyBadgeUnlockedVisual(badgeId) {
-            const badge = document.getElementById(badgeId);
-            if (badge && badge.classList.contains('grayscale')) {
-                badge.classList.remove('grayscale', 'opacity-50', 'bg-slate-100', 'border-slate-300');
-                badge.classList.add('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
-            }
-        }
-
-        // --- TOAST NOTIFICATIONS ---
-        function showToast(message, emoji = "🎉") {
-            const toast = document.getElementById('toastMessage');
-            document.getElementById('toastText').innerText = message;
-            document.getElementById('toastEmoji').innerText = emoji;
-
-            toast.classList.remove('translate-y-32', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-32', 'opacity-0');
-            }, 4000);
-        }
-
-        // ============================================================
-        // FEAT-003: MISIONES, MAPA DE LA CIUDAD Y PERSISTENCIA
-        // ============================================================
-
-        const STORAGE_KEY = 'arquitectosDelFuturo_v1';
-
-        // Lista de ids de insignias usada para guardar/restaurar su estado.
-        const badgeIds = ['badge-builder', 'badge-eco', 'badge-story', 'badge-master'];
-
-        // --- PERSISTENCIA EN localStorage (protegida con try/catch) ---
-        function saveState() {
-            try {
-                if (typeof localStorage === 'undefined' || !localStorage) return;
-                const unlockedBadges = badgeIds.filter(id => {
-                    const el = document.getElementById(id);
-                    return el && !el.classList.contains('grayscale');
-                });
-                const data = {
-                    gridState: gridState,
-                    unlockedBadges: unlockedBadges,
-                    soundEnabled: soundEnabled,
-                    storiesHeard: storiesHeard,
-                    completedQuests: completedQuests
-                };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            } catch (e) {
-                // Si localStorage no está disponible o falla, seguimos sin persistir.
-            }
-        }
-
-        function loadState() {
-            let data = null;
-            try {
-                if (typeof localStorage === 'undefined' || !localStorage) return;
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if (!raw) return;
-                data = JSON.parse(raw);
-            } catch (e) {
-                // Datos corruptos o localStorage no disponible: no rompemos la carga.
-                return;
-            }
-            if (!data || typeof data !== 'object') return;
-
-            // (a) Restaurar el tablero del taller y repintar los tiles ocupados.
-            if (Array.isArray(data.gridState)) {
-                for (let i = 0; i < gridState.length; i++) {
-                    const matKey = data.gridState[i];
-                    if (matKey && materials[matKey] && matKey !== 'eraser') {
-                        gridState[i] = matKey;
-                        const tile = document.getElementById(`tile-${i}`);
-                        if (tile) {
-                            const mat = materials[matKey];
-                            tile.className = `w-full h-16 sm:h-20 rounded-lg border-2 ${mat.border} ${mat.bg} flex items-center justify-center text-3xl sm:text-4xl shadow-card`;
-                            tile.innerText = mat.emoji;
-                        }
-                    }
-                }
-            }
-
-            // (b) Re-aplicar el estado visual de las insignias desbloqueadas.
-            if (Array.isArray(data.unlockedBadges)) {
-                data.unlockedBadges.forEach(id => {
-                    if (badgeIds.indexOf(id) !== -1) applyBadgeUnlockedVisual(id);
-                });
-            }
-
-            // (c) Restaurar la preferencia de sonido.
-            if (typeof data.soundEnabled === 'boolean') {
-                soundEnabled = data.soundEnabled;
-                const icon = document.getElementById('soundIcon');
-                const label = document.getElementById('soundLabel');
-                if (soundEnabled) {
-                    if (icon) icon.className = 'fas fa-volume-up text-lg text-bosque';
-                    if (label) label.innerText = 'Sonidos: ON';
-                } else {
-                    if (icon) icon.className = 'fas fa-volume-mute text-lg text-slate-400';
-                    if (label) label.innerText = 'Sonidos: OFF';
-                }
-            }
-
-            // (d) Restaurar cuentos escuchados y misiones ya completadas.
-            if (data.storiesHeard && typeof data.storiesHeard === 'object') {
-                storiesHeard = data.storiesHeard;
-            }
-            if (data.completedQuests && typeof data.completedQuests === 'object') {
-                completedQuests = data.completedQuests;
-            }
-
-            updateStats();
-        }
-
-        // --- MISIONES: PINTADO Y COMPROBACIÓN AUTOMÁTICA ---
-        function renderQuests() {
-            const list = document.getElementById('questList');
-            if (!list) return;
-            list.innerHTML = '';
-            quests.forEach(q => {
-                const done = !!completedQuests[q.id];
-                const li = document.createElement('li');
-                li.id = q.id;
-                li.setAttribute('aria-label', q.title + (done ? ', misión completada' : ', misión pendiente'));
-                li.className = done
-                    ? 'flex items-center gap-4 p-4 rounded-xl border border-bosque bg-bosqueSuave shadow-card transition-all'
-                    : 'flex items-center gap-4 p-4 rounded-xl border border-dashed border-borde bg-lienzo transition-all';
-                li.innerHTML = `
-                    <span class="text-2xl ${done ? '' : 'grayscale opacity-60'}" aria-hidden="true">${q.emoji}</span>
-                    <div class="flex-grow">
-                        <h4 class="font-bold text-sm sm:text-base ${done ? 'text-bosqueOscuro' : 'text-tinta'}">${q.title}</h4>
-                        <p class="text-xs font-medium ${done ? 'text-bosque' : 'text-pizarra'}">${q.desc}</p>
-                    </div>
-                    <span class="text-xl ${done ? 'text-bosque' : 'text-pizarra'}" aria-hidden="true">${done ? '✅' : '⬜'}</span>
-                `;
-                list.appendChild(li);
-            });
-            updateQuestProgressBadge();
-        }
-
-        function updateQuestProgressBadge() {
-            const total = quests.length;
-            const done = quests.filter(q => completedQuests[q.id]).length;
-            const badge = document.getElementById('questProgressBadge');
-            if (badge) badge.innerText = `${done} / ${total} ⭐`;
-            const hint = document.getElementById('questHint');
-            if (hint) {
-                if (done === 0) {
-                    hint.innerText = 'Visita el taller para construir y escucha los relatos para avanzar en las misiones.';
-                } else if (done < total) {
-                    hint.innerText = `Buen avance: llevas ${done} de ${total} misiones completadas.`;
-                } else {
-                    hint.innerText = 'Completaste todas las misiones de la experiencia.';
-                }
-            }
-        }
-
-        // Comprueba todas las misiones; las recién completadas disparan sonido,
-        // toast y voz de felicitación. Devuelve true si hubo alguna nueva.
-        function checkQuests() {
-            let newlyDone = false;
-            quests.forEach(q => {
-                if (!completedQuests[q.id] && q.check()) {
-                    completedQuests[q.id] = true;
-                    newlyDone = true;
-                    playChimeSound();
-                    showToast(`Misión cumplida: ${q.title}.`, q.emoji);
-                    readText(`Misión cumplida. ${q.title}.`);
-                }
-            });
-            return newlyDone;
-        }
-
-        // --- MAPA DE LA CIUDAD: RESUMEN VISUAL DEL PROGRESO ---
-        function updateCityMap() {
-            const placed = gridState.filter(b => b !== null);
-            const ecoBlocks = gridState.filter(b => b && materials[b].isEco);
-            const score = placed.length > 0 ? Math.round((ecoBlocks.length / placed.length) * 100) : 0;
-            const badgesWon = badgeIds.filter(id => {
-                const el = document.getElementById(id);
-                return el && !el.classList.contains('grayscale');
-            }).length;
-
-            const blocksEl = document.getElementById('mapBlocks');
-            const ecoEl = document.getElementById('mapEco');
-            const badgesEl = document.getElementById('mapBadges');
-            if (blocksEl) blocksEl.innerText = placed.length;
-            if (ecoEl) ecoEl.innerText = `${score}%`;
-            if (badgesEl) badgesEl.innerText = `${badgesWon} / ${badgeIds.length}`;
-
-            // Crecimiento de la ciudad: combina bloques (hasta 20) e insignias.
-            const growth = Math.min(100, Math.round((placed.length / 20) * 70) + badgesWon * 7);
-            const fill = document.getElementById('cityProgressFill');
-            const bar = document.getElementById('cityProgressBar');
-            if (fill) fill.style.width = `${growth}%`;
-            if (bar) bar.setAttribute('aria-valuenow', String(growth));
-
-            let level = 'Semilla 🌱';
-            let skyline = '🌱';
-            if (growth >= 85) {
-                level = 'Metrópoli Verde 🌆';
-                skyline = '🌳🏢🏙️🏡🌳🏫🌳🏢🌲';
-            } else if (growth >= 55) {
-                level = 'Ciudad Creciente 🏙️';
-                skyline = '🌳🏠🏢🏡🌲🏠';
-            } else if (growth >= 25) {
-                level = 'Pueblito 🏡';
-                skyline = '🌳🏠🌲';
-            } else if (growth > 0) {
-                level = 'Brote 🌿';
-                skyline = '🌱🌿';
-            }
-            const levelLabel = document.getElementById('cityLevelLabel');
-            const skylineEl = document.getElementById('citySkyline');
-            if (levelLabel) levelLabel.innerText = level;
-            if (skylineEl) skylineEl.innerText = skyline;
-        }
-
-        // Resumen por voz del progreso de la ciudad.
-        function speakCitySummary() {
-            const placed = gridState.filter(b => b !== null).length;
-            const badgesWon = badgeIds.filter(id => {
-                const el = document.getElementById(id);
-                return el && !el.classList.contains('grayscale');
-            }).length;
-            const done = quests.filter(q => completedQuests[q.id]).length;
-            const msg = `Resumen del progreso: ${placed} bloques colocados, ${badgesWon} reconocimientos y ${done} misiones cumplidas. Puedes seguir ampliando tu ciudad sostenible.`;
-            showToast("Resumen del progreso de tu ciudad.", "🌱");
-            readText(msg);
-        }
-
-        // Orquesta la actualización de misiones y mapa tras cualquier cambio de estado.
-        function refreshProgress() {
-            checkQuests();
-            renderQuests();
-            updateCityMap();
-        }
-
-        // --- REINICIAR PROGRESO (con confirmación por segundo clic) ---
-        let resetArmed = false;
-        let resetTimer = null;
-        function resetProgress() {
-            const btn = document.getElementById('resetProgressBtn');
-            if (!resetArmed) {
-                resetArmed = true;
-                playPopSound();
-                showToast("¿Seguro? Pulsa otra vez para empezar de nuevo.", "🤔");
-                if (btn) {
-                    btn.classList.add('ring-4', 'ring-rose-400');
-                    btn.setAttribute('aria-label', 'Confirmar: pulsa de nuevo para borrar el progreso guardado');
-                }
-                resetTimer = setTimeout(() => {
-                    resetArmed = false;
-                    if (btn) {
-                        btn.classList.remove('ring-4', 'ring-rose-400');
-                        btn.setAttribute('aria-label', 'Empezar de nuevo y borrar el progreso guardado');
-                    }
-                }, 4000);
-                return;
-            }
-
-            // Segundo clic confirmado: limpiar todo.
-            resetArmed = false;
-            if (resetTimer) clearTimeout(resetTimer);
-            if (btn) {
-                btn.classList.remove('ring-4', 'ring-rose-400');
-                btn.setAttribute('aria-label', 'Empezar de nuevo y borrar el progreso guardado');
-            }
-
-            try {
-                if (typeof localStorage !== 'undefined' && localStorage) {
-                    localStorage.removeItem(STORAGE_KEY);
-                }
-            } catch (e) {}
-
-            gridState = new Array(30).fill(null);
-            storiesHeard = {};
-            completedQuests = {};
-
-            // Restablecer insignias al estado bloqueado.
-            badgeIds.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.classList.remove('bg-amber-100', 'border-amber-400', 'unlocked-badge', 'shadow-lg');
-                    el.classList.add('bg-slate-100', 'border-slate-300', 'opacity-50', 'grayscale');
-                }
-            });
-
-            initSandbox();
-            updateStats();
-            renderQuests();
-            updateCityMap();
-            saveState();
-            playChimeSound();
-            showToast("Progreso reiniciado. Puedes comenzar de nuevo.", "🔄");
-            readText("Progreso reiniciado. Puedes comenzar de nuevo a construir tu ciudad sostenible.");
-        }
-
-        // --- NAVEGACIÓN: SCROLLSPY, SCROLL SUAVE Y VOLVER ARRIBA ---
-
-        // Ids de las secciones observadas por el scrollspy. FEAT-003 debe añadir
-        // aquí los ids de sus secciones nuevas (p. ej. 'retos', 'mapa') además de
-        // insertar los enlaces correspondientes en #mainNav y #mobileTabBar.
-        const navSectionIds = ['inicio', 'taller', 'cuentos', 'insignias', 'retos', 'mapa'];
-        let scrollSpyObserver = null;
-
-        // Marca como activo el enlace de nav y el item de la tab bar de la sección
-        // indicada, limpiando el estado del resto y exponiendo aria-current.
-        function setActiveNav(sectionId) {
-            document.querySelectorAll('.nav-link, .tab-link').forEach(link => {
-                const isActive = link.getAttribute('data-section') === sectionId;
-                link.classList.toggle('activo', isActive);
-                if (isActive) {
-                    link.setAttribute('aria-current', 'page');
-                } else {
-                    link.removeAttribute('aria-current');
-                }
-            });
-        }
-
-        function initScrollSpy() {
-            // Evita registrar el observer dos veces si se reinicializa.
-            if (scrollSpyObserver) {
-                scrollSpyObserver.disconnect();
-                scrollSpyObserver = null;
-            }
-
-            const sections = navSectionIds
-                .map(id => document.getElementById(id))
-                .filter(Boolean);
-
-            if (!('IntersectionObserver' in window) || sections.length === 0) {
-                return;
-            }
-
-            // Compensa el header sticky: la "línea activa" está cerca del tope.
-            scrollSpyObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setActiveNav(entry.target.id);
-                    }
-                });
-            }, {
-                rootMargin: '-45% 0px -50% 0px',
-                threshold: 0
-            });
-
-            sections.forEach(section => scrollSpyObserver.observe(section));
-            setActiveNav('inicio');
-        }
-
-        // Scroll suave al inicio desde el botón flotante.
-        function scrollToTop() {
-            playPopSound();
-            const reduceMotion = window.matchMedia &&
-                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-            setActiveNav('inicio');
-        }
-
-        // Muestra u oculta el botón volver-arriba según la posición del scroll.
-        function updateBackToTopVisibility() {
-            const btn = document.getElementById('backToTopBtn');
-            if (!btn) return;
-            const y = window.scrollY || window.pageYOffset || 0;
-            btn.classList.toggle('oculto', y <= 400);
-        }
-
-        function initNavigation() {
-            initScrollSpy();
-            updateBackToTopVisibility();
-            window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
-        }
-
-        // --- INITIALIZATION ---
-        window.onload = function() {
-            initSandbox();
-            // Restaurar el progreso guardado DESPUÉS de crear los tiles vacíos,
-            // para repintar encima lo que estaba construido.
-            loadState();
-            // Pintar misiones y mapa a partir del estado (restaurado o inicial).
-            renderQuests();
-            updateCityMap();
-            initNavigation();
-        };
-    </script>
 </body>
 </html>
