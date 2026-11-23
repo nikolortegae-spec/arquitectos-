@@ -1,59 +1,69 @@
 # Arquitectos del Futuro
 
-Sitio web educativo e interactivo en espanol para ninos, creado como propuesta
-pedagogica por **Darcy Quiza** y **Nikol Espinosa** ("Arquitecturas de la
-Emancipacion Infantil"). Los ninos construyen casitas y ciudades ecologicas,
-escuchan cuentos sonoros sobre la naturaleza, completan misiones y ganan
-insignias, con una nueva identidad visual inspirada en la campana **MEGA BICHOS /
-Territorios de arte, juego y vida para la primera infancia** y la mascota insecto
-heroe **Bichi**.
+Sitio web educativo e interactivo en espanol, creado como propuesta pedagogica
+por **Darcy Quiza** y **Nikol Espinosa** ("Arquitecturas de la Emancipacion
+Infantil"). La experiencia invita a construir espacios y ciudades sostenibles,
+escuchar relatos sonoros sobre el cuidado del entorno, completar misiones de
+aprendizaje y reunir reconocimientos. La interfaz esta pensada para un publico
+adulto e institucional (educadores, instituciones y jurados que evaluan la
+propuesta pedagogica), con un lenguaje visual sobrio y profesional.
 
-## Identidad visual (estetica MEGA BICHOS)
+## Identidad visual (diseno profesional e institucional)
 
-El sitio usa un estilo ilustrado, pintado a mano y organico, con estas
-caracteristicas:
+El sitio usa un estilo institucional y educativo serio, con superficies limpias y
+jerarquia clara, con estas caracteristicas:
 
-- **Paleta:** base de verdes agua y turquesa con verde musgo, acentos de ocre y
-  madera para los carteles, rojo coral para texto destacado y verde lima estilo
-  logo. Los colores de marca estan definidos en el `tailwind.config` inline del
-  `<head>` (aguaTurquesa, aguaClara, verdeMusgo, verdeMusgoHoja, verdeLima,
-  ocreMadera, ocreMaderaClaro, rojoCoral, cremaPapel).
-- **Fondo acuarela:** el `body` ya no usa el degradado pastel liso. Ahora combina
-  varios `radial-gradient` CSS propios que simulan manchas de acuarela sobre una
-  base de verdes agua y musgo, sin imagenes externas con copyright. Hay tambien
-  manchas decorativas flotantes (`.mancha-acuarela`) en el hero.
-- **Tipografia doodle:** los titulos usan la Google Font libre **Baloo 2** (con
-  Patrick Hand como respaldo), registrada como familia `doodle`. El cuerpo
-  conserva **Fredoka** y **Outfit**.
-- **Carteles de madera:** los encabezados de las seis secciones usan la clase
-  `.cartel-madera`, que simula una tabla de madera con vetas, borde y sombra.
-- **Mascota:** el zorro se reemplazo por el insecto heroe **Bichi** (emoji de
-  mariquita), coherente con la tematica de agua y bichos de la campana. Los textos
-  de voz y de los avisos (toast) se actualizaron en toda la pagina.
+- **Paleta:** verde bosque sobrio como color de acento, apoyado en neutros
+  (blancos, grises y azul pizarra). Los tokens de marca estan definidos en el
+  `tailwind.config` inline del `<head>`: `bosque`, `bosqueOscuro`, `bosqueClaro`
+  y `bosqueSuave` para el acento verde; `pizarra` y `tinta` para el texto;
+  `papel`, `lienzo` y `borde` para superficies y bordes neutros. El contraste se
+  mantiene legible segun WCAG.
+- **Superficies limpias:** el `body` usa un fondo neutro liso (gris verdoso muy
+  claro), sin texturas decorativas ni degradados llamativos. Las secciones son
+  tarjetas sobre fondo blanco con bordes discretos y sombras sutiles.
+- **Tipografia profesional:** el cuerpo usa la Google Font **Inter** (sans
+  moderna) y los titulos usan **Fraunces** (una display serif sobria),
+  registradas como familias `sans` y `display`. No se usan fuentes manuscritas ni
+  de estilo infantil.
+- **Encabezados tipograficos:** los encabezados de las seis secciones usan la
+  clase `.section-header` (con `.section-title`, `.section-audio` y
+  `.section-sub`), un tratamiento tipografico sobrio con una linea de acento
+  verde, en lugar de rotulos decorativos.
+- **Componentes sobrios:** tarjetas con radios moderados, bordes discretos y
+  sombras suaves (`card` y `cardHover`); se evitan los redondeos exagerados y las
+  sombras tipo juguete.
+- **Iconografia y voz guia:** se emplean iconos de FontAwesome y algun emoji
+  puntual con moderacion. El hero incluye una marca visual sobria (icono) que al
+  activarse reproduce una breve voz guia. Los textos de interfaz, avisos (toast)
+  y mensajes de voz usan un registro mesurado adecuado a un publico adulto e
+  institucional.
+- **Animaciones discretas:** micro interacciones sutiles (aparicion suave de
+  bloques, realce ligero de reconocimientos) y respeto de la preferencia del
+  sistema mediante `@media (prefers-reduced-motion: reduce)`.
 
-La estetica respeta la accesibilidad: contraste legible sobre el fondo verde,
-foco visible por teclado (`:focus-visible`), todos los `aria-label` y el bloque
-`@media (prefers-reduced-motion: reduce)`, que tambien cubre las manchas
-flotantes nuevas.
+El diseno cuida la accesibilidad: contraste legible sobre el fondo claro, foco
+visible por teclado (`:focus-visible`), `aria-label` descriptivos y la cobertura
+de `prefers-reduced-motion` para las animaciones restantes.
 
 ## Graficos oficiales (placeholders)
 
 Por decision del encargo (Opcion B), **no** se incrusta la ilustracion de
 referencia ni los logos institucionales (Educacion, Culturas, CO-CREA) ni el
-logo "MEGA BICHOS", por ser material de terceros con posible copyright o marca.
-En su lugar hay recuadros placeholder claramente marcados, con borde discontinuo
-y `aria-label` descriptivo, donde colocar los graficos oficiales cuando esten
-disponibles:
+logo oficial de campana, por ser material de terceros con posible copyright o
+marca. En su lugar hay recuadros placeholder claramente marcados, con borde
+discontinuo discreto, fondo neutro y `aria-label` descriptivo, donde colocar los
+graficos oficiales cuando esten disponibles:
 
 - **Franja de logos institucionales:** en el header, justo encima de la barra de
   navegacion. Texto: "Franja de logos institucionales aqui: Educacion / Culturas
   / CO-CREA". Reemplazar por la franja oficial de logos.
 - **Logo oficial de campana:** a la derecha de la franja anterior, en el header.
-  Texto: "Logo oficial de campana aqui". Reemplazar por el logo oficial de
-  MEGA BICHOS.
+  Texto: "Logo oficial de campana aqui". Reemplazar por el logo oficial de la
+  campana.
 - **Ilustracion oficial del heroe:** en el hero (`#inicio`), bajo los botones.
-  Texto: "Reemplazar por ilustracion oficial del heroe". Mientras tanto, la
-  mascota se representa con el emoji de Bichi.
+  Texto: "Espacio reservado para la ilustracion oficial del heroe". Mientras
+  tanto, el espacio del heroe se representa con una marca visual sobria (icono).
 
 No existe carpeta `assets/` todavia. Si en el futuro se agregan los archivos
 oficiales, se recomienda crear `assets/` y colocar ahi las imagenes, actualizando
@@ -63,18 +73,19 @@ permitidos.
 
 ## Que se puede hacer
 
-- **Taller de Construccion:** colocar bloques ecologicos (paneles solares, techos
-  verdes, lagos, madera, piedra) en una cuadricula y medir la energia limpia.
-- **Cuentos Sonoros:** escuchar historias leidas en voz alta (es-ES).
-- **Misiones del Pequeno Arquitecto:** retos que se encienden solos segun lo que
-  construyes y los cuentos que escuchas, con felicitacion por voz y sonido.
-- **Mapa de mi Ciudad Verde:** resumen visual del progreso (bloques, energia
-  limpia, insignias) con animo por voz de Bichi.
-- **Insignias:** medallas que se desbloquean al cumplir objetivos.
+- **Taller de construccion:** colocar materiales sostenibles (paneles solares,
+  techos verdes, agua, madera, piedra) en una cuadricula y medir la energia
+  limpia.
+- **Relatos sonoros:** escuchar historias breves leidas en voz alta (es-ES).
+- **Misiones de aprendizaje:** retos que se marcan como cumplidos segun lo que
+  construyes y los relatos que escuchas, con aviso por voz y sonido.
+- **Mapa de progreso:** resumen visual del recorrido (bloques, energia limpia,
+  reconocimientos) con un resumen por voz.
+- **Reconocimientos:** se desbloquean al cumplir objetivos de la propuesta.
 
-El progreso (construccion, insignias, cuentos, misiones y preferencia de sonido)
-se guarda en el navegador con `localStorage`, asi que se conserva al recargar.
-Hay un boton "Empezar de nuevo" para borrarlo.
+El progreso (construccion, reconocimientos, relatos, misiones y preferencia de
+sonido) se guarda en el navegador con `localStorage`, asi que se conserva al
+recargar. Hay un boton "Empezar de nuevo" para borrarlo.
 
 ## Como abrir el sitio
 
