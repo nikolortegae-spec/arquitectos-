@@ -6,10 +6,10 @@
     <title>Arquitectos del Futuro - Darcy Quiza & Nikol Espinosa</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Fredoka & Outfit para cuerpo + Baloo 2 estilo doodle para titulos -->
+    <!-- Google Fonts: Inter para cuerpo (sans profesional) + Fraunces para titulos (display sobria) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@400;600;800&family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
     <!-- FontAwesome for visual icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -18,7 +18,23 @@
             theme: {
                 extend: {
                     colors: {
-                        /* Paleta pastel original (se conserva para no romper clases existentes) */
+                        /* ===== NUEVA IDENTIDAD PROFESIONAL / INSTITUCIONAL =====
+                           Verde bosque sobrio como acento, apoyado en neutros.
+                           Pensada para publico adulto/institucional con buen contraste WCAG. */
+                        bosque: '#1F5138',        /* verde bosque institucional (acento principal) */
+                        bosqueOscuro: '#143A27',  /* verde profundo para texto/hover sobre claro */
+                        bosqueClaro: '#3C7A57',   /* verde medio para estados/hover */
+                        bosqueSuave: '#E6EFE9',   /* verde muy claro para superficies/fondos sutiles */
+                        pizarra: '#334155',       /* azul pizarra para texto secundario */
+                        tinta: '#1E293B',         /* texto principal oscuro */
+                        papel: '#FFFFFF',         /* superficie blanca limpia */
+                        lienzo: '#F6F7F5',         /* fondo neutro gris/verde muy claro del body */
+                        borde: '#D9DEDB',          /* gris neutro para bordes discretos */
+
+                        /* ===== TOKENS HEREDADOS (temporal) =====
+                           Todavia usados por el cuerpo de las 6 secciones y las plantillas
+                           JS; FEAT-002 debe retirarlos cuando reestilice esas partes.
+                           El cromo compartido de FEAT-001 ya NO los referencia. */
                         pastelSky: '#BAE6FD',
                         pastelMint: '#A7F3D0',
                         pastelYellow: '#FEF08A',
@@ -26,7 +42,6 @@
                         pastelTerracotta: '#FCA5A5',
                         pastelOrange: '#FFEDD5',
                         cloudWhite: '#F8FAFC',
-                        /* Nueva identidad MEGA BICHOS: acuarela, agua y bichos */
                         aguaTurquesa: '#3FBFB0',
                         aguaClara: '#BEEFE6',
                         verdeMusgo: '#5B7A3A',
@@ -38,15 +53,14 @@
                         cremaPapel: '#FBF4E3'
                     },
                     fontFamily: {
-                        fredoka: ['Fredoka', 'sans-serif'],
-                        outfit: ['Outfit', 'sans-serif'],
-                        /* Tipografia display tipo doodle / pintada a mano para titulos */
-                        doodle: ['"Baloo 2"', '"Patrick Hand"', 'cursive']
+                        /* Sans profesional para cuerpo y display serif sobria para titulos */
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['Fraunces', 'Georgia', 'serif']
                     },
                     boxShadow: {
-                        bubble: '0 10px 0px 0px rgba(91,122,58,0.18), 0 15px 25px -5px rgba(30,60,40,0.18)',
-                        bubbleHover: '0 6px 0px 0px rgba(91,122,58,0.18), 0 8px 15px -5px rgba(30,60,40,0.18)',
-                        bubbleActive: '0 2px 0px 0px rgba(91,122,58,0.18), 0 4px 6px -2px rgba(30,60,40,0.18)'
+                        /* Sombras sutiles profesionales (desenfoque suave, baja opacidad) */
+                        card: '0 1px 2px 0 rgba(15,23,42,0.04), 0 4px 16px -4px rgba(15,23,42,0.10)',
+                        cardHover: '0 2px 4px 0 rgba(15,23,42,0.06), 0 10px 28px -6px rgba(15,23,42,0.14)'
                     }
                 }
             }
@@ -57,55 +71,38 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: 'Fredoka', cursive, sans-serif;
-            /* Fondo acuarela MEGA BICHOS: base de verdes agua/turquesa y verde musgo
-               con manchas organicas hechas solo con gradientes radiales CSS propios
-               (sin imagenes externas con copyright). */
-            background-color: #CDEBE2;
-            background-image:
-                radial-gradient(60% 45% at 18% 12%, rgba(168, 212, 74, 0.45) 0%, rgba(168, 212, 74, 0) 60%),
-                radial-gradient(55% 40% at 85% 8%, rgba(63, 191, 176, 0.45) 0%, rgba(63, 191, 176, 0) 62%),
-                radial-gradient(70% 55% at 90% 70%, rgba(91, 122, 58, 0.38) 0%, rgba(91, 122, 58, 0) 60%),
-                radial-gradient(65% 50% at 8% 78%, rgba(63, 191, 176, 0.40) 0%, rgba(63, 191, 176, 0) 62%),
-                radial-gradient(45% 35% at 50% 45%, rgba(190, 239, 230, 0.55) 0%, rgba(190, 239, 230, 0) 65%),
-                linear-gradient(180deg, #B6E4D8 0%, #9CD2BE 45%, #86C3A2 100%);
-            background-attachment: fixed;
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            /* Superficie limpia neutra (gris/verde muy claro), sin textura decorativa. */
+            background-color: #F6F7F5;
             min-height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Titulos con tipografia doodle pintada a mano */
+        /* Titulos con la display serif sobria */
         h1, h2, h3, h4 {
-            font-family: "Baloo 2", "Patrick Hand", "Fredoka", cursive, sans-serif;
-            letter-spacing: 0.3px;
+            font-family: 'Fraunces', Georgia, serif;
+            letter-spacing: -0.01em;
         }
 
-        /* --- CARTEL DE MADERA para los encabezados de seccion --- */
-        .cartel-madera {
-            background-color: #C98A4B;
-            background-image:
-                linear-gradient(90deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 14%, rgba(255,255,255,0.12) 30%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.10) 62%, rgba(255,255,255,0.10) 80%, rgba(0,0,0,0.08) 100%),
-                linear-gradient(180deg, #D8A869 0%, #B5793A 55%, #9A6530 100%);
-            border: 4px solid #8A5522;
-            border-radius: 1.25rem;
-            box-shadow: 0 8px 0px 0px rgba(90, 52, 20, 0.55), 0 14px 22px -8px rgba(40, 25, 10, 0.4);
-            color: #FBF4E3;
-            text-shadow: 0 2px 2px rgba(60, 34, 12, 0.55);
+        /* Encabezado de seccion sobrio y reutilizable (reemplaza al antiguo cartel de madera).
+           El markup concreto lo define FEAT-002; aqui queda la base tipografica. */
+        .section-header {
+            border-left: 4px solid #1F5138;
+            padding-left: 0.9rem;
         }
-        .cartel-madera .cartel-titulo {
-            color: #FFF7E6;
+        .section-header .section-title {
+            color: #143A27;
         }
-        /* Boton de "escuchar seccion" sobre la madera: buen contraste */
-        .cartel-madera .cartel-audio {
-            color: #FBE9C8;
+        .section-header .section-audio {
+            color: #1F5138;
+            transition: color 0.2s ease;
         }
-        .cartel-madera .cartel-audio:hover {
-            color: #FFFFFF;
+        .section-header .section-audio:hover {
+            color: #143A27;
         }
-        .cartel-madera .cartel-sub {
-            color: #FDEFD6;
-            text-shadow: 0 1px 1px rgba(60, 34, 12, 0.45);
+        .section-header .section-sub {
+            color: #334155;
         }
 
         /* Compensa la altura del header sticky para que el título de cada
@@ -114,37 +111,37 @@
             scroll-margin-top: 96px;
         }
 
-        /* --- NAVEGACIÓN PRINCIPAL (estética bubble + scrollspy) --- */
+        /* --- NAVEGACIÓN PRINCIPAL (sobria + scrollspy) --- */
         .nav-link {
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
         }
         .nav-link:hover {
-            transform: translateY(-3px);
+            background-color: #E6EFE9;
+            color: #143A27;
         }
-        /* Enlace resaltado por el scrollspy (sección visible) - paleta verde lima / musgo */
+        /* Enlace resaltado por el scrollspy (sección visible) - verde institucional sobrio */
         .nav-link.activo {
-            background-color: #A8D44A;
-            border-color: #5B7A3A;
-            color: #2F4718;
-            box-shadow: 0 6px 0px 0px rgba(91, 122, 58, 0.35);
+            background-color: #1F5138;
+            border-color: #1F5138;
+            color: #FFFFFF;
         }
         .nav-link.activo .nav-emoji {
-            transform: scale(1.25) rotate(-6deg);
+            transform: none;
         }
         .nav-emoji {
             display: inline-block;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.18s ease;
         }
 
         /* --- TAB BAR INFERIOR (móvil, estilo app) --- */
         .tab-link {
-            transition: all 0.2s ease;
+            transition: color 0.18s ease;
         }
         .tab-link.activo {
-            color: #5B7A3A;
+            color: #1F5138;
         }
         .tab-link.activo .tab-emoji {
-            transform: translateY(-4px) scale(1.2);
+            transform: none;
         }
         .tab-link.activo .tab-dot {
             opacity: 1;
@@ -152,12 +149,12 @@
         }
         .tab-emoji {
             display: inline-block;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.18s ease;
         }
         .tab-dot {
             opacity: 0;
             transform: scale(0);
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: opacity 0.18s ease, transform 0.18s ease;
         }
 
         /* --- BOTÓN FLOTANTE VOLVER ARRIBA --- */
@@ -170,81 +167,61 @@
             pointer-events: none;
         }
 
-        /* Animated bouncy buttons */
+        /* Botones con micro-interaccion discreta (sin rebote tipo juguete) */
         .btn-bubble {
-            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
         }
         .btn-bubble:hover {
-            transform: translateY(-4px) scale(1.03);
-        }
-        .btn-bubble:active {
-            transform: translateY(2px) scale(0.97);
+            box-shadow: 0 2px 4px 0 rgba(15,23,42,0.06), 0 10px 28px -6px rgba(15,23,42,0.14);
         }
 
-        /* Floating background elements */
+        /* Elemento decorativo con desplazamiento muy sutil (antes floating-cloud) */
         @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
         }
         .floating-cloud {
-            animation: floatSlow 6s ease-in-out infinite;
+            animation: floatSlow 9s ease-in-out infinite;
         }
         .floating-cloud-delayed {
-            animation: floatSlow 8s ease-in-out infinite 2s;
+            animation: floatSlow 11s ease-in-out infinite 2s;
         }
 
-        /* Manchas de acuarela decorativas que flotan despacio en el fondo */
-        @keyframes floatMancha {
-            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.55; }
-            50% { transform: translateY(-16px) scale(1.05); opacity: 0.8; }
-        }
-        .mancha-acuarela {
-            position: absolute;
-            border-radius: 50% 48% 52% 46% / 50% 52% 46% 50%;
-            filter: blur(1px);
-            pointer-events: none;
-            z-index: 0;
-            animation: floatMancha 10s ease-in-out infinite;
-        }
-
-        /* Grid lines for sandbox (puntos verde agua acorde a la nueva paleta) */
+        /* Cuadricula del taller (puntos discretos en gris neutro) */
         .sandbox-grid {
             background-size: 40px 40px;
             background-image: 
-                radial-gradient(circle, #3FBFB0 2px, transparent 2px);
+                radial-gradient(circle, #CBD5CE 1.5px, transparent 1.5px);
         }
 
-        /* Pulse glow for badges */
-        @keyframes badgeGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(168, 212, 74, 0.85)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 18px rgba(168, 212, 74, 1)); transform: scale(1.06); }
-        }
+        /* Insignia desbloqueada: realce discreto, sin pulso luminoso.
+           HOOK JS: no renombrar .unlocked-badge. */
         .unlocked-badge {
-            animation: badgeGlow 3s infinite ease-in-out;
+            filter: drop-shadow(0 2px 6px rgba(31, 81, 56, 0.25));
         }
 
-        /* Block placing animation */
-        @keyframes blockPopIn {
-            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
-            70% { transform: scale(1.15) rotate(3deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); }
+        /* Bloque colocado en el taller: aparicion suave, sin rebote.
+           HOOK JS: no renombrar .placed-block. */
+        @keyframes blockFadeIn {
+            0% { transform: scale(0.96); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
         .placed-block {
-            animation: blockPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: blockFadeIn 0.2s ease-out;
         }
 
-        /* Indicador de foco visible para navegación por teclado, acorde a la estética bubble */
+        /* Indicador de foco visible para navegación por teclado (verde de acento) */
         a:focus-visible,
         button:focus-visible,
         [tabindex]:focus-visible {
-            outline: 4px solid #5B7A3A;
-            outline-offset: 3px;
-            border-radius: 1rem;
+            outline: 3px solid #1F5138;
+            outline-offset: 2px;
+            border-radius: 0.5rem;
         }
 
         /* Enlace de salto al contenido (skip to content) */
         .skip-to-content:focus-visible {
-            outline: 4px solid #5B7A3A;
+            outline: 3px solid #1F5138;
             outline-offset: 2px;
         }
 
@@ -260,17 +237,14 @@
             }
             .floating-cloud,
             .floating-cloud-delayed,
-            .unlocked-badge,
-            .placed-block,
-            .mancha-acuarela {
+            .placed-block {
                 animation: none !important;
             }
             .btn-bubble {
                 transition: none !important;
             }
-            .btn-bubble:hover,
-            .btn-bubble:active {
-                transform: none !important;
+            .btn-bubble:hover {
+                box-shadow: none !important;
             }
             html {
                 scroll-behavior: auto !important;
@@ -283,38 +257,36 @@
             #backToTopBtn {
                 transition: none !important;
             }
-            .nav-link:hover,
-            .nav-link.activo .nav-emoji,
-            .tab-link.activo .tab-emoji,
+            .tab-link.activo .tab-dot,
             #backToTopBtn.oculto {
                 transform: none !important;
             }
         }
     </style>
 </head>
-<body class="text-slate-700 overflow-x-hidden flex flex-col min-h-screen">
+<body class="text-tinta overflow-x-hidden flex flex-col min-h-screen">
 
     <!-- SKIP TO CONTENT (accesibilidad por teclado) -->
-    <a href="#taller" class="skip-to-content sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] bg-cremaPapel border-4 border-verdeMusgo text-verdeMusgo font-extrabold px-4 py-2 rounded-2xl shadow-bubble">
+    <a href="#taller" class="skip-to-content sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] bg-papel border-2 border-bosque text-bosque font-bold px-4 py-2 rounded-lg shadow-card">
         Saltar al contenido principal
     </a>
 
     <!-- TOP HEADER / NAV BAR -->
-    <header class="sticky top-0 z-50 bg-cremaPapel/90 backdrop-blur-md border-b-4 border-verdeMusgoHoja px-4 py-3 shadow-md">
+    <header class="sticky top-0 z-50 bg-papel/95 backdrop-blur-md border-b border-borde px-4 py-3 shadow-card">
         <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
             
             <!-- Brand & Title -->
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-verdeLima border-4 border-verdeMusgo rounded-2xl flex items-center justify-center text-2xl shadow-inner floating-cloud">
-                    🐞
+                <div class="w-11 h-11 bg-bosque rounded-lg flex items-center justify-center text-white text-xl">
+                    <i class="fas fa-seedling" aria-hidden="true"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-verdeMusgo tracking-wide flex items-center gap-2">
+                    <h1 class="text-xl sm:text-2xl font-bold text-bosqueOscuro flex items-center gap-2">
                         Arquitectos del Futuro
-                        <span class="text-xs bg-verdeLima text-verdeMusgo px-2 py-0.5 rounded-full font-sans font-bold uppercase tracking-wider hidden sm:inline-block">EMC Niños</span>
+                        <span class="text-[10px] bg-bosqueSuave text-bosque px-2 py-0.5 rounded font-sans font-semibold uppercase tracking-wider hidden sm:inline-block">EMC</span>
                     </h1>
-                    <p class="text-xs sm:text-sm font-semibold text-verdeMusgo/80">
-                        Una propuesta pedagógica por <span class="text-ocreMadera font-bold">Darcy Quiza</span> y <span class="text-aguaTurquesa font-bold">Nikol Espinosa</span>
+                    <p class="text-xs sm:text-sm font-medium text-pizarra">
+                        Una propuesta pedagógica por <span class="text-bosque font-semibold">Darcy Quiza</span> y <span class="text-bosque font-semibold">Nikol Espinosa</span>
                     </p>
                 </div>
             </div>
@@ -322,14 +294,14 @@
             <!-- Global Controls: Sound & Voice -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <!-- Sound Toggle -->
-                <button id="soundToggleBtn" onclick="toggleSoundMaster()" aria-label="Activar o desactivar los sonidos" class="btn-bubble bg-aguaClara border-2 border-aguaTurquesa text-verdeMusgo font-bold px-3 py-2 rounded-2xl flex items-center gap-2 text-sm sm:text-base shadow-bubble" title="Activar/Desactivar Sonidos">
-                    <i id="soundIcon" class="fas fa-volume-up text-lg text-aguaTurquesa"></i>
+                <button id="soundToggleBtn" onclick="toggleSoundMaster()" aria-label="Activar o desactivar los sonidos" class="btn-bubble bg-papel border border-borde text-tinta font-semibold px-3 py-2 rounded-lg flex items-center gap-2 text-sm sm:text-base shadow-card" title="Activar/Desactivar Sonidos">
+                    <i id="soundIcon" class="fas fa-volume-up text-lg text-bosque"></i>
                     <span id="soundLabel" class="hidden md:inline">Sonidos: ON</span>
                 </button>
 
                 <!-- Help Voice Assist -->
-                <button onclick="readText('¡Hola amiguitos! Bienvenidos a Arquitectos del Futuro. Aquí podrás construir casitas ecológicas, escuchar cuentos y ganar insignias mágicas.')" aria-label="Escuchar qué es esta página" class="btn-bubble bg-ocreMaderaClaro border-2 border-ocreMadera text-white font-bold px-3 py-2 rounded-2xl flex items-center gap-2 text-sm sm:text-base shadow-bubble">
-                    <i class="fas fa-comment-dots text-lg text-white"></i>
+                <button onclick="readText('Bienvenidos a Arquitectos del Futuro. Una propuesta pedagogica para construir espacios ecologicos, escuchar relatos y conocer la trayectoria de aprendizaje.')" aria-label="Escuchar qué es esta página" class="btn-bubble bg-bosque hover:bg-bosqueOscuro border border-bosque text-white font-semibold px-3 py-2 rounded-lg flex items-center gap-2 text-sm sm:text-base shadow-card">
+                    <i class="fas fa-circle-info text-lg text-white"></i>
                     <span class="hidden md:inline">¿Qué es esto?</span>
                 </button>
             </div>
@@ -339,12 +311,12 @@
         <!-- No se incrusta material de terceros. Aqui va la franja oficial de logos
              institucionales y el logo de campana cuando esten disponibles. -->
         <div class="max-w-6xl mx-auto mt-3 flex flex-col sm:flex-row items-stretch gap-2">
-            <div role="img" aria-label="Espacio reservado para la franja de logos institucionales oficiales: Educacion, Culturas y CO-CREA" class="flex-grow border-2 border-dashed border-verdeMusgo/50 bg-cremaPapel/60 rounded-2xl px-3 py-2 text-center text-[11px] sm:text-xs font-semibold text-verdeMusgo flex items-center justify-center gap-2">
-                <span aria-hidden="true">🏛️</span>
+            <div role="img" aria-label="Espacio reservado para la franja de logos institucionales oficiales: Educacion, Culturas y CO-CREA" class="flex-grow border border-dashed border-borde bg-lienzo rounded-lg px-3 py-2 text-center text-[11px] sm:text-xs font-medium text-pizarra flex items-center justify-center gap-2">
+                <i class="fas fa-landmark text-pizarra" aria-hidden="true"></i>
                 Franja de logos institucionales aqui: Educacion / Culturas / CO-CREA
             </div>
-            <div role="img" aria-label="Espacio reservado para el logo oficial de la campana MEGA BICHOS" class="sm:w-56 border-2 border-dashed border-verdeLima bg-verdeLima/15 rounded-2xl px-3 py-2 text-center text-[11px] sm:text-xs font-bold text-verdeMusgo flex items-center justify-center gap-2">
-                <span aria-hidden="true">🐛</span>
+            <div role="img" aria-label="Espacio reservado para el logo oficial de la campana institucional" class="sm:w-56 border border-dashed border-bosque bg-bosqueSuave rounded-lg px-3 py-2 text-center text-[11px] sm:text-xs font-semibold text-bosque flex items-center justify-center gap-2">
+                <i class="fas fa-award text-bosque" aria-hidden="true"></i>
                 Logo oficial de campana aqui
             </div>
         </div>
@@ -352,36 +324,36 @@
         <!-- BARRA DE NAVEGACIÓN PRINCIPAL (visible en pantallas medianas y grandes;
              en móvil se usa la tab bar inferior) -->
         <nav aria-label="Navegación principal" class="max-w-6xl mx-auto mt-3 hidden sm:block">
-            <ul id="mainNav" class="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+            <ul id="mainNav" class="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
                 <li>
-                    <a href="#inicio" data-section="inicio" class="nav-link btn-bubble flex items-center gap-2 bg-aguaClara border-4 border-aguaTurquesa text-verdeMusgo font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🏡</span> Inicio
+                    <a href="#inicio" data-section="inicio" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-house"></i></span> Inicio
                     </a>
                 </li>
                 <li>
-                    <a href="#taller" data-section="taller" class="nav-link btn-bubble flex items-center gap-2 bg-verdeLima/40 border-4 border-verdeMusgoHoja text-verdeMusgo font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🏗️</span> Taller
+                    <a href="#taller" data-section="taller" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-helmet-safety"></i></span> Taller
                     </a>
                 </li>
                 <li>
-                    <a href="#cuentos" data-section="cuentos" class="nav-link btn-bubble flex items-center gap-2 bg-ocreMaderaClaro/50 border-4 border-ocreMadera text-ocreMadera font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🎧</span> Cuentos
+                    <a href="#cuentos" data-section="cuentos" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-headphones"></i></span> Cuentos
                     </a>
                 </li>
                 <li>
-                    <a href="#insignias" data-section="insignias" class="nav-link btn-bubble flex items-center gap-2 bg-verdeLima/40 border-4 border-verdeMusgoHoja text-verdeMusgo font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🏆</span> Insignias
+                    <a href="#insignias" data-section="insignias" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-award"></i></span> Insignias
                     </a>
                 </li>
                 <!-- FEAT-003: secciones nuevas interactivas -->
                 <li>
-                    <a href="#retos" data-section="retos" class="nav-link btn-bubble flex items-center gap-2 bg-rojoCoral/20 border-4 border-rojoCoral text-rojoCoral font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🎯</span> Misiones
+                    <a href="#retos" data-section="retos" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-bullseye"></i></span> Misiones
                     </a>
                 </li>
                 <li>
-                    <a href="#mapa" data-section="mapa" class="nav-link btn-bubble flex items-center gap-2 bg-aguaClara border-4 border-aguaTurquesa text-verdeMusgo font-extrabold px-4 py-2 rounded-2xl text-sm md:text-base shadow-bubble">
-                        <span class="nav-emoji text-lg" aria-hidden="true">🗺️</span> Mi Ciudad
+                    <a href="#mapa" data-section="mapa" class="nav-link flex items-center gap-2 bg-papel border border-borde text-tinta font-semibold px-4 py-2 rounded-lg text-sm md:text-base">
+                        <span class="nav-emoji text-base" aria-hidden="true"><i class="fas fa-map-location-dot"></i></span> Mi Ciudad
                     </a>
                 </li>
             </ul>
@@ -393,10 +365,6 @@
 
         <!-- HERO INTRODUCTION BANNER -->
         <section id="inicio" class="bg-gradient-to-br from-aguaClara via-white to-verdeLima/40 border-4 border-cremaPapel rounded-3xl p-6 shadow-bubble relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-            <!-- Manchas de acuarela decorativas del hero -->
-            <span class="mancha-acuarela" style="width:160px;height:160px;top:-30px;left:-20px;background:rgba(63,191,176,0.35);" aria-hidden="true"></span>
-            <span class="mancha-acuarela" style="width:120px;height:120px;bottom:-25px;right:40px;background:rgba(168,212,74,0.4);animation-delay:2s;" aria-hidden="true"></span>
-
             <div class="space-y-4 max-w-xl text-center md:text-left z-10">
                 <div class="inline-flex items-center gap-2 bg-white/90 px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-aguaTurquesa shadow-sm">
                     ✨ ¡Aprende jugando y cuidando el agua y los bichos!
@@ -439,18 +407,18 @@
         <!-- SECCIÓN 1: TALLER DE CONSTRUCCIÓN ECOLÓGICA (SANDBOX) -->
         <section id="taller" class="bg-cremaPapel/85 border-4 border-verdeMusgoHoja rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
             
-            <div class="cartel-madera flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
                 <div>
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">🏗️</span>
-                        <h2 class="cartel-titulo text-2xl sm:text-3xl font-extrabold">
+                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
                             Taller de Construcción
                         </h2>
-                        <button onclick="readText('Taller de Construcción. Selecciona un bloque de color en el menú y haz clic en la cuadrícula verde para colocarlo. ¡Construye tu parque o casa ideal!')" aria-label="Escuchar la sección Taller de Construcción" class="cartel-audio text-xl" title="Escuchar sección">
+                        <button onclick="readText('Taller de Construcción. Selecciona un bloque de color en el menú y haz clic en la cuadrícula verde para colocarlo. ¡Construye tu parque o casa ideal!')" aria-label="Escuchar la sección Taller de Construcción" class="section-audio text-xl" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="cartel-sub text-sm sm:text-base font-semibold mt-1">
+                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
                         Elige un bloque y haz clic en el terreno para armar tu casita sustentable.
                     </p>
                 </div>
@@ -542,16 +510,16 @@
 
         <!-- SECCIÓN 2: CUENTOS SONOROS Y COMUNITARIOS -->
         <section id="cuentos" class="bg-cremaPapel/85 border-4 border-ocreMadera rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="cartel-madera flex items-center gap-3 p-4">
+            <div class="section-header flex items-center gap-3 p-4">
                 <span class="text-3xl">🎧</span>
                 <div>
-                    <h2 class="cartel-titulo text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
+                    <h2 class="section-title text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
                         Cuentos Sonoros de la Naturaleza
-                        <button onclick="readText('Cuentos Sonoros. Presiona el botón de reproducción en cada tarjeta para escuchar historias sobre cómo cuidar el agua, los árboles y a nuestros amigos.')" aria-label="Escuchar la sección Cuentos Sonoros de la Naturaleza" class="cartel-audio text-xl" title="Escuchar sección">
+                        <button onclick="readText('Cuentos Sonoros. Presiona el botón de reproducción en cada tarjeta para escuchar historias sobre cómo cuidar el agua, los árboles y a nuestros amigos.')" aria-label="Escuchar la sección Cuentos Sonoros de la Naturaleza" class="section-audio text-xl" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </h2>
-                    <p class="cartel-sub text-sm sm:text-base font-semibold">
+                    <p class="section-sub text-sm sm:text-base font-semibold">
                         Haz clic en los personajes para escuchar sus aventuras comunitarias.
                     </p>
                 </div>
@@ -613,17 +581,17 @@
 
         <!-- SECCIÓN 3: DIARIO DE EXPLORADOR E INSIGNIAS -->
         <section id="insignias" class="bg-cremaPapel/85 border-4 border-verdeLima rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="cartel-madera flex items-center justify-between p-4">
+            <div class="section-header flex items-center justify-between p-4">
                 <div class="flex items-center gap-3">
                     <span class="text-3xl">🏆</span>
                     <div>
-                        <h2 class="cartel-titulo text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
+                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold flex items-center gap-2">
                             Mis Insignias de Creador
-                            <button onclick="readText('Mis Insignias de Creador. Construye y explora la página para desbloquear trofeos mágicos como Guardián de la Naturaleza y Amigo del Sol.')" aria-label="Escuchar la sección Mis Insignias de Creador" class="cartel-audio text-xl" title="Escuchar sección">
+                            <button onclick="readText('Mis Insignias de Creador. Construye y explora la página para desbloquear trofeos mágicos como Guardián de la Naturaleza y Amigo del Sol.')" aria-label="Escuchar la sección Mis Insignias de Creador" class="section-audio text-xl" title="Escuchar sección">
                                 <i class="fas fa-volume-up"></i>
                             </button>
                         </h2>
-                        <p class="cartel-sub text-sm sm:text-base font-semibold">
+                        <p class="section-sub text-sm sm:text-base font-semibold">
                             ¡Completa misiones para ganar medallas brillantes!
                         </p>
                     </div>
@@ -666,18 +634,18 @@
 
         <!-- SECCIÓN 4: MISIONES DEL PEQUEÑO ARQUITECTO (RETOS INTERACTIVOS) -->
         <section id="retos" class="bg-cremaPapel/85 border-4 border-rojoCoral rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="cartel-madera flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
                 <div>
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">🎯</span>
-                        <h2 class="cartel-titulo text-2xl sm:text-3xl font-extrabold">
+                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
                             Misiones del Pequeño Arquitecto
                         </h2>
-                        <button onclick="readText('Misiones del Pequeño Arquitecto. Completa retos divertidos en el taller y los cuentos. Cada vez que logres una misión, se encenderá sola y Bichi te felicitará.')" aria-label="Escuchar la sección Misiones del Pequeño Arquitecto" class="cartel-audio text-xl" title="Escuchar sección">
+                        <button onclick="readText('Misiones del Pequeño Arquitecto. Completa retos divertidos en el taller y los cuentos. Cada vez que logres una misión, se encenderá sola y Bichi te felicitará.')" aria-label="Escuchar la sección Misiones del Pequeño Arquitecto" class="section-audio text-xl" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="cartel-sub text-sm sm:text-base font-semibold mt-1">
+                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
                         Cada misión se enciende solita cuando la completas jugando. ¡Consíguelas todas!
                     </p>
                 </div>
@@ -708,18 +676,18 @@
 
         <!-- SECCIÓN 5: MAPA DE MI CIUDAD VERDE (RESUMEN DE PROGRESO) -->
         <section id="mapa" class="bg-cremaPapel/85 border-4 border-aguaTurquesa rounded-3xl p-4 sm:p-6 shadow-bubble space-y-6">
-            <div class="cartel-madera flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
+            <div class="section-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4">
                 <div>
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">🗺️</span>
-                        <h2 class="cartel-titulo text-2xl sm:text-3xl font-extrabold">
+                        <h2 class="section-title text-2xl sm:text-3xl font-extrabold">
                             Mapa de mi Ciudad Verde
                         </h2>
-                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen de mi Ciudad Verde" class="cartel-audio text-xl" title="Escuchar sección">
+                        <button onclick="speakCitySummary()" aria-label="Escuchar el resumen de mi Ciudad Verde" class="section-audio text-xl" title="Escuchar sección">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
-                    <p class="cartel-sub text-sm sm:text-base font-semibold mt-1">
+                    <p class="section-sub text-sm sm:text-base font-semibold mt-1">
                         Mira crecer tu ciudad. Bichi, nuestro insecto guía, te cuenta cómo va tu obra.
                     </p>
                 </div>
@@ -765,77 +733,77 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-cremaPapel border-t-4 border-verdeMusgoHoja py-6 px-4 text-center mt-12 space-y-2">
-        <p class="text-base font-extrabold text-verdeMusgo">
+    <footer class="bg-papel border-t border-borde py-6 px-4 text-center mt-12 space-y-2">
+        <p class="text-base font-semibold text-bosqueOscuro">
             "Arquitecturas de la Emancipación Infantil"
         </p>
-        <p class="text-xs sm:text-sm text-verdeMusgo/80 font-semibold max-w-xl mx-auto">
-            Propuesta Pedagógica y de Diseño Transmedia desarrollada por <strong class="text-ocreMadera">Darcy Quiza</strong> & <strong class="text-aguaTurquesa">Nikol Espinosa</strong>.
+        <p class="text-xs sm:text-sm text-pizarra font-medium max-w-xl mx-auto">
+            Propuesta Pedagógica y de Diseño Transmedia desarrollada por <strong class="text-bosque">Darcy Quiza</strong> y <strong class="text-bosque">Nikol Espinosa</strong>.
         </p>
         <div class="pt-2">
-            <span class="inline-block bg-verdeLima/40 text-verdeMusgo text-xs px-3 py-1 rounded-full font-bold">
-                🐞 Territorios de arte, juego y vida para la primera infancia
+            <span class="inline-block bg-bosqueSuave text-bosque text-xs px-3 py-1 rounded-full font-semibold">
+                Territorios de arte, juego y vida para la primera infancia
             </span>
         </div>
     </footer>
 
     <!-- TAB BAR INFERIOR FIJA (solo móvil, estilo app) -->
-    <nav aria-label="Navegación inferior" class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-cremaPapel/95 backdrop-blur-md border-t-4 border-verdeMusgoHoja shadow-[0_-6px_20px_-5px_rgba(0,0,0,0.12)]">
+    <nav aria-label="Navegación inferior" class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-papel/97 backdrop-blur-md border-t border-borde shadow-[0_-4px_16px_-6px_rgba(15,23,42,0.12)]">
         <ul id="mobileTabBar" class="flex items-stretch justify-around px-2 py-1">
             <li class="flex-1">
-                <a href="#inicio" data-section="inicio" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🏡</span>
+                <a href="#inicio" data-section="inicio" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-house"></i></span>
                     <span>Inicio</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
             <li class="flex-1">
-                <a href="#taller" data-section="taller" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🏗️</span>
+                <a href="#taller" data-section="taller" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-helmet-safety"></i></span>
                     <span>Taller</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
             <li class="flex-1">
-                <a href="#cuentos" data-section="cuentos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🎧</span>
+                <a href="#cuentos" data-section="cuentos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-headphones"></i></span>
                     <span>Cuentos</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
             <li class="flex-1">
-                <a href="#insignias" data-section="insignias" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🏆</span>
+                <a href="#insignias" data-section="insignias" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-award"></i></span>
                     <span>Insignias</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
             <!-- FEAT-003: tabs gemelas para las secciones nuevas -->
             <li class="flex-1">
-                <a href="#retos" data-section="retos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🎯</span>
+                <a href="#retos" data-section="retos" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-bullseye"></i></span>
                     <span>Misiones</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
             <li class="flex-1">
-                <a href="#mapa" data-section="mapa" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl font-bold text-slate-500 text-[11px]">
-                    <span class="tab-emoji text-2xl" aria-hidden="true">🗺️</span>
+                <a href="#mapa" data-section="mapa" class="tab-link flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg font-semibold text-pizarra text-[11px]">
+                    <span class="tab-emoji text-lg" aria-hidden="true"><i class="fas fa-map-location-dot"></i></span>
                     <span>Ciudad</span>
-                    <span class="tab-dot w-1.5 h-1.5 bg-verdeMusgo rounded-full" aria-hidden="true"></span>
+                    <span class="tab-dot w-1.5 h-1.5 bg-bosque rounded-full" aria-hidden="true"></span>
                 </a>
             </li>
         </ul>
     </nav>
 
     <!-- BOTÓN FLOTANTE VOLVER ARRIBA (abajo a la izquierda para no chocar con el toast) -->
-    <button id="backToTopBtn" type="button" onclick="scrollToTop()" aria-label="Volver arriba" title="Volver arriba" class="oculto fixed bottom-20 left-5 sm:bottom-6 sm:left-6 z-50 btn-bubble bg-verdeMusgoHoja hover:bg-verdeMusgo text-white border-4 border-verdeMusgo w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-bubble">
+    <button id="backToTopBtn" type="button" onclick="scrollToTop()" aria-label="Volver arriba" title="Volver arriba" class="oculto fixed bottom-20 left-5 sm:bottom-6 sm:left-6 z-50 btn-bubble bg-bosque hover:bg-bosqueOscuro text-white border border-bosque w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-card">
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
     <!-- POPUP NOTIFICATION / MESSAGE BOX (NO ALERTS) -->
-    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-verdeLima border-4 border-verdeMusgo text-[#2F4718] font-extrabold px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 text-lg">
-        <span id="toastEmoji" class="text-3xl">🎉</span>
+    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-papel border border-bosque text-tinta font-semibold px-5 py-3.5 rounded-xl shadow-cardHover flex items-center gap-3 text-base">
+        <span id="toastEmoji" class="text-2xl">🎉</span>
         <span id="toastText">¡Genial!</span>
     </div>
 
@@ -863,7 +831,7 @@
             const label = document.getElementById('soundLabel');
 
             if (soundEnabled) {
-                icon.className = 'fas fa-volume-up text-lg text-aguaTurquesa';
+                icon.className = 'fas fa-volume-up text-lg text-bosque';
                 label.innerText = 'Sonidos: ON';
                 playPopSound();
             } else {
@@ -1252,7 +1220,7 @@
                 const icon = document.getElementById('soundIcon');
                 const label = document.getElementById('soundLabel');
                 if (soundEnabled) {
-                    if (icon) icon.className = 'fas fa-volume-up text-lg text-aguaTurquesa';
+                    if (icon) icon.className = 'fas fa-volume-up text-lg text-bosque';
                     if (label) label.innerText = 'Sonidos: ON';
                 } else {
                     if (icon) icon.className = 'fas fa-volume-mute text-lg text-slate-400';
